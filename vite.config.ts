@@ -5,6 +5,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: [{ find: /^~/, replacement: '' }]
+    alias: [
+      { find: /^~/, replacement: '' },
+      { find: '@/*', replacement: './src/*' },
+      { find: '@/styles/*', replacement: './src/styles/*' }
+    ]
   }
 })
