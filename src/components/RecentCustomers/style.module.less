@@ -1,25 +1,41 @@
-.main {
-  display: grid;
-  min-height: 100%;
-  padding: 20px;
+.recentCustomers {
+  padding: var(--grap);
+  border-radius: var(--grap);
   background: var(--white);
-  @imgSize: 3rem;
-  table td{
-    height: @imgSize;
-    &:first-child {
-      display: flex;
-      align-items: center;
+  box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+  overflow: hidden;
+  .carHeader h2{
+    font-size: 1rem;
+    color: var(--blue);
+  }
+  table {
+    width: 100%;
+    margin-top: 1rem;
+    tr:hover {
+      background: var(--blue);
+      h4 {
+        color: var(--white);
+        span {
+          color: var(--white);
+        }
+      }
     }
-    .name {
-      height: @imgSize;
-      display: inline-block;
+    tr td h4 span {
+      font-size: 14px;
+      color: var(--black2);
+    }
+    tr td {
+      padding: 12px 10px;
     }
   }
-
-  img {
-    width: @imgSize;
-    height: @imgSize;
+  .imgBx {
+    height: 2rem;
+    width: 2rem;
     border-radius: 50%;
+    overflow: hidden;
+    img {
+      height: 2rem;
+      width: 2rem;
+    }
   }
 }
-

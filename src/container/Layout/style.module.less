@@ -15,7 +15,50 @@
   position: relative;
   width: 100%;
   display: flex;
+
+  @media @tablet{
+    .navigation {
+      left: -@navigationWidth;
+      &.active {
+        left: 0;
+        width: @navigationWidth;
+      }
+    }
+    .main {
+      width: 100%;
+      left: 0;
+      &.active {
+        left: @navigationWidth;
+      }
+    }
+    .carBoxWrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media @phone {
+    .navigation {
+      left: -@navigationWidth;
+      &.active {
+        left: 0;
+        width: @navigationWidth;
+      }
+    }
+    .main {
+      width: 100%;
+      left: 0;
+      &.active {
+        left: @navigationWidth;
+      }
+    }
+    .carBoxWrapper {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .list {
+      grid-template-columns: 100%;
+    }
+  }
 }
+
 
 .navigation {
   &.active{
@@ -29,6 +72,7 @@
   transition: 0.5s;
   overflow: hidden;
   ul {
+    padding: 0;
     position: absolute;
     top: 0;
     left: 0;
@@ -54,6 +98,7 @@
           display: block;
           text-align: center;
           min-width: @itemSize;
+          font-size: 1.3rem;
           .fontMixin;
         }
         .title {
@@ -109,6 +154,8 @@
   }
   .topBar {
     width: 100%;
+    position: fixed;
+    top: 0;
     height: @itemSize;
     background: var(--white);
     display: flex;
@@ -165,6 +212,7 @@
 }
 
 .mainContainer {
+  margin-top: @topBarHeight;
   min-height: @mainContainerHeight;
   padding: var(--grap);
 }
@@ -184,7 +232,7 @@
   .recentOrders {
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     background: var(--white);
-    border-radius: 20px;
+    border-radius: var(--carBorderRadius);
     padding: 20px;
     width: 100%;
     min-height: 500px;
@@ -203,12 +251,6 @@
         border-radius: 6px;
       }
     }
-  }
-  .status {
-
-  }
-  .delivered {
-
   }
 }
 

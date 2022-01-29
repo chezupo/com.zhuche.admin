@@ -99,11 +99,8 @@ const Layout: React.FC = () => {
              <h2>Recent Orders</h2>
              <a href='#' className={style.btn}>View All</a>
            </div>
-
            <Table />
-
         </div>
-
           {/*Recent Customer */}
           <RecentCustomers />
         </div>
