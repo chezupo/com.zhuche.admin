@@ -1,0 +1,45 @@
+.main {
+  margin-top: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  thead {
+    font-weight: 600;
+  }
+  tr {
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    @trSize: 2rem;
+    height: @trSize;
+    line-height: @trSize;
+    font-size: 1rem;
+    &:hover {
+      background: var(--blue);
+      color: var(--white);
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  tbody td {
+    font-size: .8rem;
+  }
+  .status{
+    font-size: .7rem;
+    padding: 2px 4px;
+    color: var(--white);
+    border-radius: 4px;
+    &.error {
+      background: #ef4444;
+    }
+    &.warning{
+      background: #fbbf24;
+    }
+    &.primary{
+      background: #06b6d4;
+    }
+    &.success {
+      background: #4ade80;
+    }
+  }
+
+}

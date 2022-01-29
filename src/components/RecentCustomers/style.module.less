@@ -1,0 +1,25 @@
+.main {
+  display: grid;
+  min-height: 100%;
+  padding: 20px;
+  background: var(--white);
+  @imgSize: 3rem;
+  table td{
+    height: @imgSize;
+    &:first-child {
+      display: flex;
+      align-items: center;
+    }
+    .name {
+      height: @imgSize;
+      display: inline-block;
+    }
+  }
+
+  img {
+    width: @imgSize;
+    height: @imgSize;
+    border-radius: 50%;
+  }
+}
+
