@@ -1,10 +1,8 @@
-@import "../common.module.less";
+@import "../../common.module.less";
 .main {
-  position: relative;
-  left: @navigationWidth;
   background: var(--theme-base-bg-color);
   width: calc(100% - @navigationWidth);
-  min-height: 100vh;
+  min-height: @headerBarHeight;
   display: flex;
   flex-direction: column;
   .transitionMixin();

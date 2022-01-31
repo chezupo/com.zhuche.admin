@@ -1,15 +1,15 @@
 import React from 'react'
-import MainContainer from '@/container/Layout/MainContainer'
 import style from './style.module.less'
-import SideBar from '@/container/Layout/SideBar'
+import TopBar from '@/container/Layout/Topbar'
+import Maintainer from '@/container/Layout/MainTainer'
 
 
 const Layout: React.FC = () => {
 
   return (
     <div className={style.main}>
-        <SideBar />
-        <MainContainer />
+      <TopBar />
+      <Maintainer/>
     </div>
   )
 }

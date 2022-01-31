@@ -1,5 +1,17 @@
+@import "../../common.module.less";
+
 @itemHeight: 2.5rem;
 .main {
+  width: @navigationWidth;
+  background: var(--theme-bg-color);
+  min-height: calc( 100vh - @headerBarHeight);
+  .showBoxMixin;
+  .transitionMixin;
+  &.active {
+    width: @activeNavigationWidth;
+  }
+}
+.ul {
   padding: 0;
   margin: 0;
   /* set border */

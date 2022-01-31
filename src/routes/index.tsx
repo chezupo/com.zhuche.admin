@@ -7,7 +7,7 @@ import Tmp from '@/pages/Tmp'
 import Dashboard from '@/pages/Dashboard'
 import { AiOutlineDashboard } from 'react-icons/ai'
 import FontIcon from '@/components/FontIcon'
-import style from '@/container/Layout/SideBar/NavigationBar/style.module.less'
+import style from '@/container/Layout/MainTainer/NavigationBar/style.module.less'
 
 export type MenuItemType = {
   name: string;

@@ -6,7 +6,7 @@ import {AiOutlineMenuFold,
 import { useObserve } from '@wuchuheng/rxjs'
 import { toggleObserve } from '@/store'
 import Search from './Search'
-import UserInfo from '@/container/Layout/MainContainer/TopBar/RightWrapper'
+import UserInfo from '@/container/Layout/Topbar/MainContainer/TopBar/RightWrapper'
 
 const TopBar: React.FC = () => {
   const [toggle, toggleDispatcher] = useObserve(toggleObserve)

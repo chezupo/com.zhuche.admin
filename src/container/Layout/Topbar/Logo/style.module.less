@@ -1,14 +1,24 @@
 @import "../../common.module.less";
+
 @imgSize: 2.5rem;
 @activeImgSize: 2rem;
+
 .main {
+  width: @navigationWidth;
+  height: 100%;
+  background: var(--theme-bg-color);
+  .transitionMixin();
+  &.active {
+    width: @activeNavigationWidth;
+  }
+}
+.container{
   height: @headerBarHeight;
   width: 100%;
   display: flex;
   align-items: center;
   padding: 0 var(--grap);
   font-weight: 600;
-  .showBoxMixin;
   img {
     width: @imgSize;
     height: @imgSize;
@@ -22,7 +32,6 @@
     white-space: nowrap;
     .transitionMixin();
   }
-  //border-bottom: 2px solid var(--theme-base-bg-color);
   &.active {
     padding: 0 0;
     display: flex;

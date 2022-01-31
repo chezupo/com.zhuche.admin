@@ -102,13 +102,19 @@ const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
 }
 const NavigationBar: React.FC = () => {
   const menus: MenuItemType[] = getMenu()
+  const [toggle] = useObserve(toggleObserve)
 
   return (
-    <ul className={style.main}>
-      {menus.map((menu, key) => (
-        <ListRender data={menu} key={menu.path} level={1}/>
-      ))}
-    </ul>
+    <div className={[
+      style.main,
+      toggle ? style.active : ''
+    ].join(' ')}>
+      <ul className={style.ul}>
+        {menus.map((menu, key) => (
+          <ListRender data={menu} key={menu.path} level={1}/>
+        ))}
+      </ul>
+    </div>
   )
 }
 

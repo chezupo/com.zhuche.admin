@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import style from './style.module.less'
 import { IoMailOutline, IoNotificationsCircleOutline } from 'react-icons/io5'
-import UserInfo from '@/container/Layout/MainContainer/TopBar/RightWrapper/UserInfo'
+import UserInfo from '@/container/Layout/Topbar/MainContainer/TopBar/RightWrapper/UserInfo'
 
 const RightWrapper: React.FC = () => {
 
