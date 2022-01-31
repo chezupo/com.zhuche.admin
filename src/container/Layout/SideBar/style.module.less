@@ -1,0 +1,14 @@
+@import "../common.module.less";
+
+.main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: @navigationWidth;
+  height: 100%;
+  background: var(--theme-bg-color);
+  .transitionMixin();
+  &.active {
+    width: @activeNavigationWidth;
+  }
+}

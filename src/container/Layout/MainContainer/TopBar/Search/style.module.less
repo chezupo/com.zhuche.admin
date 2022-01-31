@@ -1,0 +1,25 @@
+@import "../../../common.module.less";
+
+.main {
+  height: 2rem;
+  width: 20rem;
+  border: solid 1px var(--gray-400);
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  .icon {
+    font-size: 1.2rem;
+    width: 2rem;
+    color: var(--gray-400);
+  }
+  input {
+    border: none;
+    border-radius: 2rem;
+    color: var(--gray-400);
+    flex: 1 0 auto;
+    height: 100%;
+    &:focus-visible{
+      outline: none;
+    }
+  }
+}

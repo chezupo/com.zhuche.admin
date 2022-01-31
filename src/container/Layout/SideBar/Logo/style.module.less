@@ -1,0 +1,38 @@
+@import "../../common.module.less";
+@imgSize: 2.5rem;
+@activeImgSize: 2rem;
+.main {
+  height: @headerBarHeight;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--grap);
+  font-weight: 600;
+  .showBoxMixin;
+  img {
+    width: @imgSize;
+    height: @imgSize;
+    border-radius: 50%;
+    .transitionMixin();
+  }
+  h2 {
+    margin: 0;
+    padding-left: 1rem;
+    color: var(--color);
+    white-space: nowrap;
+    .transitionMixin();
+  }
+  //border-bottom: 2px solid var(--theme-base-bg-color);
+  &.active {
+    padding: 0 0;
+    display: flex;
+    justify-content: center;
+    h2 {
+      display: none;
+    }
+    img {
+      height: @activeImgSize;
+      width: @activeImgSize;
+    }
+  }
+}

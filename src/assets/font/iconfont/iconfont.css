@@ -1,0 +1,79 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3160513 */
+  src: url('iconfont.woff2?t=1643598141324') format('woff2'),
+       url('iconfont.woff?t=1643598141324') format('woff'),
+       url('iconfont.ttf?t=1643598141324') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tousupingjia:before {
+  content: "\e616";
+}
+
+.icon-kaojiazhao:before {
+  content: "\e691";
+}
+
+.icon-wechat:before {
+  content: "\e61d";
+}
+
+.icon-balance:before {
+  content: "\e619";
+}
+
+.icon-youhuiquan:before {
+  content: "\e764";
+}
+
+.icon-kefu:before {
+  content: "\e65a";
+}
+
+.icon-dengchu:before {
+  content: "\e620";
+}
+
+.icon-weizhangshigujilu:before {
+  content: "\e635";
+}
+
+.icon-shenfenzheng:before {
+  content: "\e614";
+}
+
+.icon-fapiao:before {
+  content: "\e6ab";
+}
+
+.icon-lianxiren:before {
+  content: "\e618";
+}
+
+.icon-tousu:before {
+  content: "\e638";
+}
+
+.icon-password:before {
+  content: "\e6a9";
+}
+
+.icon-user:before {
+  content: "\e7ae";
+}
+
+.icon-car-o:before {
+  content: "\e75f";
+}
+
+.icon-order:before {
+  content: "\e62a";
+}
+

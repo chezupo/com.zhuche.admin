@@ -1,0 +1,255 @@
+@import "../../styles/global";
+
+@navigationWidth: 300px;
+@activeNavigationWidth: 80px;
+@itemSize: 60px;
+@topBarHeight: @itemSize;
+@mainContainerHeight: calc( 100vh - @topBarHeight);
+
+.fontMixin() {
+  height: @itemSize;
+  line-height: @itemSize;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  display: flex;
+
+  @media @tablet{
+    .navigation {
+      left: -@navigationWidth;
+      &.active {
+        left: 0;
+        width: @navigationWidth;
+      }
+    }
+    .main {
+      width: 100%;
+      left: 0;
+      &.active {
+        left: @navigationWidth;
+      }
+    }
+    .carBoxWrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media @phone {
+    .navigation {
+      left: -@navigationWidth;
+      &.active {
+        left: 0;
+        width: @navigationWidth;
+      }
+    }
+    .main {
+      width: 100%;
+      left: 0;
+      &.active {
+        left: @navigationWidth;
+      }
+    }
+    .carBoxWrapper {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .list {
+      grid-template-columns: 100%;
+    }
+  }
+}
+
+
+.navigation {
+  &.active{
+    width: @activeNavigationWidth;
+  }
+  position: fixed;
+  width: @navigationWidth;
+  height: 100%;
+  background: var(--blue);
+  border-left: 10px solid var(--blue);
+  transition: 0.5s;
+  overflow: hidden;
+  ul {
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    .nav {
+      @borderRadius: 30px;
+      border-top-left-radius: @borderRadius;
+      border-bottom-left-radius: @borderRadius;
+      position: relative;
+      width: 100%;
+      list-style: none;
+      &:nth-child(1) {
+        margin-bottom: 40px;
+        pointer-events: none;
+      }
+      a {
+        position: relative;
+        text-decoration: none;
+        display: flex;
+        color: var(--white);
+        .icon{
+          position: relative;
+          display: block;
+          text-align: center;
+          min-width: @itemSize;
+          font-size: 1.3rem;
+          .fontMixin;
+        }
+        .title {
+          position: relative;
+          padding: 0 10px;
+          display: block;
+          .fontMixin;
+        }
+      }
+    }
+    .nav:hover, .hovered {
+      a {
+        color: var(--blue);
+      }
+      background: var(--white);
+      a::before{
+        content: '';
+        position: absolute;
+        right: 0;
+        @AAfterSize: 50px;
+        width: @AAfterSize;
+        height: @AAfterSize;
+        bottom: -50px;
+        border-radius: 50%;
+        box-shadow: 35px -35px 0 10px var(--white);
+      }
+      a::after{
+        content: '';
+        position: absolute;
+        right: 0;
+        @AAfterSize: 50px;
+        width: @AAfterSize;
+        height: @AAfterSize;
+        top: -50px;
+        border-radius: 50%;
+        box-shadow: 35px 35px 0 10px var(--white);
+      }
+    }
+  }
+}
+
+/* main  */
+.main  {
+  position: absolute;
+  width: calc(100% - @navigationWidth);
+  left: @navigationWidth;
+  min-height: 100vh;
+  background: var(--backgroundColor);
+  transition: .5s;
+  &.active {
+    width: calc(100% - @activeNavigationWidth);
+    left: @activeNavigationWidth;
+  }
+  .topBar {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    height: @itemSize;
+    background: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    .toggle {
+      position: relative;
+      top: 0;
+      width: @itemSize;
+      height: @itemSize;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5rem;
+      cursor: pointer;
+    }
+    .search {
+      position: relative;
+      width: 400px;
+      margin: 0 10px;
+      label input {
+        width: 100%;
+        height: 30px;
+        border-radius: 40px;
+        outline: none;
+        border: 1px solid var(--black2);
+        padding: 5px 40px;
+      }
+      .icon{
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        font-size: 1.2em;
+      }
+    }
+  }
+  .user {
+    position: relative;
+    @imagSize: 40px;
+    width: @imagSize;
+    height: @imagSize;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: @imagSize;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      object-fit: cover;
+    }
+  }
+}
+
+.mainContainer {
+  min-height: @mainContainerHeight;
+  padding: var(--grap);
+}
+.carBoxWrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: var(--grap);
+}
+
+.list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: var(--grap);
+  margin-top: var(--grap);
+  .recentOrders {
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    background: var(--white);
+    border-radius: var(--carBorderRadius);
+    padding: 20px;
+    width: 100%;
+    min-height: 500px;
+    .cardHeaders {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      h2 {
+        font-weight: 600;
+        color: var(--blue);
+      }
+      .btn {
+        padding: 4px 10px;
+        background:  var(--blue);
+        color: var(--white);
+        border-radius: 6px;
+      }
+    }
+  }
+}
+

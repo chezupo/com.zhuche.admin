@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
-import {BrowserRouter, useRoutes} from "react-router-dom";
-import routes from "./routes";
+import { BrowserRouter, useRoutes } from 'react-router-dom'
+import routes from './routes'
+import './assets/font/iconfont/iconfont.css'
 
 const Main:React.FC = () => {
   const element = useRoutes(routes)

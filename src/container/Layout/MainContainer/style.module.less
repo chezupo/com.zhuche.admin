@@ -1,0 +1,15 @@
+@import "../common.module.less";
+.main {
+  position: relative;
+  left: @navigationWidth;
+  background: var(--theme-base-bg-color);
+  width: calc(100% - @navigationWidth);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .transitionMixin();
+  &.active {
+    left: @activeNavigationWidth;
+    width: calc(100% - @activeNavigationWidth);
+  }
+}

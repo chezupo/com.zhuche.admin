@@ -1,0 +1,16 @@
+@import '../../common.module.less';
+.main {
+  width: 100%;
+  height: @headerBarHeight;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  .showBoxMixin;
+  background: var(--theme-bg-color);
+  .icon {
+    font-size: 1.5rem;
+  }
+}
