@@ -1,0 +1,40 @@
+@import "../../../common.module.less";
+
+@itemHeight: 2.5rem;
+.liItem{
+  &.active {
+    background: var(--primary-bg-color);
+    box-sizing: border-box;
+    border-left: solid 3px var(--primary-color);
+    color: var(--primary-color);
+  }
+  &.activeParent {
+    color: var(--primary-color);
+  }
+  &:hover {
+    color: var(--primary-color);
+  }
+  border-bottom:  solid 1px var(--theme-base-bg-color);
+  height: @itemHeight;
+  list-style: none;
+  justify-content: center;
+  display: inline-flex;
+  width: 100%;
+  padding: 0 .5rem;
+  align-items: center;
+  & > span {
+    padding-left: .5rem;
+    flex: 1 0 auto;
+  }
+  text-decoration: none;
+  color: var(--color);
+}
+
+.icon {
+  font-size: 1.1rem;
+  transition: all .3s ease-in-out;
+  &.open {
+    transform: rotate(-90deg);
+  }
+}
+

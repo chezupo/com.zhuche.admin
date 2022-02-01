@@ -7,7 +7,9 @@ import Tmp from '@/pages/Tmp'
 import Dashboard from '@/pages/Dashboard'
 import { AiOutlineDashboard } from 'react-icons/ai'
 import FontIcon from '@/components/FontIcon'
-import style from '@/container/Layout/MainTainer/NavigationBar/style.module.less'
+import style from '@/styles/global.module.less'
+import Order1 from '@/pages/order/Order1'
+import Order2 from '@/pages/order/Order2'
 
 export type MenuItemType = {
   name: string;
@@ -19,8 +21,13 @@ export type MenuItemType = {
 const routes:  (Partial<MenuItemType> & RouteObject) [] = [
   {path: '/', element: <LayoutOld />, hideInMenu: true, children: [] },
   {path: '/layout', element: <Layout/>, hideInMenu: true, children: []},
-  {path: '/dashboard', element: <Dashboard />, icon: <AiOutlineDashboard className={style.icon}/> , name: '仪表盘', children: []},
-  {path: '/orders', element: <Dashboard />, icon: <FontIcon name='icon-order' className={style.icon}/> , name: '订单', children: []},
+  {path: '/', element: <Layout/>, icon: <AiOutlineDashboard className={style.icon}/> , name: '仪表盘', children: [
+      {path: 'dashboard', element: <Dashboard />, icon: <AiOutlineDashboard className={style.navIcon}/> , hideInMenu: false, name: '仪表盘', children: [ ]},
+    ]},
+  {path: '/orders',hideInMenu: false, element: <Layout/>, icon: <FontIcon name='icon-order' className={style.navIcon}/> , name: '订单', children: [
+      {path: 'order1', element: <Order1/>, icon: <AiOutlineDashboard className={style.navIcon}/> , hideInMenu: false, name: '订单1', children: [ ]},
+      {path: 'order2', element: <Order2/>, icon: <AiOutlineDashboard className={style.navIcon}/> , hideInMenu: false, name: '订单2', children: [ ]},
+    ]},
   {path: '/login', element: <Login />, hideInMenu: true, children: []},
   {path: '/tmp', element: <Tmp/>, hideInMenu: true, children: []},
 ]

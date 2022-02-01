@@ -1,6 +1,5 @@
 @import "../../common.module.less";
 
-@itemHeight: 2.5rem;
 .main {
   width: @navigationWidth;
   background: var(--theme-bg-color);
@@ -18,38 +17,6 @@
   & > li {
     border-bottom: solid 1px var(--theme-base-bg-color);
     box-sizing: border-box;
-  }
-  li.active {
-    background: red;
-  }
-  .liItem{
-    &:hover {
-      color: var(--primary-color);
-    }
-    border-bottom:  solid 1px var(--theme-base-bg-color);
-    height: @itemHeight;
-    list-style: none;
-    justify-content: center;
-    display: inline-flex;
-      width: 100%;
-      padding: 0 .5rem;
-      align-items: center;
-      & > span {
-        padding-left: .5rem;
-        flex: 1 0 auto;
-      }
-  }
-  a {
-    text-decoration: none;
-    color: var(--color)
-  }
-
-  .icon {
-    font-size: 1.1rem;
-    transition: all .3s ease-in-out;
-    &.open {
-      transform: rotate(-90deg);
-    }
   }
   .subUl {
     transition: 0.5s;
