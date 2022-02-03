@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useObserve } from '@wuchuheng/rxjs'
-import { toggleObserve } from '@/store'
+import { toggleObserve } from '@/store/toggleObserve'
 import style from '@/container/Layout/MainTainer/NavigationBar/style.module.less'
 import { useNavigate } from 'react-router-dom'
 import { MenuItemType } from '@/routes'

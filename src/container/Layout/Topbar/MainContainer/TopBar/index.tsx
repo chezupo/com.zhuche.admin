@@ -4,7 +4,7 @@ import {AiOutlineMenuFold,
   AiOutlineMenuUnfold
 } from 'react-icons/ai'
 import { useObserve } from '@wuchuheng/rxjs'
-import { toggleObserve } from '@/store'
+import { toggleObserve } from '@/store/toggleObserve'
 import Search from './Search'
 import UserInfo from '@/container/Layout/Topbar/MainContainer/TopBar/RightWrapper'
 

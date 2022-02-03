@@ -1,7 +1,7 @@
 import { MenuItemType } from '@/routes'
 import React, { useEffect } from 'react'
 import { useObserve } from '@wuchuheng/rxjs'
-import { toggleObserve } from '@/store'
+import { toggleObserve } from '@/store/toggleObserve'
 import { useLocation } from 'react-router-dom'
 import style from './style.module.less'
 import { HiOutlineChevronLeft } from 'react-icons/hi'

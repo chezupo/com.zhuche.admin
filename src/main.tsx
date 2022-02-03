@@ -2,10 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, useRoutes } from 'react-router-dom'
 import routes from './routes'
+import { Provider } from 'react-redux'
 import './assets/font/iconfont/iconfont.css'
 import 'antd/dist/antd.css';
 import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@/util/apolloClient'
+import store from './store/index'
 
 const Main:React.FC = () => {
   const element = useRoutes(routes)
@@ -18,11 +20,13 @@ const Main:React.FC = () => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={apolloClient} >
-      <BrowserRouter>
-        <Main/>
-      </BrowserRouter>
-    </ApolloProvider>
+    <Provider store={store}>
+      <ApolloProvider client={apolloClient} >
+        <BrowserRouter>
+          <Main/>
+        </BrowserRouter>
+      </ApolloProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )

@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Checkbox, Form, Input, message, Spin } from 'antd'
-import { gql, useMutation } from '@apollo/client'
+import { gql } from '@apollo/client'
 import style from './style.module.less'
+import apolloClient from '@/util/apolloClient'
+import store from '@/store'
+import { loginThunk, MeType } from '@/store/modules/me'
 import { useNavigate } from 'react-router-dom'
 
-const UsernameLoginForm: React.FC = () => {
-  const LOGIN_MUTATION = gql`
+const LOGIN_MUTATION = gql`
     mutation($input: AuthorizationInput!) {
       authorize(input: $input) {
         tokenType
@@ -14,28 +16,41 @@ const UsernameLoginForm: React.FC = () => {
       }
     }
   `;
-  const [mutationFun, {data, loading, error }] = useMutation(LOGIN_MUTATION);
-  const navigater = useNavigate()
-  if (!loading && error) {
-    message.error('登录失败,账号或密码不正确');
-  } else if(data) {
-    navigater('/dashboard')
-  }
-  const onFinish = (values: {password: string; username: string}) => {
-    mutationFun({ variables: { input: {
-          username: values.username,
-          password: values.password
-        }}})
-    console.log('Success:', values);
-  };
+const UsernameLoginForm: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false)
 
-  return (
+  const navigator = useNavigate()
+  const onFinish = async (values: {password: string; username: string}) => {
+    try {
+      setLoading(true)
+      const { data, errors } = await  apolloClient.mutate({
+        mutation: LOGIN_MUTATION,
+        variables: { input: { username: values.username, password: values.password } }
+      })
+      const meInfo: MeType = {
+        isLogin: false,
+        accessToken: data.authorize.accessToken,
+        expiredAt: data.authorize.expiredAt
+      }
+      await store.dispatch(loginThunk(meInfo))
+      message.success("登录成功🎉🎉🎉")
+      setTimeout(() => {
+        setLoading(false)
+        navigator('/dashboard')
+      }, 1000)
+    }catch (e) {
+      setLoading(false)
+    }
+  }
+
+
+    return (
     <Spin spinning={loading}>
     <Form
       name="basic"
       style={{width: '15rem'}}
       wrapperCol={{ span: 24 }}
-      initialValues={{ remember: true }}
+      initialValues={{ remember: true, username: 'admin', password: '12345678' }}
       onFinish={onFinish}
       autoComplete="off"
     >

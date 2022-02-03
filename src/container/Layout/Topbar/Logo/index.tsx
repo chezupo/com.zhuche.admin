@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useObserve } from '@wuchuheng/rxjs'
 import style from './style.module.less'
 import classNames from 'classnames'
-import { toggleObserve } from '@/store'
+import { toggleObserve } from '@/store/toggleObserve'
 
 const Logo: React.FC = () => {
   const avatar = 'http://storage.360buyimg.com/mtd/home/32443566_635798770100444_2113947400891531264_n1533825816008.jpg'

@@ -2,7 +2,7 @@ import React from 'react'
 import style from './style.module.less'
 import { useObserve } from '@wuchuheng/rxjs'
 import classNames from 'classnames'
-import { toggleObserve } from '@/store'
+import { toggleObserve } from '@/store/toggleObserve'
 import TopBar from '@/container/Layout/Topbar/MainContainer/TopBar'
 
 type MainContainerPropsType = {

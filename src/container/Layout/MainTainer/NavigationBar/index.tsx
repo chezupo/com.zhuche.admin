@@ -3,7 +3,7 @@ import style from './style.module.less'
 import { HiOutlineChevronLeft } from 'react-icons/hi'
 import { useObserve } from '@wuchuheng/rxjs'
 import { getMenu, MenuItemType } from '@/routes'
-import { toggleObserve } from '@/store'
+import { toggleObserve } from '@/store/toggleObserve'
 import { useLocation, useNavigate, useParams, useRoutes } from 'react-router-dom'
 import ListRender from '@/container/Layout/MainTainer/NavigationBar/ListRender'
 
