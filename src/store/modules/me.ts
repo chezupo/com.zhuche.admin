@@ -24,6 +24,8 @@ export const meSlice = createSlice({
   },
 })
 
+export const isLogin = (): boolean => !!Cookies.get(accessTokenKey)
+
 export const loginThunk = (meInfo: MeType) => {
   return (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
     const expiredAt = new Date(meInfo.expiredAt)
