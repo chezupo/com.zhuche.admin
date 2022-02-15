@@ -1,14 +1,15 @@
-import { configureStore, applyMiddleware } from '@reduxjs/toolkit'
-import  meSlice from '@/store/modules/me'
+import {configureStore} from '@reduxjs/toolkit'
+import meSlice from '@/store/modules/me'
+import activeRouteSlice from '@/store/modules/activeRoute'
 
 const store =  configureStore({
   reducer: {
     me: meSlice,
+    activeRoute: activeRouteSlice
   }
 })
 
 export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
 
 export default store

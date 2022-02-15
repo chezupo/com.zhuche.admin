@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppDispatch, RootState } from '@/store'
+import {createToken} from "@/api/Authroization";
+import {getAccessTokenExpiredAt, setAccessToken} from "@/util/AuthUtil";
 
 export type MeType = {
   isLogin: boolean;
@@ -26,15 +28,18 @@ export const meSlice = createSlice({
 
 export const isLogin = (): boolean => !!Cookies.get(accessTokenKey)
 
-export const loginThunk = (meInfo: MeType) => {
-  return (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
-    const expiredAt = new Date(meInfo.expiredAt)
-    const days: number = (expiredAt.getTime() - Date.now() ) / 1000 / 60 / 60 / 24
-    Cookies.set(accessTokenExpiredAt, meInfo.expiredAt, {expires: days})
-    Cookies.set(accessTokenKey, meInfo.accessToken, {expires: days})
-    dispatch(login({...meInfo, isLogin: true}))
-
-    return Promise.resolve()
+// 登录操作
+export const loginThunk = (username: string, password: string)=> {
+  return async (dispatch: AppDispatch, getState: () => RootState): Promise<void>  => {
+    const {accessToken, expiration} = await createToken({username, password })
+    const expiredAt = new Date(Date.now() + expiration)
+    setAccessToken(accessToken, expiredAt)
+    const me: MeType = {
+      isLogin: true,
+      accessToken: accessToken,
+      expiredAt:getAccessTokenExpiredAt()
+    }
+    dispatch(login(me))
   }
 }
 export const {login} = meSlice.actions

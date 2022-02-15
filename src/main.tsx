@@ -1,12 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, useRoutes } from 'react-router-dom'
+import {BrowserRouter, useRoutes} from 'react-router-dom'
 import routes from './routes'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 import './assets/font/iconfont/iconfont.css'
 import 'antd/dist/antd.css';
-import { ApolloProvider } from '@apollo/client'
-import apolloClient from '@/util/apolloClient'
 import store from './store/index'
 
 const Main:React.FC = () => {
@@ -19,14 +17,10 @@ const Main:React.FC = () => {
 }
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
-      <ApolloProvider client={apolloClient} >
         <BrowserRouter>
           <Main/>
         </BrowserRouter>
-      </ApolloProvider>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 )

@@ -10,6 +10,8 @@ import FontIcon from '@/components/FontIcon'
 import style from '@/styles/global.module.less'
 import Order1 from '@/pages/order/Order1'
 import Order2 from '@/pages/order/Order2'
+import Banner from '@/pages/Banner'
+import {BiSlideshow} from 'react-icons/bi'
 
 export type MenuItemType = {
   name: string;
@@ -27,6 +29,9 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
   {path: '/orders',hideInMenu: false, element: <Layout/>, icon: <FontIcon name='icon-order' className={style.navIcon}/> , name: '订单', children: [
       {path: 'order1', element: <Order1/>, icon: <AiOutlineDashboard className={style.navIcon}/> , hideInMenu: false, name: '订单1', children: [ ]},
       {path: 'order2', element: <Order2/>, icon: <AiOutlineDashboard className={style.navIcon}/> , hideInMenu: false, name: '订单2', children: [ ]},
+    ]},
+  {path: '/',hideInMenu: false, element: <Layout/>, icon: <FontIcon name='icon-order' className={style.navIcon}/> , name: '', children: [
+      {path: 'banners', element: <Banner/>, icon: <BiSlideshow className={style.navIcon}/> , hideInMenu: false, name: '幻灯片管理', children: [ ]},
     ]},
   {path: '/login', element: <Login />, hideInMenu: true, children: []},
   {path: '/tmp', element: <Tmp/>, hideInMenu: true, children: []},

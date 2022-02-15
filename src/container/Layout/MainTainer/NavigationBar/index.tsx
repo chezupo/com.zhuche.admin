@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import style from './style.module.less'
-import { HiOutlineChevronLeft } from 'react-icons/hi'
 import { useObserve } from '@wuchuheng/rxjs'
 import { getMenu, MenuItemType } from '@/routes'
 import { toggleObserve } from '@/store/toggleObserve'
-import { useLocation, useNavigate, useParams, useRoutes } from 'react-router-dom'
 import ListRender from '@/container/Layout/MainTainer/NavigationBar/ListRender'
+import store from '@/store'
+import { save } from '@/store/modules/activeRoute'
 
 const NavigationBar: React.FC = () => {
   const menus: MenuItemType[] = getMenu()
   const [toggle] = useObserve(toggleObserve)
+  const handleMatch = (name: string) => store.dispatch(save({name}))
 
   return (
     <div className={[
@@ -18,7 +19,9 @@ const NavigationBar: React.FC = () => {
     ].join(' ')}>
       <ul className={style.ul}>
         {menus.map((menu, key) => (
-          <ListRender data={menu} key={menu.path} level={1} prefix={''}/>
+          <ListRender data={menu} key={key} level={1} prefix={''}
+                      onMatch={handleMatch}
+          />
         ))}
       </ul>
     </div>

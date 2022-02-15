@@ -4,7 +4,8 @@
   width: @navigationWidth;
   background: var(--theme-bg-color);
   min-height: calc( 100vh - @headerBarHeight);
-  .showBoxMixin;
+  border-right: solid 1px var(--theme-base-bg-color);
+  box-sizing: border-box;
   .transitionMixin;
   &.active {
     width: @activeNavigationWidth;

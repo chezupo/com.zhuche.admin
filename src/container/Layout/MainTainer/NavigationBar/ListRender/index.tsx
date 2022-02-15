@@ -10,7 +10,7 @@ export type ListRenderPropsType = {
   data: MenuItemType;
   level: number;
   prefix: string;
-  onMatch?: () => void
+  onMatch?: (name: string) => void
 }
 
 const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
@@ -49,9 +49,9 @@ const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
       navigate(myRoute)
     }
   }
-  const handleMatch = () => {
+  const handleMatch = (name: string) => {
     handleOpen()
-    props.onMatch && props.onMatch()
+    props.onMatch && props.onMatch(name)
   }
 
   return (
@@ -62,7 +62,7 @@ const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
         level={props.level}
         isOpen={isOpen}
         prefix={prefix}
-        onMatch={handleMatch}
+        onMatch={(name) => handleMatch( name)}
       />
       { !isTopOneItem &&
       props.data.children && (
@@ -71,10 +71,11 @@ const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
         >
           {props.data.children.map((item, key) => (
             <ListRender
-              onMatch={handleMatch}
+              onMatch={(name) => handleMatch(props.data.name + '/' + name)}
               data={item} key={item.path} level={props.level + 1} prefix={
               prefix.length === 0 ? '' + data.path : prefix + '/' + data.path
-            }/>
+            }
+            />
           ))}
         </ul>
       )

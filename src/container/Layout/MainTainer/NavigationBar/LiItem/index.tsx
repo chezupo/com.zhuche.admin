@@ -5,6 +5,7 @@ import { toggleObserve } from '@/store/toggleObserve'
 import { useLocation } from 'react-router-dom'
 import style from './style.module.less'
 import { HiOutlineChevronLeft } from 'react-icons/hi'
+import { useAppSelector } from '@/store/hooks'
 
 type LiItemPropsType = {
   onClick: () => void;
@@ -12,7 +13,7 @@ type LiItemPropsType = {
   level: number;
   isOpen: boolean;
   prefix: string;
-  onMatch: () => void;
+  onMatch: (name: string) => void;
 }
 
 const LiItem: React.FC<LiItemPropsType> = ({onMatch, ...props}) => {
@@ -23,7 +24,7 @@ const LiItem: React.FC<LiItemPropsType> = ({onMatch, ...props}) => {
   const isActive = myRoute === currentRoute
   const isParentRoute = !!currentRoute.match(myRoute.replace(/\\/g, '/'))  && !isActive
   useEffect(() => {
-    isParentRoute && onMatch()
+    isActive && onMatch(props.data.name)
   }, [])
 
   return (
@@ -33,7 +34,7 @@ const LiItem: React.FC<LiItemPropsType> = ({onMatch, ...props}) => {
         isActive || (isParentRoute && toggle) ? style.active : '',
         isParentRoute && !toggle ? style.activeParent : ''
       ].join(' ')}
-      onClick={props.onClick}
+      onClick={() => {onMatch(props.data.name); props.onClick()}}
       style={{
         paddingLeft: !toggle ?  props.level + 'rem' : '0px'
       }}

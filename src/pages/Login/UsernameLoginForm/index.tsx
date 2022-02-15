@@ -1,38 +1,19 @@
-import React, { useState } from 'react'
-import { Button, Checkbox, Form, Input, message, Spin } from 'antd'
-import { gql } from '@apollo/client'
+import React, {useState} from 'react'
+import {Button, Checkbox, Form, Input, message, Spin} from 'antd'
 import style from './style.module.less'
-import apolloClient from '@/util/apolloClient'
 import store from '@/store'
-import { loginThunk, MeType } from '@/store/modules/me'
-import { useNavigate } from 'react-router-dom'
+import {loginThunk} from '@/store/modules/me'
+import {useNavigate} from 'react-router-dom'
 
-const LOGIN_MUTATION = gql`
-    mutation($input: AuthorizationInput!) {
-      authorize(input: $input) {
-        tokenType
-        expiredAt
-        accessToken
-      }
-    }
-  `;
 const UsernameLoginForm: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const navigator = useNavigate()
-  const onFinish = async (values: {password: string; username: string}) => {
+  const onFinish = async (account: {password: string; username: string}) => {
+
     try {
       setLoading(true)
-      const { data, errors } = await  apolloClient.mutate({
-        mutation: LOGIN_MUTATION,
-        variables: { input: { username: values.username, password: values.password } }
-      })
-      const meInfo: MeType = {
-        isLogin: false,
-        accessToken: data.authorize.accessToken,
-        expiredAt: data.authorize.expiredAt
-      }
-      await store.dispatch(loginThunk(meInfo))
+      await store.dispatch(loginThunk(account.username, account.password))
       message.success("登录成功🎉🎉🎉")
       setTimeout(() => {
         setLoading(false)
