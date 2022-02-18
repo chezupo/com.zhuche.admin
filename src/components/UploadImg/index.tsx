@@ -5,21 +5,20 @@ import React, {useState} from 'react'
 import * as qiniu from 'qiniu-js'
 import {getTimeStr} from '@/util/helper'
 
-type UploadImgPropsType = {
-  onUploaded?: (key: string) => void
+export type ImgType = {key: string; prefixUrl: string}
+export type UploadImgPropsType = {
+  onUploaded?: (newImg: ImgType) => void
+  imageUrl?: string
 }
 const UploadImg = (props: UploadImgPropsType) => {
   const [loading, setLoading] = useState<boolean>(false)
-  const [imageUrl, setImageUrl] = useState<string>('')
   const [progress, setProgress] = useState<number>(0)
   const handleUploading = (file: File, token: string): Promise<string> => {
     return new Promise((resolve, reject) => {
       const key = getTimeStr() + '-' + Date.now() + '-' + file.name
       const observable = qiniu.upload(file, key, token )
       observable.subscribe({
-        next: res => {
-          setProgress(res.total.percent)
-        },
+        next: res => setProgress(Math.round(  res.total.percent * 100 ) / 100),
         error: err => reject(err),
         complete: res => {
           setLoading(false)
@@ -33,8 +32,10 @@ const UploadImg = (props: UploadImgPropsType) => {
     setLoading(true)
     const uploadTokenInfo = await createUploadToken();
     const key = await handleUploading(file, uploadTokenInfo.accessToken)
-    setImageUrl(`${uploadTokenInfo.prefixUrl}/${key}`)
-    props.onUploaded && props.onUploaded(key)
+    props.onUploaded && props.onUploaded({
+      prefixUrl: uploadTokenInfo.prefixUrl,
+      key
+    })
 
     return false
   }
@@ -55,7 +56,7 @@ const UploadImg = (props: UploadImgPropsType) => {
         showUploadList={false}
         beforeUpload={beforeUpload}
       >
-        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+        {props.imageUrl? <img src={props.imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
       </Upload>
     )
 

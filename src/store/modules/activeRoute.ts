@@ -7,7 +7,7 @@ type ActiveRouteType = {
 const initialState: ActiveRouteType = {
   name: ''
 }
-export const activeRouteSlice = createSlice({
+const activeRouteSlice = createSlice({
   name: 'activeRoute',
   initialState,
   reducers: {

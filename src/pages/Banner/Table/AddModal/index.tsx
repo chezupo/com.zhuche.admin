@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import { Button, Modal } from 'antd'
+import React, {useState} from 'react'
+import {Button, Modal} from 'antd'
 import style from './style.module.less'
 import AddForm from '@/pages/Banner/Table/AddModal/AddForm'
 
-const AddModal: React.FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState(true);
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+type AddModalPropsType  = {
+  onSuccess?: () => void
+}
+const AddModal: (props: AddModalPropsType) => any = (props: AddModalPropsType) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+  const handleUpdate = () => {
+    props.onSuccess && props.onSuccess()
+    setIsModalVisible(() => !isModalVisible)
+  }
+
   return (
     <>
       <Button
@@ -27,12 +27,10 @@ const AddModal: React.FC = () => {
       <Modal
         title="添加新的幻灯片"
         visible={isModalVisible}
-        onOk={handleOk}
+        footer={null}
         onCancel={handleCancel}
-        cancelText='取消'
-        okText='确定'
       >
-        <AddForm />
+        <AddForm onCreated={() => handleUpdate()} />
       </Modal>
     </>
     )

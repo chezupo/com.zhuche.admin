@@ -1,4 +1,5 @@
 @import "../../../styles/global.module.less";
+@import "../common.module.less";
 
 .main {
   display: flex;
@@ -6,4 +7,6 @@
 .routeContainer  {
   background: var(--theme-base-bg-color);
   width: 100%;
+  overflow-y: auto;
+  height: calc( 100vh - @headerBarHeight);
 }

@@ -1,20 +1,17 @@
-import Cookies from 'js-cookie'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AppDispatch, RootState } from '@/store'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {AppDispatch, RootState} from '@/store'
 import {createToken} from "@/api/Authroization";
-import {getAccessTokenExpiredAt, setAccessToken} from "@/util/AuthUtil";
+import {getAccessToken, getAccessTokenExpiredAt, setAccessToken} from "@/util/AuthUtil";
 
 export type MeType = {
   isLogin: boolean;
   accessToken: string;
   expiredAt: string;
 }
-const accessTokenKey = 'accessToken';
-const accessTokenExpiredAt = 'accessTokenExpiredAt'
 const initialState: MeType = {
-  isLogin: false,
-  accessToken:  Cookies.get(accessTokenKey) ? Cookies.get(accessTokenKey) as string : '',
-  expiredAt: Cookies.get(accessTokenExpiredAt) ? Cookies.get(accessTokenExpiredAt) as string : ''
+  isLogin: !!getAccessToken(),
+  accessToken: getAccessToken(),
+  expiredAt: getAccessTokenExpiredAt(),
 }
 export const meSlice = createSlice({
   name: 'me',
@@ -26,7 +23,6 @@ export const meSlice = createSlice({
   },
 })
 
-export const isLogin = (): boolean => !!Cookies.get(accessTokenKey)
 
 // 登录操作
 export const loginThunk = (username: string, password: string)=> {
