@@ -4,6 +4,7 @@ export type BannerType = {
   id: number;
   imgKey: string;
   content: string;
+  title: string;
 }
 
 export type BannersType = {
@@ -21,8 +22,8 @@ export const getBanners = async (page: number, pageSize: number): Promise<Banner
   return await get<BannersType>(`/banners?page=${page}&size=${pageSize}`)
 }
 
-export const updateBanner = async (banner: BannerType): Promise<BannerType> => {
-  return  await patch<BannerType>(`/banners/${banner.id}`, {imgKey: banner.imgKey, content: banner.content})
+export const updateBanner = async ({imgKey, content, title, id}: BannerType): Promise<BannerType> => {
+  return  await patch<BannerType>(`/banners/${id}`, {imgKey, content, title})
 }
 
 export const  destroyBanner = async (id: number): Promise<BannerType> => {

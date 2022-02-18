@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import Editor from '@/components/Editor'
-import {Button, Form, FormInstance, Spin} from 'antd'
+import {Button, Form, FormInstance, Input, Spin} from 'antd'
 import UploadImg, {ImgType} from '@/components/UploadImg'
 import {BannerType} from "@/api/Banners";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
@@ -9,6 +9,7 @@ import {createBannerThunk} from "@/store/modules/banners";
 type FormDataType = {
   content: string
   key: string
+  title: string
 }
 
 type AddFormPropsType = {
@@ -17,6 +18,7 @@ type AddFormPropsType = {
 
 const AddForm = (props: AddFormPropsType) => {
   const [content, setContent] = useState<string>('')
+  const [title, setTitle] = useState<string>('')
   const [imgUrl, setImgUrl] = useState<string>( '')
   const formRef = React.useRef<FormInstance>(null);
   const [form] = Form.useForm();
@@ -35,7 +37,7 @@ const AddForm = (props: AddFormPropsType) => {
   const dispatch = useAppDispatch();
   const handleFormFinish = async (e: FormDataType): Promise<void> => {
     try {
-      const newBanner = await dispatch(createBannerThunk({imgKey: e.key, content: e.content}))
+      const newBanner = await dispatch(createBannerThunk({imgKey: e.key, content: e.content, title: e.title}))
       props.onCreated && props.onCreated(newBanner)
       formRef.current!.setFieldsValue({content: ''})
       setContent('')
@@ -54,6 +56,13 @@ const AddForm = (props: AddFormPropsType) => {
         initialValues={{content}}
         {...layout}
       >
+        <Form.Item
+          name='title'
+          label='标题'
+          rules={[{required: true, message: '标题不能为空'}]}
+        >
+          <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+        </Form.Item>
         <Form.Item
           name='key'
           label='图片'

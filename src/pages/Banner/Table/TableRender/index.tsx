@@ -25,6 +25,11 @@ const TableRender = () => {
       key: 'id',
     },
     {
+      title: '标题',
+      dataIndex: 'title',
+      key: 'title'
+    },
+    {
       title: '图片',
       dataIndex: 'imgKey',
       key: 'imgKey',
@@ -41,7 +46,7 @@ const TableRender = () => {
       dataIndex: 'operation',
       render: (_:any, record:BannerType  ) => <ActionRender
         data={record}
-        onEdit={(banner) => setEditBannerInfo({visitable: true, data: banner}) }
+        onEdit={(banner) => { setEditBannerInfo({visitable: true, data: banner}) } }
       />
     },
   ];

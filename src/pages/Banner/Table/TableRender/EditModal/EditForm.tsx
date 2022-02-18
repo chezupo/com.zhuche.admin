@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Form, FormInstance, Spin} from "antd";
+import {Button, Form, Input, Spin} from "antd";
 import UploadImg, {ImgType} from "@/components/UploadImg";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import Editor from "@/components/Editor";
@@ -11,26 +11,29 @@ type EditFormPropsType = {
   onSuccess?: (banner: BannerType) => void
 }
 const EditForm: React.FC<EditFormPropsType> = (props) => {
+  const [editBanner, setEditorBanner] = useState<BannerType>(props.data)
   const imgPrefix = useAppSelector(state => state.configuration.imgPrefix)
-  const [content, setContent] = useState<string>(props.data.content)
-  const formRef = React.useRef<FormInstance>(null);
+  const url = `${imgPrefix}/${props.data.imgKey}`
+  const [fullImg, setFullImg] = useState<string>(url)
   const [form] = Form.useForm();
-  const [imgKey, setImgUrl] = useState<string>(props.data.imgKey)
   const handleUploadImg = (newImg:ImgType): void => {
-    formRef.current!.setFieldsValue({key: newImg.key})
-    setImgUrl(newImg.key)
+    form.setFieldsValue({key: newImg.key})
+    setEditorBanner(() => ({...editBanner, imgKey: newImg.key}) )
+    setFullImg(`${imgPrefix}/${newImg.key}`)
   }
   const handleEditorChange = (newContent: string) => {
-    setContent(newContent)
-    formRef.current!.setFieldsValue({content: newContent})
+    setEditorBanner(() => ({...editBanner, content: newContent}))
+    form.setFieldsValue({content: newContent})
   }
-  useEffect(() => {
-    const {content, imgKey} = props.data
-    form.setFieldsValue({content, imgKey})
-    console.log(content)
-    console.log(imgKey)
+  const init = () => {
 
-  }, [props.data])
+    form.setFieldsValue(props.data)
+    setEditorBanner(props.data)
+    setFullImg(`${imgPrefix}/${props.data.imgKey}`)
+  }
+  useEffect(() =>  init(), [imgPrefix, props.data])
+  useEffect(() => init, [])
+
   const layout = {
     labelCol: {span: 4},
     wrapperCol: {span: 20}
@@ -38,13 +41,11 @@ const EditForm: React.FC<EditFormPropsType> = (props) => {
   const dispatch = useAppDispatch();
   const handleFormFinish = async (): Promise<void> => {
     try {
-      const newBanner = await dispatch(updateBannerThunk({id: props.data.id, imgKey: imgKey, content}))
-      formRef.current!.setFieldsValue({content: ''})
-      setContent('')
-      formRef.current!.setFieldsValue({key: ''})
+      const newBanner = await dispatch(updateBannerThunk(editBanner))
+      form.setFieldsValue({content: '', imgKey: ''})
+      setEditorBanner(() => ({...editBanner, content: ''}))
       props.onSuccess && props.onSuccess(newBanner)
     } catch (e) { console.log(e) }
-
   }
   const loading = useAppSelector(state => state.loading)
 
@@ -53,23 +54,29 @@ const EditForm: React.FC<EditFormPropsType> = (props) => {
       <Form
         form={form}
         onFinish={handleFormFinish}
-        ref={formRef}
-        initialValues={{content , imgKey}}
+        initialValues={editBanner}
         {...layout}
       >
+        <Form.Item
+          name='title'
+          label='标题'
+          rules={[{required: true, message: '标题不能为空'}]}
+        >
+          <Input value={editBanner.title} onChange={e => setEditorBanner(() => ({...editBanner, title: e.target.value}))} />
+        </Form.Item>
         <Form.Item
           name='imgKey'
           label='图片'
           rules={[{required: true, message: '图片不能为空'}]}
         >
-          <UploadImg onUploaded={handleUploadImg} imageUrl={`${imgPrefix}/${imgKey}`} />
+          <UploadImg onUploaded={handleUploadImg} imageUrl={fullImg} />
         </Form.Item>
         <Form.Item
           name='content'
           label='内容'
           rules={[{required: true, message: '内容不能为空'}]}
         >
-          <Editor value={content}  onChange={handleEditorChange}/>
+          <Editor value={editBanner.content}  onChange={handleEditorChange}/>
         </Form.Item>
         <Form.Item
           wrapperCol={{ offset: 10}}

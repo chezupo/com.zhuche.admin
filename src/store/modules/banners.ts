@@ -35,17 +35,20 @@ export const getBannersThunk = (page: number) => {
   }
 }
 
+
 // 创建banner
-export const createBannerThunk = (data: {imgKey: string; content: string}) => {
+type CreateBannerRequestBodyType = {
+  imgKey: string; content: string, title: string
+}
+export const createBannerThunk = (data: CreateBannerRequestBodyType) => {
   return async (dispatch: AppDispatch, getState: () => RootState): Promise<BannerType> => {
     dispatch(setLoading(true))
     const {currentPage} = getState().banners
     try {
-      const {id, imgKey, content} = await createBanner(data)
-
+      const {id, imgKey, content, title} = await createBanner(data)
       dispatch(getBannersThunk(currentPage))
       dispatch(setLoading(false))
-      return {id, imgKey, content}
+      return {id, imgKey, content, title}
     } catch (e) {
       dispatch(setLoading(false))
       throw e

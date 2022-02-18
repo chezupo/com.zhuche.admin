@@ -16,7 +16,6 @@ type TextEditorPropsType = {
 }
 
 const TextEditor: React.FC<TextEditorPropsType>  = (props) => {
-  console.log(props.value)
     const custom_config = {
       extraPlugins: [ MyCustomUploadAdapterPlugin ],
       table: {
