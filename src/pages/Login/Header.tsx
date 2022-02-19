@@ -1,15 +1,17 @@
 import style from '@/pages/Login/style.module.less'
 import React from 'react'
+import {useAppSelector} from "@/store/hooks";
 
 const Header: React.FC = () => {
-  const avatar = 'https://tfsimg.alipay.com/images/partner/ATMv8TTZKDzsQAAAAAAAAAAAAADtl2AA'
+  const configuration = useAppSelector(state => state.configuration)
+  const avatar = `${configuration.imgPrefix}/${configuration.logo}`
   return (
     <div className={style.container}>
       <div className={style.titleWrapper}>
         <img src={avatar} />
-        <h1> 车租婆管理系统 </h1>
+        <h1> {configuration.appName}管理系统 </h1>
       </div>
-      <h4 className={style.subTitle}>车租婆是基于小程序的互联网租车解决方案</h4>
+      <h4 className={style.subTitle}>{configuration.appName}是基于小程序的互联网租车解决方案</h4>
     </div>
 
   )

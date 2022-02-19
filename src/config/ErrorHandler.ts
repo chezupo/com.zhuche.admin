@@ -14,7 +14,8 @@ export const isErrorFromServer =(errorCode: number) => errorCode >= 50000
 export default class ErrorHandler extends Error{
   constructor(errorType:ErrorType, message: string, errorCode: number) {
     super(message);
-    isErrorFromClient(errorCode) && antMessage.error(message);
+    if (isErrorFromClient(errorCode)) antMessage.error(message);
+    else if (isErrorFromServer(errorCode)) antMessage.error(message);
   }
 }
 

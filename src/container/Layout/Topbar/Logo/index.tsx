@@ -3,9 +3,12 @@ import { useObserve } from '@wuchuheng/rxjs'
 import style from './style.module.less'
 import classNames from 'classnames'
 import { toggleObserve } from '@/store/toggleObserve'
+import {useSelector} from "react-redux";
+import {useAppDispatch, useAppSelector} from "@/store/hooks";
 
 const Logo: React.FC = () => {
-  const avatar = 'http://storage.360buyimg.com/mtd/home/32443566_635798770100444_2113947400891531264_n1533825816008.jpg'
+  const configuration = useAppSelector(state => state.configuration);
+  const avatar = `${configuration.imgPrefix}/${configuration.logo}`
   const mainRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const subscriptionHandler = toggleObserve.subscription(() =>
@@ -17,7 +20,7 @@ const Logo: React.FC = () => {
   return (
     <div className={[style.container].join(' ')} ref={mainRef}>
       <img src={avatar} />
-      <h2>Ant Design Pro</h2>
+      <h2>{configuration.appName}管理系统</h2>
     </div>
   )
 }
