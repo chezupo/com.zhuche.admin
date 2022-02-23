@@ -1,26 +1,27 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {AppDispatch, RootState} from '@/store'
 import {createToken} from "@/api/Authroization";
-import {
-  getAccessToken,
-  getAccessTokenExpiredAt,
-  getUsername,
-  resetAccessToken, resetUsername,
-  setAccessToken,
-  setUsername
-} from "@/util/AuthUtil";
+import {getAccessToken, resetAccessToken, setAccessToken} from "@/util/AuthUtil";
 
+export enum RoleType {
+  ROLE_ADMIN="ROLE_ADMIN",
+  ROLE_BUSINESS = "ROLE_BUSINESS",
+  ROLE_CUSTOMER = "ROLE_CUSTOMER",
+}
 export type MeType = {
   isLogin: boolean;
   accessToken: string;
   expiredAt: string;
   username: string
+  roles: RoleType[]
 }
+const cookiesAccessToken = getAccessToken()
 const initialState: MeType = {
-  isLogin: !!getAccessToken(),
-  accessToken: getAccessToken(),
-  expiredAt: getAccessTokenExpiredAt(),
-  username: getUsername()
+  isLogin: !!cookiesAccessToken,
+  accessToken: cookiesAccessToken ? cookiesAccessToken.accessToken : '',
+  expiredAt: cookiesAccessToken ? cookiesAccessToken.expiration + '' : '',
+  username: cookiesAccessToken ? cookiesAccessToken.username : '',
+  roles: cookiesAccessToken ? cookiesAccessToken.roles : []
 }
 export const meSlice = createSlice({
   name: 'me',
@@ -39,15 +40,14 @@ export const meSlice = createSlice({
 // 登录操作
 export const loginThunk = (username: string, password: string)=> {
   return async (dispatch: AppDispatch, getState: () => RootState): Promise<void>  => {
-    const {accessToken, expiration} = await createToken({username, password })
-    const expiredAt = new Date(Date.now() + expiration)
-    setAccessToken(accessToken, expiredAt)
-    setUsername(username)
+    const {accessToken, expiration, roles, tokenType} = await createToken({username, password })
+    setAccessToken({accessToken,expiration, roles, tokenType, username})
     const me: MeType = {
       isLogin: true,
       accessToken: accessToken,
-      expiredAt:getAccessTokenExpiredAt(),
-      username: username
+      expiredAt:expiration + '',
+      username: username,
+      roles: roles
     }
     dispatch(login(me))
   }
@@ -59,7 +59,6 @@ export default meSlice.reducer
 // 登出
 export const logoutThunk = ()=> {
   return async (dispatch: AppDispatch, getState: () => RootState): Promise<void>  => {
-    resetUsername()
     resetAccessToken()
     dispatch(logout(initialState))
   }

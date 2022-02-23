@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './style.module.less'
 import Header from '@/pages/Login/Header'
-import { Tabs } from 'antd'
+import {Tabs} from 'antd'
 import UsernameLoginForm from '@/pages/Login/UsernameLoginForm'
 
 const { TabPane } = Tabs;

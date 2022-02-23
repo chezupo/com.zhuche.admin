@@ -12,7 +12,7 @@ const UserInfo: React.FC = () => {
   const navigator = useNavigate()
   const handleLogout = () => {
     dispatch(logoutThunk()).then(() => {
-      message.success({duration: 5000, content: '您已经退出 🎉 🎉 🎉'})
+      message.success( '您已经退出 🎉 🎉 🎉')
       navigator('/login')
     })
   }
