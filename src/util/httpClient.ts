@@ -6,6 +6,7 @@ import ErrorHandler, {ErrorType, isErrorFromClient, isErrorFromServer} from "@/c
 
 const httpClient = axios.create({
   baseURL: "http://localhost:8080/api/v1",
+  // baseURL: "https://a1001zhuche.jds.wuchuheng.com/api/v1",
   headers: {
     ...( getAccessToken() ? {Authorization: `Bearer ${getAccessToken()?.accessToken}`} : {} )
   }

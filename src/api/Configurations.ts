@@ -4,6 +4,7 @@ export type ConfigurationType = {
   imgPrefix: string
   appName: string
   logo: string
+  amapKey: string
 }
 
 export const getConfiguration = async (): Promise<ConfigurationType> => await get<ConfigurationType>("/configuration")

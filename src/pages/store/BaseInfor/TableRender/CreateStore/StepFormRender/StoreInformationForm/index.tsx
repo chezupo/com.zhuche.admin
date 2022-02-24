@@ -1,13 +1,15 @@
 import React, {useState} from "react";
-import {Col, Form, Row, Switch} from "antd";
+import {Form, Row} from "antd";
 import InputRender
   from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/InputRender";
 import BannerInputRender
   from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/BannerInputRender";
-import {StoreBannerType, StoreItemType} from "@/store/modules/stores";
+import {StoreItemType} from "@/store/modules/stores";
 import {FormInstance} from "antd/lib/form/hooks/useForm";
 import SwitchRender
   from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/SwitchRender";
+import { Map } from 'react-amap';
+import MapRender from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/MapRender";
 
 export type CreateStoreType = Omit<StoreItemType, "id" | "banners"> & { banners: string[]}
 const initCreateStore: CreateStoreType = {
@@ -75,6 +77,7 @@ const StoreInformationForm: React.FC = () => {
           <SwitchRender label='机场' name='isAirport' rules={{required: true, message: '机场不能为空'}}/>
           <SwitchRender label='高铁站' name='isStation' rules={{required: true, message: '高铁站不能为空'}}/>
           <SwitchRender label='含自助车型' name='isSelfService' rules={{required: true, message: '自助车型不能为空'}}/>
+          <MapRender />
         </Row>
       </Form>
     </FormContext.Provider>

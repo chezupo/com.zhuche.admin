@@ -5,7 +5,8 @@ import {AppDispatch, RootState} from "@/store";
 const initialState: ConfigurationType = {
   imgPrefix: '',
   appName: '',
-  logo: ''
+  logo: '',
+  amapKey: ''
 }
 
 const configurationSlice = createSlice({
