@@ -1,15 +1,14 @@
-import React, {useState} from "react";
-import {Form, Row} from "antd";
+import React, { useState } from 'react'
+import { Form, Row } from 'antd'
 import InputRender
-  from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/InputRender";
+  from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/InputRender'
 import BannerInputRender
-  from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/BannerInputRender";
-import {StoreItemType} from "@/store/modules/stores";
-import {FormInstance} from "antd/lib/form/hooks/useForm";
+  from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/BannerInputRender'
+import { StoreItemType } from '@/store/modules/stores'
+import { FormInstance } from 'antd/lib/form/hooks/useForm'
 import SwitchRender
-  from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/SwitchRender";
-import { Map } from 'react-amap';
-import MapRender from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/MapRender";
+  from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/SwitchRender'
+import MapRender from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/MapRender'
 
 export type CreateStoreType = Omit<StoreItemType, "id" | "banners"> & { banners: string[]}
 const initCreateStore: CreateStoreType = {

@@ -5,6 +5,7 @@ export type ConfigurationType = {
   appName: string
   logo: string
   amapKey: string
+  amapSearchKey: string
 }
 
 export const getConfiguration = async (): Promise<ConfigurationType> => await get<ConfigurationType>("/configuration")

@@ -53,7 +53,7 @@ export type CompleteInputPropsType = {
   value?: AddressType
 }
 const CompleteInput: React.FC<CompleteInputPropsType> = (props) => {
-  const amapKey = useAppSelector(state => state.configuration.amapKey)
+  const amapSearchKey = useAppSelector(state => state.configuration.amapSearchKey)
 
   const [options, setOptions] = useState<OptionAddressType[]>([ ]);
   const [selectIndex, setSelectIndex] = useState<OptionAddressType| null>(null)
@@ -75,7 +75,7 @@ const CompleteInput: React.FC<CompleteInputPropsType> = (props) => {
   useEffect(() => handleInitOption() , [props.value])
   const handleChange = useMemo(() => {
     const callback = debounce((keywords: string) => {
-      keywords && getAddress(keywords, amapKey).then(newAddress => {
+      keywords && getAddress(keywords, amapSearchKey).then(newAddress => {
         setOptions(newAddress)
       } )
     }, 500)
