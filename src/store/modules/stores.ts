@@ -14,6 +14,7 @@ export type StoreItemType = {
   tags: string
   lat: number
   lng: number
+  businessHourse: [ string, string ]
   isEnable: boolean
   isStation: boolean
   isAirport: boolean

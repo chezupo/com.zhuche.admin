@@ -9,6 +9,7 @@ import { FormInstance } from 'antd/lib/form/hooks/useForm'
 import SwitchRender
   from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/SwitchRender'
 import MapRender from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/MapRender'
+import TimeRange from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/TimeRange'
 
 export type CreateStoreType = Omit<StoreItemType, "id" | "banners"> & { banners: string[]}
 const initCreateStore: CreateStoreType = {
@@ -21,6 +22,7 @@ const initCreateStore: CreateStoreType = {
   tags: '',
   lat: 0,
   lng: 0,
+  businessHourse: [ '08:00', '21:00' ],
   isAirport: false,
   isStation: false,
   isSelfService: false,
@@ -76,6 +78,12 @@ const StoreInformationForm: React.FC = () => {
           <SwitchRender label='机场' name='isAirport' rules={{required: true, message: '机场不能为空'}}/>
           <SwitchRender label='高铁站' name='isStation' rules={{required: true, message: '高铁站不能为空'}}/>
           <SwitchRender label='含自助车型' name='isSelfService' rules={{required: true, message: '自助车型不能为空'}}/>
+          <TimeRange
+            // startName="startBusinessAt"
+            // endName="endBusinessAt"
+            // startValue={form.getFieldValue("startBusinessAt")}
+            // endValue={form.getFieldValue("endBusinessAt")}
+          />
           <MapRender />
         </Row>
       </Form>
