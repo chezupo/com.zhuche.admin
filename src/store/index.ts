@@ -1,10 +1,12 @@
-import {configureStore} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import meSlice from '@/store/modules/me'
 import activeRouteSlice from '@/store/modules/activeRoute'
-import loadingSlice from "@/store/modules/loading";
-import bannersReducer from "@/store/modules/banners"
-import configurationReducer from "@/store/modules/configuration";
-
+import loadingSlice from '@/store/modules/loading'
+import bannersReducer from '@/store/modules/banners'
+import configurationReducer from '@/store/modules/configuration'
+import divisionReducer from '@/store/modules/division'
+import storeReducer from '@/store/modules/stores'
+import errorReducer from '@/store/modules/error'
 
 const store =  configureStore({
   reducer: {
@@ -12,7 +14,10 @@ const store =  configureStore({
     activeRoute: activeRouteSlice,
     loading: loadingSlice,
     banners: bannersReducer,
-    configuration: configurationReducer
+    configuration: configurationReducer,
+    division: divisionReducer,
+    store: storeReducer,
+    error: errorReducer
   },
 })
 

@@ -1,7 +1,8 @@
-import axios from "axios";
-import {getAccessToken} from "@/util/AuthUtil";
-import {Service} from 'axios-middleware';
-import ErrorHandler, {ErrorType, isErrorFromClient, isErrorFromServer} from "@/config/ErrorHandler";
+import axios from 'axios'
+import { getAccessToken } from '@/util/AuthUtil'
+import { Service } from 'axios-middleware'
+import ErrorHandler, { ErrorType, isErrorFromClient, isErrorFromServer } from '@/config/ErrorHandler'
+import { objectToQueryStr, QueryValueType } from '@/util/helper'
 
 
 const httpClient = axios.create({
@@ -48,26 +49,35 @@ service.register({
 })
 
 // post 请求
-export const post = async <T>(url: string, data?: any): Promise<T> =>  {
-  const response = data ? await httpClient.post(url, data) : await httpClient.post(url)
-  response.data === undefined && delete response.data;
+export const post = async <T>(url: string, data?: Record<string, object>): Promise<T> =>  {
+  try {
+    const response = data ? await httpClient.post(url, data) : await httpClient.post(url)
+    response.data === undefined && delete response.data;
 
-  const res = response as unknown as T;
-  return res as T;
+    const res = response as unknown as T;
+    return res as T;
+  }catch (e) {
+    throw new ErrorHandler(ErrorType.NETWORK_ERROR, (e as Error).message || '', 0)
+  }
 }
 
 // get 请求
-export const get = async <T>(url: string): Promise<T> =>  {
-  console.log(`Getting request: ${url}`)
-  const response = await httpClient.get(url)
-  response.data === undefined && delete response.data;
-  const res = response as unknown as T;
+export const get = async <T>(url: string, data?: Record<string, QueryValueType>): Promise<T> =>  {
+  try {
+    url += data ? objectToQueryStr(data) : ''
+    console.log(`Getting request: ${url}`)
+    const response = await httpClient.get(url )
+    response.data === undefined && delete response.data;
+    const res = response as unknown as T;
 
-  return res as T;
+    return res as T;
+  }catch (e) {
+    throw new ErrorHandler(ErrorType.NETWORK_ERROR, '网络错误，请联系管理员处理', 0)
+  }
 }
 
 // patch 请求
-export const patch= async <T>(url: string, data?: any): Promise<T> =>  {
+export const patch= async <T>(url: string, data?: Record<string, string | number | object>): Promise<T> =>  {
   const response = await httpClient.patch(url, data)
   response.data === undefined && delete response.data;
   console.log(`Patch request: ${url}`)
@@ -85,3 +95,4 @@ export const deleteRequest = async <T>(url: string): Promise<T> =>  {
 
   return res as T;
 }
+

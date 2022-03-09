@@ -1,4 +1,6 @@
 import {message as antMessage} from 'antd';
+import store from '@/store'
+import { showError } from '@/store/modules/error'
 
 export enum ErrorType {
   NETWORK_ERROR,  // 网络错误
@@ -16,6 +18,9 @@ export default class ErrorHandler extends Error{
     super(message);
     if (isErrorFromClient(errorCode)) antMessage.error(message);
     else if (isErrorFromServer(errorCode)) antMessage.error(message);
+    else if (errorType === ErrorType.NETWORK_ERROR) {
+      store.dispatch(showError({visitable: true, message}))
+    }
   }
 }
 

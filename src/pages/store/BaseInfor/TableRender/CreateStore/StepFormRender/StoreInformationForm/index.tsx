@@ -1,42 +1,59 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { Form, Row } from 'antd'
 import InputRender
   from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/InputRender'
 import BannerInputRender
   from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/BannerInputRender'
-import { StoreItemType } from '@/store/modules/stores'
 import { FormInstance } from 'antd/lib/form/hooks/useForm'
 import SwitchRender
   from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/SwitchRender'
 import MapRender from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/MapRender'
 import TimeRange from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/TimeRange'
+import {
+  areYouOkSubscription,
+  iAmOkSubscription,
+  StepIndexType
+} from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender'
+import { RuleObject } from 'rc-field-form/lib/interface'
+import { AddressType } from '@/typings'
 
-export type CreateStoreType = Omit<StoreItemType, "id" | "banners"> & { banners: string[]}
-const initCreateStore: CreateStoreType = {
-  name: 'hello',
-  mark: '',
-  starAt: '',
-  endAt: '',
-  address: '',
-  servicePhone: '',
-  tags: '',
-  lat: 0,
-  lng: 0,
-  businessHourse: [ '08:00', '21:00' ],
-  isAirport: false,
-  isStation: false,
-  isSelfService: false,
-  isEnable: true,
-  banners: []
+export type CreateStoreType = {
+  banners: string[]
+  name: string
+  mark: string
+  address: AddressType
+  servicePhone: string
+  businessHours: [ string, string ]
+  isEnable: boolean
+  isStation: boolean
+  isAirport: boolean
+  isSelfService: boolean
 }
 
 export const FormContext = React.createContext<FormInstance<CreateStoreType> | null >(null)
-const StoreInformationForm: React.FC = () => {
+type StoreInformationFormPropsType = {
+  onChange: (data: CreateStoreType) => void
+  data: CreateStoreType
+}
+const StoreInformationForm: React.FC<StoreInformationFormPropsType> = (props) => {
   const [form] = Form.useForm<CreateStoreType>();
-  const [createStore, setCreateStore] = useState<CreateStoreType>(initCreateStore)
-  const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
-  };
+  useEffect(() => {
+    const subscriptionHandler = areYouOkSubscription.subscription(() => {
+      form.validateFields().then(() => {
+        props.onChange( form.getFieldsValue(true) )
+        iAmOkSubscription.next(StepIndexType.STEP_2)
+      })
+    })
+    return () => {
+      areYouOkSubscription.unSubscription(subscriptionHandler)
+    }
+
+  }, [])
+  const mapValidator = async (rule: RuleObject, value: AddressType): Promise<void> => {
+    if (value.lat === 0 || value.lng === 0) {
+      throw new Error("地址不能为空")
+    }
+  }
 
   return (
     <FormContext.Provider value={form}>
@@ -45,8 +62,7 @@ const StoreInformationForm: React.FC = () => {
         form={form}
         name="advanced_search"
         className="ant-advanced-search-form"
-        onFinish={onFinish}
-        initialValues={createStore}
+        initialValues={props.data}
       >
         <Row gutter={24}>
           <InputRender
@@ -60,31 +76,25 @@ const StoreInformationForm: React.FC = () => {
             name='mark'
             placeholder='请输备注如：站内取还'
           />
+          <InputRender
+            label="电话电话"
+            name='servicePhone'
+            placeholder='请输入： 门店的客服电话'
+            number
+            rules={[{required: true, message: '客服电话不能为空'}]}
+          />
           <BannerInputRender
             label="门头图"
-            name='banners'
-            rules={{required: true, message: '门头图不能为空'}}
-          />
-          <BannerInputRender
-            label="还车指引"
-            name='banners'
-            rules={{required: true, message: '门头图不能为空'}}
-          />
-          <BannerInputRender
-            label="取车指引"
             name='banners'
             rules={{required: true, message: '门头图不能为空'}}
           />
           <SwitchRender label='机场' name='isAirport' rules={{required: true, message: '机场不能为空'}}/>
           <SwitchRender label='高铁站' name='isStation' rules={{required: true, message: '高铁站不能为空'}}/>
           <SwitchRender label='含自助车型' name='isSelfService' rules={{required: true, message: '自助车型不能为空'}}/>
-          <TimeRange
-            // startName="startBusinessAt"
-            // endName="endBusinessAt"
-            // startValue={form.getFieldValue("startBusinessAt")}
-            // endValue={form.getFieldValue("endBusinessAt")}
+          <TimeRange />
+          <MapRender
+            rules={[{required: true, message: '地址不能为空'}, {validator: mapValidator}]}
           />
-          <MapRender />
         </Row>
       </Form>
     </FormContext.Provider>

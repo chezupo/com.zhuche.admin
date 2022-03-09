@@ -21,10 +21,11 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+      "no-empty-function": 0
     },
   settings: {
       react: {
         version: 'detect'
-      }
+      },
   }
 }

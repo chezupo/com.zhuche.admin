@@ -17,8 +17,8 @@ const TableRender = () => {
     setDetail({content, isVisible: true})
   }
   const handleCancelShowDetail = () => setDetail(() => ({...detail, isVisible: false}))
-  const [editBannerInfo, setEditBannerInfo] = useState<{visitable: boolean; data: BannerType}>({visitable: false, data: {imgKey:'', id: 0, content: ''} });
-  const columns:ColumnsType<any> = [
+  const [editBannerInfo, setEditBannerInfo] = useState<{visitable: boolean; data: BannerType}>({visitable: false, data: {imgKey:'', id: 0, content: '', title: ''} });
+  const columns:ColumnsType = [
     {
       title: 'ID',
       dataIndex: 'id',

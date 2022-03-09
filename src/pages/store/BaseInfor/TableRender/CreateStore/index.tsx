@@ -1,11 +1,45 @@
 import React, {useState} from "react";
-import {Button, Modal} from "antd";
+import { Button, Modal, Spin } from 'antd'
 import style from "./style.module.less";
 import {AiOutlinePlus} from "react-icons/ai";
-import StepFormRender from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender";
+import StepFormRender, {
+  GuidType,
+  StoreAccountType
+} from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender'
+import { CreateStoreType } from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm'
+import { useAppDispatch } from '@/store/hooks'
+import { createStoreThunk } from '@/store/modules/stores'
+import { successMessage } from '@/util/messageUtil'
+import SubscriptionService from '@wuchuheng/rxjs'
 
+export const resetSubscription = new SubscriptionService<boolean>(true)
 const CreateStore: React.FC = () => {
-  const [visitable, setVisitable] = useState<boolean>(true)
+  const [visitable, setVisitable] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
+  const handleChange = (storeAccount: StoreAccountType, createStore:CreateStoreType, guid: GuidType) => {
+    setLoading(true)
+    dispatch(createStoreThunk({
+      ...storeAccount,
+      areaCode: createStore.address.areaCode,
+      ...createStore,
+      lng: createStore.address.lng,
+      lat: createStore.address.lat,
+      starAt: createStore.businessHours[0],
+      endAt: createStore.businessHours[1],
+      address: createStore.address.address,
+      pickupGuids: guid.pickupGuids.map(({title,key}) => ({imgKey: key, title})),
+      returnGuids: guid.returnGuids.map(({title,key}) => ({imgKey: key, title})),
+    })).then(() => {
+      successMessage("添加门店成功🎉🎉")
+      resetSubscription.next(true)
+      setVisitable(false)
+      setLoading(false)
+    }).catch(() => {
+      setLoading(false)
+    })
+  }
+
   return (
     <>
       <Button type='primary' onClick={() => setVisitable(true)} >
@@ -21,7 +55,9 @@ const CreateStore: React.FC = () => {
         footer={null}
         onCancel={() => setVisitable(false)}
       >
-        <StepFormRender />
+        <Spin spinning={loading}>
+          <StepFormRender onChange={handleChange} />
+        </Spin>
       </Modal>
     </>
   )

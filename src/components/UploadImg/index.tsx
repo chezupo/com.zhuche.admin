@@ -1,7 +1,7 @@
 import {Upload} from 'antd'
 import {LoadingOutlined, PlusOutlined} from '@ant-design/icons'
 import {createUploadToken} from "@/api/UploadTokens";
-import React, {useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {uploadFile} from "@/util/qiniuUploadUtil";
 
 export type ImgType = {key: string; prefixUrl: string}

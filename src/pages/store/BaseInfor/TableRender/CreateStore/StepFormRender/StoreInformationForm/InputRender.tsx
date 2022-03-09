@@ -8,6 +8,7 @@ export type InputRenderPropsType = {
   name: keyof CreateStoreType
   rules?:Rule | Rule[]
   placeholder?: string
+  number?: boolean
 }
 const InputRender: React.FC<InputRenderPropsType> = (props) => {
   let  rules: Rule[] = []
@@ -20,7 +21,12 @@ const InputRender: React.FC<InputRenderPropsType> = (props) => {
         label={props.label}
         rules={rules}
       >
-        <Input {...(props.placeholder ?  {placeholder: props.placeholder} : {}  )} />
+        <Input 
+        type={props.number ? 'number' : 'text'}
+        {...(props.placeholder ?  {
+          placeholder: props.placeholder
+        } : {}  )} 
+        />
       </Form.Item>
     </Col>
   )

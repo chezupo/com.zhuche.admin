@@ -1,12 +1,13 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ConfigurationType, getConfiguration, updateConfiguration, UpdateConfigurationType} from "@/api/Configurations";
-import {AppDispatch, RootState} from "@/store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ConfigurationType, getConfiguration, updateConfiguration, UpdateConfigurationType } from '@/api/Configurations'
+import { AppDispatch } from '@/store'
 
 const initialState: ConfigurationType = {
   imgPrefix: '',
   appName: '',
   logo: '',
-  amapKey: ''
+  amapKey: '',
+  amapSearchKey: ''
 }
 
 const configurationSlice = createSlice({

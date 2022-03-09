@@ -6,7 +6,7 @@ import {PlusOutlined} from '@ant-design/icons';
 import {uploadFile} from "@/util/qiniuUploadUtil";
 import SubscriptionService from "@wuchuheng/rxjs";
 
-type UploadMultipleImgPropsType = {
+export type UploadMultipleImgPropsType = {
   onChange?: (keys:string[]) => void
   value?: string[]
 }

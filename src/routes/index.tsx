@@ -3,7 +3,6 @@ import React from 'react'
 import Login from '@/pages/Login'
 import LayoutOld from '@/container/LayoutOld'
 import Layout from '@/container/Layout'
-import Tmp from '@/pages/Tmp'
 import Dashboard from '@/pages/Dashboard'
 import { AiOutlineDashboard, AiOutlineComment, AiOutlinePicture } from 'react-icons/ai'
 import FontIcon from '@/components/FontIcon'
@@ -52,9 +51,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
       {path: 'agreement', element: <Banner/>, icon: <FontIcon name='icon-hetong6' className={style.navIcon}/> , hideInMenu: false, name: '协议管理', children: [ ]},
     ]},
 
-
   {path: '/login', element: <Login />, hideInMenu: true, children: []},
-  {path: '/tmp', element: <Tmp/>, hideInMenu: true, children: []},
 ]
 
 export const getMenu = (children?:MenuItemType[]): MenuItemType[] => {

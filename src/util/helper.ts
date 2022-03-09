@@ -10,3 +10,31 @@ export const getTimeStr = (): string => {
   return `${y}-${m}-${d}-${h}-${minu}-${s}`
 }
 
+export type QueryValueType = string | number | boolean
+export const objectToQueryStr = (obj: Record<string, QueryValueType>): string => {
+  if (!obj) return ''
+  let result = "?"
+  for (const key in obj) {
+    if (key) {
+      result += `${key}=${obj[key]}&`
+    }
+  }
+
+  return result.substring(0, result.length - 1)
+}
+
+export const queryStrToObject = (queryStr: string): Record<string, QueryValueType> => {
+  queryStr = queryStr.substring(1)
+  const items: string[] = queryStr.split('&')
+  const result: Record<string, QueryValueType> = {}
+  items.map(el => {
+    const [k, v] = el.split('=')
+    if (k) {
+      result[k] = v
+    }
+  })
+
+  return result;
+}
+
+

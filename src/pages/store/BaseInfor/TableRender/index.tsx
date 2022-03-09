@@ -2,11 +2,7 @@ import React from "react";
 import {Col, Row} from "antd";
 import style from "./style.module.less"
 import CreateStore from "@/pages/store/BaseInfor/TableRender/CreateStore";
-
-const StoreTable: React.FC = () => {
-  return  (<>table</>)
-
-}
+import TablePageRender from '@/pages/store/BaseInfor/TableRender/TablePageRender'
 
 const TableRender:React.FC = () => {
   return (
@@ -17,7 +13,7 @@ const TableRender:React.FC = () => {
       <Col span={12} className={style.createWrapper}>
         <CreateStore />
       </Col>
-      <Col span={24}> <StoreTable /> </Col>
+      <Col span={24}> <TablePageRender/> </Col>
     </Row>
   )
 }

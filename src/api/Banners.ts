@@ -1,4 +1,5 @@
 import {deleteRequest, get, patch, post} from "@/util/httpClient";
+import { PageType } from '@/typings'
 
 export type BannerType = {
   id: number;
@@ -7,12 +8,7 @@ export type BannerType = {
   title: string;
 }
 
-export type BannersType = {
-  list: BannerType[]
-  total: number
-  currentPage: number
-  size: number
-}
+export type BannersType = PageType<BannerType>
 
 export const createBanner = async (newBanner: {imgKey: string; content: string}): Promise<BannerType> => {
   return await post<BannerType>('/banners', newBanner)
