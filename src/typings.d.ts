@@ -32,10 +32,17 @@ declare type UserType = {
   username: string
   roles: RoleType[]
 }
-declare type StoreBannerType = {
+declare type StoreBanner = {
   id: number
   imgKey: string
   prefixUrl: string
+}
+declare type StoreGuideType = {
+  id: number
+  prefixUrl: string
+  title: string
+  imgKey: string
+  store: Pick<StoreItemType, 'id' | 'name'>
 }
 declare type StoreItemType = {
   createdAt: string;
@@ -66,21 +73,9 @@ declare type StoreItemType = {
     isAirport: boolean
     isSelfService: boolean;
     admin: UserType
-    banners: StoreBannerType[],
-    pickupGuides: [
-    {
-      id: number
-      imgKey: string
-      title: string
-    }
-  ],
-    returnGuides: [
-    {
-      id: number
-      imgKey: string
-      title: string
-    }
-  ]
+    banners: StoreBanner[],
+    pickupGuides: StoreGuideType[]
+    returnGuides: StoreGuideType[]
 }
 
 declare type PageType<T> = {

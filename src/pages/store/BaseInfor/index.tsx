@@ -29,6 +29,7 @@ const BaseInfor: React.FC = () => {
       </Row>
       </Spin>
     </ContentContainer>
+
   </>)
 
 

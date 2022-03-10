@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react'
 
 const Store: React.FC = () => {
-  return <>store</>
+  return (
+    <>index</>
+  )
 }
 
 export default Store

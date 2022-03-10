@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getAccessToken } from '@/util/AuthUtil'
 import { Service } from 'axios-middleware'
 import ErrorHandler, { ErrorType, isErrorFromClient, isErrorFromServer } from '@/config/ErrorHandler'
-import { objectToQueryStr, QueryValueType } from '@/util/helper'
+import { objectToQueryStr } from '@/util/helper'
 
 
 const httpClient = axios.create({
@@ -49,7 +49,7 @@ service.register({
 })
 
 // post 请求
-export const post = async <T>(url: string, data?: Record<string, object>): Promise<T> =>  {
+export const post = async <T>(url: string, data?:object): Promise<T> =>  {
   try {
     const response = data ? await httpClient.post(url, data) : await httpClient.post(url)
     response.data === undefined && delete response.data;
@@ -62,7 +62,7 @@ export const post = async <T>(url: string, data?: Record<string, object>): Promi
 }
 
 // get 请求
-export const get = async <T>(url: string, data?: Record<string, QueryValueType>): Promise<T> =>  {
+export const get = async <T>(url: string, data?: object): Promise<T> =>  {
   try {
     url += data ? objectToQueryStr(data) : ''
     console.log(`Getting request: ${url}`)

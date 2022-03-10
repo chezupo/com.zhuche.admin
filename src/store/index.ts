@@ -7,6 +7,7 @@ import configurationReducer from '@/store/modules/configuration'
 import divisionReducer from '@/store/modules/division'
 import storeReducer from '@/store/modules/stores'
 import errorReducer from '@/store/modules/error'
+import storeGuids from '@/store/modules/storeGuids'
 
 const store =  configureStore({
   reducer: {
@@ -17,7 +18,8 @@ const store =  configureStore({
     configuration: configurationReducer,
     division: divisionReducer,
     store: storeReducer,
-    error: errorReducer
+    error: errorReducer,
+    storeGuids: storeGuids,
   },
 })
 

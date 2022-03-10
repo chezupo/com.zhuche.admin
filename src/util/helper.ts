@@ -11,7 +11,7 @@ export const getTimeStr = (): string => {
 }
 
 export type QueryValueType = string | number | boolean
-export const objectToQueryStr = (obj: Record<string, QueryValueType>): string => {
+export const objectToQueryStr = (obj: object): string => {
   if (!obj) return ''
   let result = "?"
   for (const key in obj) {

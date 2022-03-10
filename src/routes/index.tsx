@@ -4,19 +4,20 @@ import Login from '@/pages/Login'
 import LayoutOld from '@/container/LayoutOld'
 import Layout from '@/container/Layout'
 import Dashboard from '@/pages/Dashboard'
-import { AiOutlineDashboard, AiOutlineComment, AiOutlinePicture } from 'react-icons/ai'
+import { AiOutlineComment, AiOutlineDashboard } from 'react-icons/ai'
 import FontIcon from '@/components/FontIcon'
 import style from '@/styles/global.module.less'
 import Order1 from '@/pages/order/Order1'
 import Order2 from '@/pages/order/Order2'
 import Banner from '@/pages/Banner'
-import {BiSlideshow} from 'react-icons/bi'
-import {FiSettings} from 'react-icons/fi'
+import { BiSlideshow } from 'react-icons/bi'
+import { FiSettings } from 'react-icons/fi'
 import { BsShop } from 'react-icons/bs'
-import {RiGuideFill, RiArrowGoBackFill} from 'react-icons/ri'
-import BaseSetting from "@/pages/setting/BaseSetting";
-import Store from "@/pages/store";
-import BaseInfor from "@/pages/store/BaseInfor";
+import { RiGuideFill } from 'react-icons/ri'
+import BaseSetting from '@/pages/setting/BaseSetting'
+import Store from '@/pages/store'
+import BaseInfor from '@/pages/store/BaseInfor'
+import StoreReturnGuids from '@/pages/store/StoreReturnGuids'
 
 export type MenuItemType = {
   name: string;
@@ -33,9 +34,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     ]},
   {path: '/stores',hideInMenu: false, element: <Layout/>, icon: <BsShop className={style.navIcon}/> , name: '门店管理', children: [
       {path: '', element: <BaseInfor/>, icon: <BsShop className={style.navIcon}/> , hideInMenu: false, name: '基本信息', children: [ ]},
-      {path: 'banners', element: <Store/>, icon: <AiOutlinePicture className={style.navIcon}/> , hideInMenu: false, name: '门店图片', children: [ ]},
-      {path: 'pickupGuid', element: <Store/>, icon: <RiGuideFill className={style.navIcon}/> , hideInMenu: false, name: '取车指引', children: [ ]},
-      {path: 'returnGuid', element: <Store/>, icon: <RiArrowGoBackFill className={style.navIcon}/> , hideInMenu: false, name: '还车指引', children: [ ]},
+      {path: 'pickupGuid', element: <StoreReturnGuids/>, icon: <RiGuideFill className={style.navIcon}/> , hideInMenu: false, name: '取车/还车指引', children: [ ]},
       {path: 'commonts', element: <Store/>, icon: <AiOutlineComment className={style.navIcon}/> , hideInMenu: false, name: '门店评论', children: [ ]},
     ]},
   {path: '/orders',hideInMenu: false, element: <Layout/>, icon: <FontIcon name='icon-order' className={style.navIcon}/> , name: '订单', children: [

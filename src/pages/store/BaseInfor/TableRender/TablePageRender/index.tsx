@@ -1,7 +1,6 @@
 import { Button, Col, Image, Modal, Popconfirm, Row, Table, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table/interface'
-import { StoreItemType } from '@/typings'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { destroyThunk, getStoresThunk } from '@/store/modules/stores'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -12,6 +11,7 @@ import { RoleType } from '@/store/modules/me'
 import store from '@/store'
 import { errorMessage, successMessage } from '@/util/messageUtil'
 import EditorRender from '@/pages/store/BaseInfor/TableRender/EditorRender'
+import GuidePreviewRender from '@/pages/store/BaseInfor/TableRender/TablePageRender/GuidePreviewRender'
 
 export  const StateRender: React.FC<{isOk: boolean}>  = (props) => {
   return props.isOk ?  <Tag color='blue'>是</Tag> : <Tag color='red'>否</Tag>
@@ -26,6 +26,10 @@ const handleDestroy = (id: number) => {
 
 const TablePageRender: React.FC = () => {
   const [editData, setEditData] = useState<StoreItemType | null>(null)
+  const [previewGuides, setPreviewGuides] = useState< {title: string; guides: StoreGuideType[]} | null>(null)
+  const handlePreview = (guides: StoreGuideType[], title: string) => {
+    setPreviewGuides({ title, guides })
+  }
   const columns: ColumnsType<StoreItemType> = [
     {
       title: 'ID',
@@ -93,19 +97,19 @@ const TablePageRender: React.FC = () => {
 
         return (
           <>
-            <div className={style.bannerWrapper} >
-              {
-                record.banners.map(el => {
-                  return (
+            {record.banners.length > 0 ? (
+              <div className={style.bannerWrapper} >
+                {
+                  record.banners.map(el =>
                     <Image
                       key={el.id}
                       src={`${el.prefixUrl}/${el.imgKey}`}
                       className={style.image}
                     />
                   )
-                })
-              }
-            </div>
+                }
+              </div>
+            ) : <div className={style.empty}>无</div> }
           </>
         )
       }
@@ -113,13 +117,26 @@ const TablePageRender: React.FC = () => {
     {
       title: '取车指引',
       width: 100,
-      render: () => { return (<a>查看</a>) }
+      render: (value, record) => {
+
+        if (record.pickupGuides.length === 0) {
+          return <>无</>
+        } else {
+          return (<a onClick={() => handlePreview(record.pickupGuides, '取车指引')}>查看</a>)
+        }
+      }
     },
 
     {
       title: '还车指引',
       width: 100,
-      render: () => { return (<a>查看</a>) }
+      render: (value, record) => {
+        if (record.returnGuides.length === 0) {
+          return <>无</>
+        } else {
+          return (<a onClick={() => handlePreview(record.returnGuides, '还车指引')}>查看</a>)
+        }
+      }
     },
     {
       width: 150,
@@ -188,6 +205,15 @@ const TablePageRender: React.FC = () => {
         onSuccess={handleSuccess}
       />
     </Modal>
+    <Modal
+      visible={!!previewGuides}
+      title={previewGuides?.title}
+      onCancel={() => setPreviewGuides(null)}
+      footer={null}
+    >
+      <GuidePreviewRender data={previewGuides?.guides || []} />
+    </Modal>
+
   </>)
 }
 
