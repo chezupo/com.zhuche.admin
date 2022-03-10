@@ -25,6 +25,7 @@ export type CreateStoreType = {
   pickupGuids: GuidType[]
   returnGuids: GuidType[]
 }
+export type UpdateStoreType = Omit<CreateStoreType, 'pickupGuids' | 'returnGuids' | 'username' | 'password'>
 
 export const createStore = async (data: CreateStoreType) => await requestClient.post<StoreItemType>('/stores', data)
 
@@ -32,4 +33,10 @@ export const getStores = async (query: Record<string, QueryValueType>) => {
   return await requestClient.get<PageType<StoreItemType>>("/stores", query)
 }
 
-export const destory = async (id: number) => await requestClient.deleteRequest(`/stores/${id}`)
+export const destroy = async (id: number) => await requestClient.deleteRequest(`/stores/${id}`)
+
+export const update = async (id: number, data:UpdateStoreType) => {
+  return await requestClient.patch<StoreItemType>(`/stores/${id}`, data)
+}
+
+

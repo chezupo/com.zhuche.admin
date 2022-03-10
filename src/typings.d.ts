@@ -32,6 +32,11 @@ declare type UserType = {
   username: string
   roles: RoleType[]
 }
+declare type StoreBannerType = {
+  id: number
+  imgKey: string
+  prefixUrl: string
+}
 declare type StoreItemType = {
   createdAt: string;
   updatedAt: string;
@@ -61,13 +66,7 @@ declare type StoreItemType = {
     isAirport: boolean
     isSelfService: boolean;
     admin: UserType
-    banners: [
-    {
-      id: number
-      imgKey: string
-      prefixUrl: string
-    }
-  ],
+    banners: StoreBannerType[],
     pickupGuides: [
     {
       id: number

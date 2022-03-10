@@ -21,11 +21,12 @@ const InputRender: React.FC<InputRenderPropsType> = (props) => {
         label={props.label}
         rules={rules}
       >
-        <Input 
+        <Input
+          min={0}
         type={props.number ? 'number' : 'text'}
         {...(props.placeholder ?  {
           placeholder: props.placeholder
-        } : {}  )} 
+        } : {}  )}
         />
       </Form.Item>
     </Col>

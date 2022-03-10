@@ -77,7 +77,7 @@ export const get = async <T>(url: string, data?: Record<string, QueryValueType>)
 }
 
 // patch 请求
-export const patch= async <T>(url: string, data?: Record<string, string | number | object>): Promise<T> =>  {
+export const patch= async <T>(url: string, data?: object): Promise<T> =>  {
   const response = await httpClient.patch(url, data)
   response.data === undefined && delete response.data;
   console.log(`Patch request: ${url}`)

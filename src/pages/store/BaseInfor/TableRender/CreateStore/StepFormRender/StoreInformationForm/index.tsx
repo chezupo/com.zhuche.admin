@@ -15,7 +15,6 @@ import {
   StepIndexType
 } from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender'
 import { RuleObject } from 'rc-field-form/lib/interface'
-import { AddressType } from '@/typings'
 
 export type CreateStoreType = {
   banners: string[]
@@ -91,7 +90,7 @@ const StoreInformationForm: React.FC<StoreInformationFormPropsType> = (props) =>
           <SwitchRender label='机场' name='isAirport' rules={{required: true, message: '机场不能为空'}}/>
           <SwitchRender label='高铁站' name='isStation' rules={{required: true, message: '高铁站不能为空'}}/>
           <SwitchRender label='含自助车型' name='isSelfService' rules={{required: true, message: '自助车型不能为空'}}/>
-          <TimeRange />
+          <TimeRange formContext={form} />
           <MapRender
             rules={[{required: true, message: '地址不能为空'}, {validator: mapValidator}]}
           />

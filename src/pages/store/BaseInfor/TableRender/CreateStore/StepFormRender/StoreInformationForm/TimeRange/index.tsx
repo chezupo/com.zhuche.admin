@@ -1,15 +1,16 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Col, Form, Switch } from 'antd'
-import { FormContext } from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm'
 import TimePickerRender
   from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/TimeRange/TimePickerRender'
+import { FormInstance } from 'antd/lib/form/hooks/useForm'
 
 type TimeRangePropsType = {
   onChange?: (formatString: [string, string]) => void
+  formContext: FormInstance
 }
-const TimeRange: React.FC<TimeRangePropsType> = () => {
+const TimeRange: React.FC<TimeRangePropsType> = (props) => {
   const fullDayValue: [string, string] = ["00:00", "23:59"]
-  const form = useContext(FormContext)
+  const form = props.formContext
   const value = form?.getFieldValue("businessHours")
   const [isFullDay, setIsFullDay] = useState<boolean>(JSON.stringify(fullDayValue) === JSON.stringify(value))
   const format = "HH:mm"
@@ -17,9 +18,9 @@ const TimeRange: React.FC<TimeRangePropsType> = () => {
   const handleChangeFullDay = (newIsFullDay: boolean) => {
     if (newIsFullDay) {
       const oleValue = form?.getFieldValue("businessHours")
-      form?.setFieldsValue({
-        businessHours: ["00:00", "23:59"]
-      })
+      props.formContext.setFieldsValue({
+        businessHours: fullDayValue
+        })
       setOldBusinessHours(oleValue)
     } else {
       form?.setFieldsValue({

@@ -15,6 +15,7 @@ const TimePickerRender: React.FC<TimePickerRenderPropsType> = (props) => {
   const handleChange = (values: RangeValue<moment.Moment>, formatString: FormatStringType) => {
     props.onChange && props.onChange(formatString)
   }
+  console.log(props.value)
 
   return (<TimePicker.RangePicker
     onChange={handleChange}

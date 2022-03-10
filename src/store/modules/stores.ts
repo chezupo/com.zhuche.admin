@@ -1,6 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { PageType, StoreItemType } from '@/typings'
-import { createStore, CreateStoreType, destory, getStores } from '@/api/stores'
+import {
+  createStore,
+  CreateStoreType,
+  destroy,
+  getStores,
+  UpdateStoreType,
+  update as updateStore
+} from '@/api/stores'
 import { AppDispatch, RootState } from '@/store'
 import { queryStrToObject } from '@/util/helper'
 
@@ -69,8 +75,17 @@ export const getStoresThunk = () => {
 export const destroyThunk = (id: number) => {
   return async (dispatch: AppDispatch):Promise<void> => {
     dispatch(setLoading(true))
-      await destory(id)
+      await destroy(id)
       await dispatch(getStoresThunk())
+    dispatch(setLoading(false))
+  }
+}
+
+export const updateThunk = (id: number, data: UpdateStoreType) => {
+  return async (dispatch: AppDispatch):Promise<void> => {
+    dispatch(setLoading(true))
+    await updateStore(id, data)
+    await dispatch(getStoresThunk())
     dispatch(setLoading(false))
   }
 }

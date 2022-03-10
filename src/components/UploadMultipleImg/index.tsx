@@ -62,6 +62,8 @@ const UploadMultipleImg: React.FC<UploadMultipleImgPropsType> = (props) => {
   }
   const handleChange = ({file, fileList}: UploadChangeParam): void => {
     fileListDispatch(fileList)
+    const urls = fileList.filter(f => f.status === 'done').map(f => f.url as string)
+    props.onChange && props.onChange(urls)
   }
   const handleBeforeUpload = (file: RcFile) => {
     uploadFile(file,{
