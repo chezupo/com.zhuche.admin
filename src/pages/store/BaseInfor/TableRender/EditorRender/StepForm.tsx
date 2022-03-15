@@ -1,16 +1,14 @@
 import * as React from 'react'
 import { ReactNode, useEffect, useReducer, useRef } from 'react'
 import { Steps } from 'antd'
-import style from './style.module.less'
+import style from '../CreateStore/StepFormRender/style.module.less'
 import SubscriptionService from '@wuchuheng/rxjs'
-import CreateAccountForm from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/AccountFormRedner'
 import StoreInformationForm, { CreateStoreType } from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm'
 import StepButtonRender from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StepButtonRender'
 import MarkRender from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/MarkRender'
 import GuidRender from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/GuidRender'
 import { GuidItemType } from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/GuidRender/TableRender'
-import { resetSubscription } from '@/pages/store/BaseInfor/TableRender/CreateStore'
-import { initGuid, initStoreData, intiStoreAccount } from './data'
+import { convertCreateStore, initGuid } from '../CreateStore/StepFormRender/data'
 
 const { Step } = Steps;
 
@@ -18,14 +16,8 @@ export const areYouOkSubscription = new SubscriptionService<string>("")
 export enum StepIndexType {
   STEP_1,
   STEP_2,
-  STEP_3
 }
-export const iAmOkSubscription = new SubscriptionService<StepIndexType>(StepIndexType.STEP_1)
 
-export type StoreAccountType = {
-  username: string
-  password: string
-}
 type StepType = {
   title: string
   content: ReactNode,
@@ -33,8 +25,7 @@ type StepType = {
 }
 export const stepList: StepIndexType[] = [
   StepIndexType.STEP_1,
-  StepIndexType.STEP_2,
-  StepIndexType.STEP_3,
+  StepIndexType.STEP_2
 ]
 
 export type GuidType = {
@@ -47,51 +38,44 @@ enum StepReplayType {
   RESET
 }
 type StepFormRenderPropsType = {
-  onChange: (storeAccount: StoreAccountType, createStore:CreateStoreType, guid: GuidType) => void
+  onChange: (createStore:CreateStoreType, guid: GuidType) => void
+  storeData: StoreItemType
 }
 const StepFormRender: React.FC<StepFormRenderPropsType> = (props) => {
-  const storeAccountRef = useRef<StoreAccountType>()
-  const [storeAccount, storeAccountDispatch] = useReducer((state: StoreAccountType, newState: StoreAccountType): StoreAccountType => {
-    storeAccountRef.current = newState;
-    return newState
-  }, intiStoreAccount)
   const createStoreDataRef = useRef<CreateStoreType>()
   const [createStoreData,createStoreDataDispatch] = useReducer( (state:CreateStoreType, newState: CreateStoreType ):CreateStoreType  => {
     createStoreDataRef.current = newState
     return newState
-  }, initStoreData)
+  }, convertCreateStore(props.storeData))
   const guidRef = useRef<GuidType>()
   const [guid, guidDispatch] = useReducer((state: GuidType, newState: GuidType) => {
     guidRef.current = newState
     return newState
   }, initGuid)
-  //  重置清空
-  useEffect(() => {
-    const subscriptionHandler = resetSubscription.subscription(() => {
-      storeAccountDispatch(intiStoreAccount)
-      createStoreDataDispatch(initStoreData)
-      guidDispatch(initGuid)
-      currentStepIndexDispatch(StepReplayType.RESET)
+  const handleInit = () => {
+    createStoreDataDispatch(convertCreateStore(props.storeData))
+    guidDispatch({
+      returnGuids: props.storeData.returnGuides,
+      pickupGuids: props.storeData.pickupGuides
     })
-    return () => {
-      resetSubscription.unSubscription(subscriptionHandler)
+    currentStepIndexDispatch(StepReplayType.RESET)
+  }
+  useEffect(() => handleInit(), [])
+  useEffect(() => handleInit(), [props.storeData])
+  const handleChange = () => {
+    if (currentStepIndex === StepIndexType.STEP_2) {
+      handleSubmit()
+    } else {
+      currentStepIndexDispatch(StepReplayType.NEXT)
     }
-  }, [])
+  }
 
   const steps:StepType[] = [
-    {
-      title: '创建门店管理员账号',
-      content: <CreateAccountForm
-        onChange={storeAccountDispatch}
-        data={storeAccount}
-      />,
-      mark: ( <p>创建门店的管理员，该账号专门负责对该门店进行管理</p>)
-    },
     {
       title: '填写门店信息',
       content: (<StoreInformationForm
         areYouOk={areYouOkSubscription}
-        onOk={ () => iAmOkSubscription.next(StepIndexType.STEP_2) }
+        onOk={handleChange}
         data={createStoreData}
         onChange={createStoreDataDispatch}
       />),
@@ -100,9 +84,9 @@ const StepFormRender: React.FC<StepFormRenderPropsType> = (props) => {
     {
       title: '取/还车指南',
       content: <GuidRender
-        areYouOk={areYouOkSubscription}
-        onOk={() => iAmOkSubscription.next(StepIndexType.STEP_3)}
         data={guid}
+        onOk={handleChange}
+        areYouOk={areYouOkSubscription}
         onChange={guidDispatch}
       />,
       mark: ( <p>上传取车各还车指引</p>)
@@ -117,28 +101,14 @@ const StepFormRender: React.FC<StepFormRenderPropsType> = (props) => {
   const next = () => {
     areYouOkSubscription.next("Are you Ok?")
   };
-  const initSubscription = () => {
-    const subscriptionHandler = iAmOkSubscription.subscription((message) => {
-      if (message === StepIndexType.STEP_3) {
-        handleSubmit()
-      } else {
-        currentStepIndexDispatch(StepReplayType.NEXT)
-      }
-    })
-    return () => {
-      iAmOkSubscription.unSubscription(subscriptionHandler)
-    }
-  }
-  useEffect(() => initSubscription(), [])
 
   const prev = () => {
     currentStepIndexDispatch(StepReplayType.PREV)
   };
   const handleSubmit = () => {
     props.onChange(
-      storeAccountRef.current as StoreAccountType,
       createStoreDataRef.current as CreateStoreType,
-      guidRef.current || initGuid
+      guidRef.current as GuidType
     )
   }
 
@@ -162,3 +132,4 @@ const StepFormRender: React.FC<StepFormRenderPropsType> = (props) => {
 }
 
 export default StepFormRender
+

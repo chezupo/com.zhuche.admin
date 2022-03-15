@@ -1,8 +1,8 @@
-import { PageType, StoreItemType } from '@/typings'
 import * as requestClient from '@/util/httpClient'
 import { QueryValueType } from '@/util/helper'
 
 type GuidType = {
+  id: number
   title: string
   imgKey: string
 }
@@ -25,7 +25,14 @@ export type CreateStoreType = {
   pickupGuids: GuidType[]
   returnGuids: GuidType[]
 }
-export type UpdateStoreType = Omit<CreateStoreType, 'pickupGuids' | 'returnGuids' | 'username' | 'password'>
+export type UpdateItemGuidType = Omit<GuidType, 'id'> & {id: number | null}
+export type UpdateStoreType = Omit<
+  CreateStoreType,
+  'username' | 'password' | 'id' | 'pickupGuids' | 'returnGuids'
+  > & {
+  pickupGuids: UpdateItemGuidType[]
+  returnGuids: UpdateItemGuidType[]
+}
 
 export const createStore = async (data: CreateStoreType) => await requestClient.post<StoreItemType>('/stores', data)
 

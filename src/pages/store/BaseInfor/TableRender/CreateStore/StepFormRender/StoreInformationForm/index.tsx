@@ -10,11 +10,11 @@ import SwitchRender
 import MapRender from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/MapRender'
 import TimeRange from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/TimeRange'
 import {
-  areYouOkSubscription,
   iAmOkSubscription,
   StepIndexType
 } from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender'
 import { RuleObject } from 'rc-field-form/lib/interface'
+import SubscriptionService from '@wuchuheng/rxjs'
 
 export type CreateStoreType = {
   banners: string[]
@@ -33,21 +33,26 @@ export const FormContext = React.createContext<FormInstance<CreateStoreType> | n
 type StoreInformationFormPropsType = {
   onChange: (data: CreateStoreType) => void
   data: CreateStoreType
+  areYouOk: SubscriptionService<string>
+  onOk: () => void
 }
 const StoreInformationForm: React.FC<StoreInformationFormPropsType> = (props) => {
   const [form] = Form.useForm<CreateStoreType>();
-  useEffect(() => {
-    const subscriptionHandler = areYouOkSubscription.subscription(() => {
+  const handleInit = () => {
+    form.setFieldsValue(props.data)
+    const subscriptionHandler = props.areYouOk.subscription(() => {
       form.validateFields().then(() => {
         props.onChange( form.getFieldsValue(true) )
-        iAmOkSubscription.next(StepIndexType.STEP_2)
+        props.onOk()
       })
     })
     return () => {
-      areYouOkSubscription.unSubscription(subscriptionHandler)
+      props.areYouOk.unSubscription(subscriptionHandler)
     }
+  }
 
-  }, [])
+  useEffect(() => handleInit(), [])
+  useEffect(() => handleInit(), [props.data])
   const mapValidator = async (rule: RuleObject, value: AddressType): Promise<void> => {
     if (value.lat === 0 || value.lng === 0) {
       throw new Error("地址不能为空")
@@ -83,6 +88,7 @@ const StoreInformationForm: React.FC<StoreInformationFormPropsType> = (props) =>
             rules={[{required: true, message: '客服电话不能为空'}]}
           />
           <BannerInputRender
+            form={form}
             label="门头图"
             name='banners'
             rules={{required: true, message: '门头图不能为空'}}

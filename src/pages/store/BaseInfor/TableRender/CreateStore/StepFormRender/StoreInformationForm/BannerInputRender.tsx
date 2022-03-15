@@ -1,11 +1,13 @@
-import React, {useContext, useEffect} from "react";
-import {InputRenderPropsType} from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/InputRender";
-import {Rule} from "antd/es/form";
-import {Col, Form} from "antd";
+import React, { useContext, useEffect } from 'react'
+import { InputRenderPropsType } from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/InputRender'
+import { Rule } from 'antd/es/form'
+import { Col, Form, FormInstance } from 'antd'
 import UploadMultipleImg, { UploadMultipleImgPropsType } from '@/components/UploadMultipleImg'
-import {FormContext} from "@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/index";
+import {
+  CreateStoreType,
+  FormContext
+} from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/index'
 import { useAppSelector } from '@/store/hooks'
-import { BannersType, BannerType } from '@/api/Banners'
 
 const UploadMultipleImgRender: React.FC<UploadMultipleImgPropsType> = (props) => {
   const imgPrefix = useAppSelector(state => state.configuration.imgPrefix)
@@ -20,8 +22,8 @@ const UploadMultipleImgRender: React.FC<UploadMultipleImgPropsType> = (props) =>
   return <UploadMultipleImg onChange={handleChange} value={value}/>
 }
 
-const BannerInputRender: React.FC<InputRenderPropsType> = (props)=> {
-  const form = useContext(FormContext)
+const BannerInputRender: React.FC<InputRenderPropsType & {form: FormInstance<CreateStoreType>}> = (props)=> {
+  const form = props.form
   useEffect(() => {
     console.log(form?.setFieldsValue({banners: [
       ]}))

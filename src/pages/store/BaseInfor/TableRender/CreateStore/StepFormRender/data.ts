@@ -26,3 +26,29 @@ export const initStoreData: CreateStoreType =  {
 }
 export const intiStoreAccount: StoreAccountType = { username: '', password: '' }
 export const initGuid: GuidType = { pickupGuids: [], returnGuids: [] }
+
+export const convertCreateStore = (data: StoreItemType): CreateStoreType => {
+  return {
+    banners: data.banners.map(el => el.imgKey),
+    name: data.name,
+    mark: data.mark,
+    address: {
+      province: data.province.name,
+      name: data.name,
+      city: data.city.name,
+      area: data.area.name,
+      provinceCode: data.province.code,
+      cityCode: data.city.code,
+      areaCode: data.area.code,
+      address: data.address,
+      lng: data.lng,
+      lat: data.lat
+    },
+    servicePhone: data.servicePhone,
+    businessHours: [data.starAt, data.endAt],
+    isEnable: data.isEnable,
+    isStation: data.isStation,
+    isAirport: data.isAirport,
+    isSelfService: data.isSelfService
+  }
+}

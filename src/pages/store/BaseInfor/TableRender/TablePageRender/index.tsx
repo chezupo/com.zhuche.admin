@@ -38,10 +38,16 @@ const TablePageRender: React.FC = () => {
       fixed: 'left',
     },
     {
-      width: 100,
+      width:  200,
       fixed: 'left',
-      title: '店名',
-      dataIndex: 'name'
+      title: '店名'
+      ,
+      render: (index, record) => {
+        return (  <>
+          { record.name }
+          { record.mark.length > 0 && <>({record.mark})</> }
+        </>)
+      }
     },
     {
       title: '营业时间',
@@ -187,6 +193,7 @@ const TablePageRender: React.FC = () => {
   }
   const handleSuccess = () => {
     setEditData(null)
+    successMessage("更新成功🎉🎉🎉")
   }
 
   return (<>

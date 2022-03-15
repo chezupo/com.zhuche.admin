@@ -15,13 +15,12 @@ const TimePickerRender: React.FC<TimePickerRenderPropsType> = (props) => {
   const handleChange = (values: RangeValue<moment.Moment>, formatString: FormatStringType) => {
     props.onChange && props.onChange(formatString)
   }
-  console.log(props.value)
 
   return (<TimePicker.RangePicker
     onChange={handleChange}
     value={[
-      moment((props.value as FormatStringType)[0], props.format),
-      moment((props.value as FormatStringType)[1], props.format)
+      props.value && props.value[0] ? moment((props.value as FormatStringType)[0], props.format) : moment('08:00', props.format),
+      props.value && props.value[1] ? moment((props.value as FormatStringType)[1], props.format) : moment('08:00', props.format)
     ]}
     disabled={props.isFullDay}
     style={{ width: '100%' }}

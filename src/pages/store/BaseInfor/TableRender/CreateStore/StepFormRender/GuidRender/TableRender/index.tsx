@@ -7,20 +7,15 @@ import TitleRender
   from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/GuidRender/TableRender/TitleRender'
 import style from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/GuidRender/style.module.less'
 import SubscriptionService from '@wuchuheng/rxjs'
+import { FormInstance } from 'antd/lib/form/hooks/useForm'
 
-export type GuidItemType = {
-  id: number
-  key: string
-  imgPrefix: string
-  title: string
-}
+export type GuidItemType = Omit<StoreGuideType, 'store'>
 export const idToTitleName = (id: number): string  => `${id}|title`
 export const idToImgName = (id: number): string => 'id' + id
-export const getIdByImgName = (id: string): number => parseInt(id.substring(2))
 const initFormData = (data: GuidItemType[]): Record<string, string> => {
   const res: Record<string, string> = {}
   data.map(el => {
-    res[idToImgName(el.id)] = el.key
+    res[idToImgName(el.id)] = el.imgKey
     res[idToTitleName(el.id)] = el.title
   })
 
@@ -31,26 +26,30 @@ type TableRenderPropsType = {
   data: GuidItemType[]
   onChange: (newData: GuidItemType[]) => void
   onCreate: () => void
-  onOk: (ok: boolean) => void
-  subscription: SubscriptionService<string>
+  onOk?: (ok: boolean) => void
+  subscription?: SubscriptionService<string>
+  onRef?: (form: FormInstance) => void
 }
-const TableRender: React.FC<TableRenderPropsType> = ({data, onChange, onCreate, onOk, subscription}) => {
+const TableRender: React.FC<TableRenderPropsType> = ({onRef ,data, onChange, onCreate, onOk, subscription}) => {
   const [form] = Form.useForm()
-  useEffect(() => {
-    const subscriptionHandler = subscription.subscription(() => {
+  const handleInit = () => {
+    onRef && onRef(form)
+    const subscriptionHandler = subscription?.subscription(() => {
       form.validateFields().then(() => {
-        onOk(true)
-      }).catch(() =>  {
-        onOk(false)
+        onOk && onOk(true)
+      }).catch(e =>  {
+        console.log(e)
       })
     })
     return () => {
-      subscription.unSubscription(subscriptionHandler)
+      subscriptionHandler && subscription?.unSubscription(subscriptionHandler)
     }
-  }, [])
+  }
+  useEffect(() => handleInit(), [])
+  useEffect(() => handleInit(), [data])
   const handleChangeImg = (img: ImgType, id: number) => {
     onChange(
-      data.map(el => el.id === id ? {...el, key: img.key, imgPrefix: img.prefixUrl} : el)
+      data.map(el => el.id === id ? {...el, imgKey: img.key, prefixUrl: img.prefixUrl} : el)
     )
   }
   const handleTitle = (newTitle: string, id: number): void => {
