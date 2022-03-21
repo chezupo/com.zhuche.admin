@@ -7,7 +7,7 @@ import {UpdateConfigurationType} from "@/api/Configurations";
 import {successMessage} from "@/util/messageUtil";
 
 const FormRender: React.FC = () => {
-  const {appName, imgPrefix, logo} = useAppSelector(state => state.configuration)
+  const {appName, imgPrefix, logo, notice} = useAppSelector(state => state.configuration)
   const [form] = Form.useForm();
   const [imgUrl, setImgUrl] = useState<string>(logo)
   form.setFieldsValue({appName, logo})
@@ -38,7 +38,7 @@ const FormRender: React.FC = () => {
         form={form}
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
-        initialValues={{appName, logo}}
+        initialValues={{appName, logo, notice}}
         onFinish={handleFinish}
       >
         <Form.Item
@@ -54,6 +54,13 @@ const FormRender: React.FC = () => {
           rules={[{required: true, message: 'Logo不能为空'}]}
         >
           <UploadImg imageUrl={`${imgPrefix}/${imgUrl}`} onUploaded={(e) => handleUploadIg(e.key)} />
+        </Form.Item>
+        <Form.Item
+          label='公告'
+          name='notice'
+          rules={[{required: true, message: '公告不能为空'}]}
+        >
+          <Input />
         </Form.Item>
         <Form.Item wrapperCol={{offset: 10, span: 14 }} >
           <Button type="primary" htmlType="submit">保存</Button>

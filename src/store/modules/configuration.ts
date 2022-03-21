@@ -7,7 +7,8 @@ const initialState: ConfigurationType = {
   appName: '',
   logo: '',
   amapKey: '',
-  amapSearchKey: ''
+  amapSearchKey: '',
+  notice: ''
 }
 
 const configurationSlice = createSlice({
