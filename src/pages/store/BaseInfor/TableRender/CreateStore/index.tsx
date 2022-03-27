@@ -1,16 +1,18 @@
 import React, {useState} from "react";
-import { Button, Modal, Spin } from 'antd'
+import {Button, Modal, Spin} from 'antd'
 import style from "./style.module.less";
 import {AiOutlinePlus} from "react-icons/ai";
 import StepFormRender, {
   GuidType,
   StoreAccountType
 } from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender'
-import { CreateStoreType } from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm'
-import { useAppDispatch } from '@/store/hooks'
-import { createStoreThunk } from '@/store/modules/stores'
-import { successMessage } from '@/util/messageUtil'
+import {CreateStoreType} from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm'
+import {useAppDispatch} from '@/store/hooks'
+import {createStoreThunk} from '@/store/modules/stores'
+import {successMessage} from '@/util/messageUtil'
 import SubscriptionService from '@wuchuheng/rxjs'
+import Permission from "@/components/Permission";
+import {RoleType} from "@/store/modules/me";
 
 export const resetSubscription = new SubscriptionService<boolean>(true)
 const CreateStore: React.FC = () => {
@@ -42,12 +44,15 @@ const CreateStore: React.FC = () => {
 
   return (
     <>
-      <Button type='primary' onClick={() => setVisitable(true)} >
-        <div className={style.buttonContentWrapper}>
-          <AiOutlinePlus className={style.createButton}/>
-          <div>创建门店 </div>
-        </div>
-      </Button>
+      <Permission roles={[RoleType.ROLE_ADMIN]}>
+        <Button type='primary' onClick={() => setVisitable(true)} >
+          <div className={style.buttonContentWrapper}>
+            <AiOutlinePlus className={style.createButton}/>
+            <div>创建门店 </div>
+          </div>
+        </Button>
+      </Permission>
+
       <Modal
         width={1500}
         title="创建门店"

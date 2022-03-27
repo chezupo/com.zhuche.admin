@@ -84,3 +84,21 @@ declare type PageType<T> = {
   currentPage: number
   size: number
 }
+
+declare type BrandSeriesItemType = {
+  id: number
+  name: string
+}
+declare type BrandItemType = {
+  id: number
+  name: string
+  imgKey: string
+  store: StoreItemType
+  series: BrandSeriesItemType[]
+}
+
+declare type StoreCarConfigItemType = {
+  id: number
+  name: string
+  store: StoreItemType
+}

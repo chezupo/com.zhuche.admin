@@ -6,6 +6,8 @@ import { toggleObserve } from '@/store/toggleObserve'
 import ListRender from '@/container/Layout/MainTainer/NavigationBar/ListRender'
 import store from '@/store'
 import { save } from '@/store/modules/activeRoute'
+import {useSelector} from "react-redux";
+import {useAppSelector} from "@/store/hooks";
 
 const NavigationBar: React.FC = () => {
   const menus: MenuItemType[] = getMenu()

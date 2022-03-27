@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form, Input } from 'antd'
+import {Button, Col, Form, Grid, Input, Row} from 'antd'
 import style from './style.module.less'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { objectToQueryStr, queryStrToObject } from '@/util/helper'
@@ -57,45 +57,56 @@ const FilterRender: React.FC = () => {
       className={style.main}
       form={form}
     >
-      <Form.Item
-        className={style.item}
-        label="店名"
-        name="name"
-      >
-        <Input placeholder="请输入店名" />
-      </Form.Item>
-      <Form.Item label="省份" name='provinceCode' className={style.item}>
-        <ProvinceRender />
-      </Form.Item>
-      <Form.Item
-        label="城市"
-        name='cityCode'
-        className={style.item}
-      >
-        <CityRender />
-      </Form.Item>
-      <Form.Item
-        label="地区"
-        name='area'
-        className={style.item}
-      >
-        <AreaRender />
-      </Form.Item>
-
-      <Form.Item
-        className={[style.item].join(' ')}
-      >
-        <div className={style.buttonWrapper}>
-          <Button
-            type="default"
-            onClick={handleReset}
-          >重置</Button>
-          <Button
-            type="primary"
-            onClick={handleSearch}
-          >搜索</Button>
-        </div>
-      </Form.Item>
+      <Row gutter={[24, 0]}  align="middle">
+        <Col span={5} className={style.col}>
+          <Form.Item
+            className={style.item}
+            label="店名"
+            name="name"
+          >
+            <Input placeholder="请输入店名" />
+          </Form.Item>
+        </Col>
+        <Col span={5} className={style.col}>
+          <Form.Item label="省份" name='provinceCode' className={style.item}>
+            <ProvinceRender />
+          </Form.Item>
+        </Col>
+        <Col span={5} className={style.col}>
+          <Form.Item
+            label="城市"
+            name='cityCode'
+            className={style.item}
+          >
+            <CityRender />
+          </Form.Item>
+        </Col>
+        <Col span={5} className={style.col}>
+          <Form.Item
+            label="地区"
+            name='area'
+            className={style.item}
+          >
+            <AreaRender />
+          </Form.Item>
+        </Col>
+        <Col span={4} className={style.col}>
+          <Form.Item
+            className={[style.item].join(' ')}
+          >
+            <div className={style.buttonWrapper}>
+              <Button
+                type="default"
+                onClick={handleReset}
+              >重置</Button>
+              <Button
+                type="primary"
+                onClick={handleSearch}
+              >搜索</Button>
+            </div>
+          </Form.Item>
+        </Col>
+      </Row>
     </Form>
   )
 }

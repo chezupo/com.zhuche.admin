@@ -5,6 +5,7 @@ import style from '@/container/Layout/MainTainer/NavigationBar/style.module.less
 import { useNavigate } from 'react-router-dom'
 import { MenuItemType } from '@/routes'
 import LiItem from '@/container/Layout/MainTainer/NavigationBar/LiItem'
+import {useAppSelector} from "@/store/hooks";
 
 export type ListRenderPropsType = {
   data: MenuItemType;
@@ -14,6 +15,7 @@ export type ListRenderPropsType = {
 }
 
 const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
+  const me = useAppSelector(state => state.me)
   const ulRef = useRef<HTMLUListElement>(null)
   const[isOpen, setIsOpen] = useState<boolean>(false)
   const [maxHeight, setMaxHeight] = useState<number>(0)
@@ -54,33 +56,50 @@ const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
     props.onMatch && props.onMatch(name)
   }
 
-  return (
-    <li >
-      <LiItem
-        onClick={handleClick}
-        data={data}
-        level={props.level}
-        isOpen={isOpen}
-        prefix={prefix}
-        onMatch={(name) => handleMatch( name)}
-      />
-      { !isTopOneItem &&
-      props.data.children && (
-        <ul className={[style.subUl, style.closeUl].join(' ')} ref={ulRef}
-            style={{ maxHeight: maxHeight + 'px', }}
-        >
-          {props.data.children.map((item, key) => (
-            <ListRender
-              onMatch={(name) => handleMatch(props.data.name + '/' + name)}
-              data={item} key={item.path} level={props.level + 1} prefix={
-              prefix.length === 0 ? '' + data.path : prefix + '/' + data.path
-            }
-            />
-          ))}
-        </ul>
-      )
+  let visitable = true
+  if(data.roles && me.roles) {
+    visitable = false
+    for (const role of data.roles) {
+      if (me.roles.includes(role)) {
+        visitable = true
+        break
       }
-    </li>
+    }
+  }
+
+  return (
+    <>
+      {
+        visitable && (
+          <li >
+            <LiItem
+              onClick={handleClick}
+              data={data}
+              level={props.level}
+              isOpen={isOpen}
+              prefix={prefix}
+              onMatch={(name) => handleMatch( name)}
+            />
+            { !isTopOneItem &&
+            props.data.children && (
+              <ul className={[style.subUl, style.closeUl].join(' ')} ref={ulRef}
+                  style={{ maxHeight: maxHeight + 'px', }}
+              >
+                {props.data.children.map((item, key) => (
+                  <ListRender
+                    onMatch={(name) => handleMatch(props.data.name + '/' + name)}
+                    data={item} key={item.path} level={props.level + 1} prefix={
+                    prefix.length === 0 ? '' + data.path : prefix + '/' + data.path
+                  }
+                  />
+                ))}
+              </ul>
+            )
+            }
+          </li>
+        )
+      }
+    </>
   )
 }
 

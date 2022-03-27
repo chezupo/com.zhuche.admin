@@ -2,17 +2,16 @@ import React from 'react'
 
 type FontIconPropsType = {
   className?: string;
-  name: string
+  name: 'order' | 'car' |  'nav' | 'hetong' | 'config' | 'brand'
 }
-const FontIcon: React.FC<FontIconPropsType> = (props) => {
+const FontIcon: React.FC<FontIconPropsType> = props => {
   return (
     <i className={[
       'iconfont',
-      props.name,
-      props.className ? props.className : ''
+      props.name ? `icon-${props.name}` : '',
+      props.className || ''
     ].join(' ')
-    } ></i>
-
+    } />
   )
 
 }

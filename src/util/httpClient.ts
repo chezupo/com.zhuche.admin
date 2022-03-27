@@ -8,9 +8,14 @@ import { objectToQueryStr } from '@/util/helper'
 const httpClient = axios.create({
   baseURL: "https://a1001zhuche.jds.wuchuheng.com/api/v1",
   // baseURL: "https://a1001zhuche.jds.wuchuheng.com/api/v1",
-  headers: {
-    ...( getAccessToken() ? {Authorization: `Bearer ${getAccessToken()?.accessToken}`} : {} )
+})
+httpClient.interceptors.request.use(config => {
+  const token = getAccessToken()
+  if (token) {
+    config.headers.Authorization =  token ? `Bearer ${getAccessToken()?.accessToken}` : '';
   }
+
+  return config
 })
 
 const service  = new Service(httpClient);

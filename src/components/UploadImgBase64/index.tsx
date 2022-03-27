@@ -1,39 +1,32 @@
 import {Upload} from 'antd'
 import {LoadingOutlined, PlusOutlined} from '@ant-design/icons'
-import {createUploadToken} from "@/api/UploadTokens";
+import convert from 'image-file-resize';
 import React, {useState} from 'react'
-import {uploadFile} from "@/util/qiniuUploadUtil";
+import {fileToBase64} from "@wuchuhengtools/helper";
 
-export type ImgType = {key: string; prefixUrl: string}
+
 export type UploadImgPropsType = {
-  onUploaded?: (newImg: ImgType) => void
+  onUploaded?: (newImg: string) => void
   imageUrl?: string
 }
-const UploadImg = (props: UploadImgPropsType) => {
+const UploadImgBase64 = (props: UploadImgPropsType) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [progress, setProgress] = useState<number>(0)
-  const beforeUpload = async (file: File): Promise<boolean> => {
+  const beforeUpload = (file: File)  => {
     setLoading(true)
-    try {
-      const uploadTokenInfo = await createUploadToken();
-      const {key, prefixUrl}= await uploadFile(file, {
-        next: percent => {
-          setProgress(percent)
-        },
-        error: () => {
-          setLoading(false)
-        },
-      })
-      setLoading(false)
-      props.onUploaded && props.onUploaded({
-        prefixUrl: uploadTokenInfo.prefixUrl,
-        key
-      })
-    }catch (e) {
-      setLoading(false)
-    }
+    convert({
+      file: file,
+      width: 20,
+      height: 20,
+      type: 'jpeg'
+    }).then(resp => fileToBase64(resp as File))
+      .then(base64 => {
+        props.onUploaded(base64)
+      }).finally(() => {
+        setLoading(false)
+    })
 
-    return false
+    return Upload.LIST_IGNORE
   }
 
   const uploadButton = (
@@ -46,6 +39,7 @@ const UploadImg = (props: UploadImgPropsType) => {
   );
     return (
       <Upload
+        accept='.png,.jpg,.jpeg'
         name="avatar"
         listType="picture-card"
         className="avatar-uploader"
@@ -57,4 +51,4 @@ const UploadImg = (props: UploadImgPropsType) => {
     )
 
 }
-export default UploadImg
+export default UploadImgBase64

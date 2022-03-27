@@ -8,6 +8,8 @@ import divisionReducer from '@/store/modules/division'
 import storeReducer from '@/store/modules/stores'
 import errorReducer from '@/store/modules/error'
 import storeGuids from '@/store/modules/storeGuids'
+import brandReducer from "@/store/modules/brand";
+import storeCarConfigReducer from "@/store/modules/storeCarConfig";
 
 const store =  configureStore({
   reducer: {
@@ -20,6 +22,8 @@ const store =  configureStore({
     store: storeReducer,
     error: errorReducer,
     storeGuids: storeGuids,
+    brands: brandReducer,
+    storeCarConfig: storeCarConfigReducer,
   },
 })
 
