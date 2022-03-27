@@ -2,18 +2,26 @@ import React, {useEffect, useState} from "react";
 import HeaderPage from "@/components/HeaderPage";
 import ContentContainer from "@/components/ContentContainer";
 import style from "./style.module.less"
-import {Col, Row, Spin, Table} from "antd";
+import {Button, Col, Popconfirm, Row, Spin, Table} from "antd";
 import {ColumnsType} from "antd/lib/table/interface";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
-import {getStoreCarConfigsThunk, initThunk} from "@/store/modules/storeCarConfig";
+import {destoryStoreCarConfigThunk, getStoreCarConfigsThunk, initThunk} from "@/store/modules/storeCarConfig";
 import {useLocation, useNavigate} from "react-router-dom";
 import {obj2Query, query2Obj} from "@wuchuhengtools/helper";
 import CreateRender from "@/pages/Car/Config/CreateRender";
 import Permission from "@/components/Permission";
 import {RoleType} from "@/store/modules/me";
+import EditRender from "@/pages/Car/Config/EditRender";
 
 const Config: React.FC = () => {
   const [prevSearch, setPrevSearch] = useState<string>('')
+  const [editStoreCarConfig, setEditStoreCarConfig] = useState<StoreCarConfigItemType | null>(null)
+  const dispatch = useAppDispatch()
+  const handleDestroy = (id: number) => {
+    dispatch(destoryStoreCarConfigThunk(id)).then(() => {
+      console.log("Destroy storeCarConfig.")
+    })
+  }
   const columns:ColumnsType<StoreCarConfigItemType> = [
     {
       title: 'ID',
@@ -31,13 +39,31 @@ const Config: React.FC = () => {
     },
     {
       title: '操作',
-      render: () => {
-        return (<>hello</>)
+      render: (_, record) => {
+        return (<Row gutter={[24, 0]}>
+          <Col>
+            <Button
+              type='primary'
+              onClick={() => setEditStoreCarConfig(record)}
+            >
+              修改
+            </Button>
+          </Col>
+          <Col>
+            <Popconfirm
+              title="是否要删除这行数据?"
+              cancelText='取消'
+              okText='确定'
+              onConfirm={() => handleDestroy(record.id)}
+            >
+              <Button danger>删除</Button>
+            </Popconfirm>
+          </Col>
+        </Row>)
       }
     }
   ]
   const {loading, list} = useAppSelector(state => state.storeCarConfig)
-  const dispatch = useAppDispatch()
   useEffect(() => {
     if (list.list.length === 0) {
       dispatch(initThunk()).then(() => {
@@ -84,6 +110,13 @@ const Config: React.FC = () => {
             </Spin>
           </Col>
         </Row>
+        {
+          editStoreCarConfig && <EditRender
+            onCancel={() => setEditStoreCarConfig(null)}
+            data={editStoreCarConfig}
+            onSuccess={() => setEditStoreCarConfig(null)}
+          />
+        }
       </div>
     </ContentContainer>
   </>)

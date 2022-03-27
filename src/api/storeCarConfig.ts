@@ -1,4 +1,4 @@
-import {get, post} from "@/util/httpClient";
+import {deleteRequest, get, patch, post} from "@/util/httpClient";
 
 export type GetStoreCarConfigsQueryType = {
   page: number
@@ -6,6 +6,9 @@ export type GetStoreCarConfigsQueryType = {
   name?: string
 }
 export type CreateStoreCarConfigQueryType = {
+  name: string
+}
+export type UpdateStoreCarConfigQueryType = {
   name: string
 }
 
@@ -18,4 +21,20 @@ const createStoreCarConfig = async (data: CreateStoreCarConfigQueryType): Promis
   return await post<StoreCarConfigItemType>('/storeCarConfigs', data)
 }
 
-export {getStoreCarConfigs, createStoreCarConfig}
+const updateStoreCarConfig = async (id: number, query: UpdateStoreCarConfigQueryType): Promise<StoreCarConfigItemType> => {
+  return await patch<StoreCarConfigItemType>(`/storeCarConfigs/${id}`, query)
+
+}
+
+const destoryStoreCarConfig = async (id: number): Promise<void> => {
+  return await deleteRequest<void>(`/storeCarConfigs/${id}`)
+
+}
+
+
+export {
+  getStoreCarConfigs,
+  createStoreCarConfig,
+  updateStoreCarConfig,
+  destoryStoreCarConfig
+}

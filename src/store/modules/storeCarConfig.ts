@@ -3,9 +3,9 @@ import {AppDispatch, RootState} from "@/store";
 import {query2Obj} from "@wuchuhengtools/helper";
 import {
   createStoreCarConfig,
-  CreateStoreCarConfigQueryType,
+  CreateStoreCarConfigQueryType, destoryStoreCarConfig,
   getStoreCarConfigs,
-  GetStoreCarConfigsQueryType
+  GetStoreCarConfigsQueryType, updateStoreCarConfig, UpdateStoreCarConfigQueryType
 } from "@/api/storeCarConfig";
 
 type InitialStateType = {
@@ -90,6 +90,36 @@ const createStoreCarConfigThunk = (data: CreateStoreCarConfigQueryType) => {
   }
 }
 
+const updateStoreCarConfigThunk = (id: number, data: UpdateStoreCarConfigQueryType) => {
+  return async (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
+    dispatch(setLoading(true))
+    try {
+      await updateStoreCarConfig(id, data)
+      await dispatch(getStoreCarConfigsThunk())
+    }finally {
+      dispatch(setLoading(false))
+    }
+  }
+}
+
+const destoryStoreCarConfigThunk = (id: number) => {
+  return async (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
+    dispatch(setLoading(true))
+    try {
+      await destoryStoreCarConfig(id)
+      await dispatch(getStoreCarConfigsThunk())
+    }finally {
+      dispatch(setLoading(false))
+    }
+  }
+}
+
 export const {init, setLoading, save} = storeCarConfigSlice.actions
-export {initThunk, getStoreCarConfigsThunk, createStoreCarConfigThunk}
+export {
+  initThunk,
+  getStoreCarConfigsThunk,
+  createStoreCarConfigThunk,
+  updateStoreCarConfigThunk,
+  destoryStoreCarConfigThunk
+}
 export default storeCarConfigReducer
