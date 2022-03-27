@@ -1,9 +1,12 @@
-import {get} from "@/util/httpClient";
+import {get, post} from "@/util/httpClient";
 
 export type GetStoreCarConfigsQueryType = {
   page: number
   size: number
   name?: string
+}
+export type CreateStoreCarConfigQueryType = {
+  name: string
 }
 
 const getStoreCarConfigs = async (data: GetStoreCarConfigsQueryType): Promise<PageType<StoreCarConfigItemType>> => {
@@ -11,4 +14,8 @@ const getStoreCarConfigs = async (data: GetStoreCarConfigsQueryType): Promise<Pa
 
 }
 
-export {getStoreCarConfigs}
+const createStoreCarConfig = async (data: CreateStoreCarConfigQueryType): Promise<StoreCarConfigItemType> => {
+  return await post<StoreCarConfigItemType>('/storeCarConfigs', data)
+}
+
+export {getStoreCarConfigs, createStoreCarConfig}

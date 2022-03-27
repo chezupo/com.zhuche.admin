@@ -1,7 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppDispatch, RootState} from "@/store";
 import {query2Obj} from "@wuchuhengtools/helper";
-import {getStoreCarConfigs, GetStoreCarConfigsQueryType} from "@/api/storeCarConfig";
+import {
+  createStoreCarConfig,
+  CreateStoreCarConfigQueryType,
+  getStoreCarConfigs,
+  GetStoreCarConfigsQueryType
+} from "@/api/storeCarConfig";
 
 type InitialStateType = {
   list: PageType<StoreCarConfigItemType>
@@ -73,7 +78,18 @@ const getStoreCarConfigsThunk = () => {
   }
 }
 
+const createStoreCarConfigThunk = (data: CreateStoreCarConfigQueryType) => {
+  return async (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
+    dispatch(setLoading(true))
+    try {
+      await createStoreCarConfig(data)
+      await dispatch(getStoreCarConfigsThunk())
+    }finally {
+      dispatch(setLoading(false))
+    }
+  }
+}
 
 export const {init, setLoading, save} = storeCarConfigSlice.actions
-export {initThunk, getStoreCarConfigsThunk}
+export {initThunk, getStoreCarConfigsThunk, createStoreCarConfigThunk}
 export default storeCarConfigReducer

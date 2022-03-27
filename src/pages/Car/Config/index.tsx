@@ -8,6 +8,9 @@ import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {getStoreCarConfigsThunk, initThunk} from "@/store/modules/storeCarConfig";
 import {useLocation, useNavigate} from "react-router-dom";
 import {obj2Query, query2Obj} from "@wuchuhengtools/helper";
+import CreateRender from "@/pages/Car/Config/CreateRender";
+import Permission from "@/components/Permission";
+import {RoleType} from "@/store/modules/me";
 
 const Config: React.FC = () => {
   const [prevSearch, setPrevSearch] = useState<string>('')
@@ -64,6 +67,11 @@ const Config: React.FC = () => {
     <ContentContainer>
       <div className={style.main}>
         <Row>
+          <Permission roles={[RoleType.ROLE_BUSINESS]}>
+              <Col span={24}>
+                <CreateRender />
+              </Col>
+          </Permission>
           <Col span={24}>
             <Spin spinning={loading}>
             <Table
