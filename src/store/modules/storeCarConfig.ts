@@ -45,8 +45,8 @@ const initThunk = () => {
     const {search} = document.location
     const queryObj = query2Obj(search)
     const query: GetStoreCarConfigsQueryType = {
-      page: parseInt(queryObj.page ) || currentPage,
-      size: parseInt(queryObj.size) || size,
+      page: parseInt(queryObj?.page ) || currentPage,
+      size: parseInt(queryObj?.size) || size,
       ...(queryObj.name ? {name: queryObj.name} : {})
     }
     try {
@@ -65,8 +65,8 @@ const getStoreCarConfigsThunk = () => {
     const {search} = document.location
     const queryObj = query2Obj(search)
     const query: GetStoreCarConfigsQueryType = {
-      page: parseInt(queryObj.page ) || currentPage,
-      size: parseInt(queryObj.size) || size,
+      page: parseInt(queryObj?.page ) || currentPage,
+      size: parseInt(queryObj?.size) || size,
       ...(queryObj.name ? {name: queryObj.name} : {})
     }
     try {

@@ -42,6 +42,6 @@ export default class MyUploadAdapter implements UploadAdapter{
 
   // Aborts the upload process.
   abort() {
-    this.subscription && this.subscription.unsubscribe()
+    this.subscription?.unsubscribe()
   }
 }
