@@ -20,7 +20,7 @@ import NotFound from "@/pages/NotFound";
 import Brand from "@/pages/Car/Brand";
 import Home from "@/pages/Home";
 import Config from "@/pages/Car/Config";
-import Log from "@/pages/Log";
+import Log from "@/pages/setting/Log";
 
 export type MenuItemType = {
   name: string;

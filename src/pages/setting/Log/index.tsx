@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
 import HeaderPage from "@/components/HeaderPage";
 import ContentContainer from "@/components/ContentContainer";
-import {Modal, Spin, Table} from "antd";
+import {Modal, Spin, Table, Tag} from "antd";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import style from "./style.module.less"
 import {ColumnsType} from "antd/lib/table/interface";
 import {getLogsThunk, initThunk} from "@/store/modules/log";
 import {useLocation, useNavigate} from "react-router-dom";
 import {obj2Query, query2Obj} from "@wuchuhengtools/helper";
-import {getLogs} from "@/api/log";
 
 const Log: React.FC = () => {
   const [detail, setDetail] = useState<string>('')
@@ -29,6 +28,17 @@ const Log: React.FC = () => {
     {
       title: '操作类型',
       dataIndex: 'type',
+      render: (_, record) => {
+        switch (record.type) {
+          case 'CREATED':
+            return <Tag color='green'>创建</Tag>
+          case 'DELETED':
+            return <Tag color='red'>删除</Tag>
+          case 'UPDATED':
+            return <Tag color='yellow'>更新</Tag>
+        }
+        return <></>
+      }
     },
     {
       title: '处理的文件',
