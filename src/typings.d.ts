@@ -102,3 +102,20 @@ declare type StoreCarConfigItemType = {
   name: string
   store: StoreItemType
 }
+declare enum LogTypeType {
+  CREATED,
+  UPDATED,
+  DELETED
+}
+
+declare type LogItemType = {
+  createdAt: string
+  id: number
+  title: string
+  type: LogTypeType
+  params: string
+  description: string
+  requestPath: string
+  className: string
+  user: UserType
+}

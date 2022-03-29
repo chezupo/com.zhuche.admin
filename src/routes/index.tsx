@@ -20,6 +20,7 @@ import NotFound from "@/pages/NotFound";
 import Brand from "@/pages/Car/Brand";
 import Home from "@/pages/Home";
 import Config from "@/pages/Car/Config";
+import Log from "@/pages/Log";
 
 export type MenuItemType = {
   name: string;
@@ -177,6 +178,14 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         icon: <FontIcon name='hetong' className={style.navIcon}/> ,
         hideInMenu: false,
         name: '协议管理',
+        children: [ ]
+      },
+      {
+        path: 'logs',
+        element: <Log />,
+        icon: <FontIcon name='log' className={style.navIcon}/> ,
+        hideInMenu: false,
+        name: '操作日志',
         children: [ ]
       },
     ],

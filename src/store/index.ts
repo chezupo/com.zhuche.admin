@@ -10,6 +10,7 @@ import errorReducer from '@/store/modules/error'
 import storeGuids from '@/store/modules/storeGuids'
 import brandReducer from "@/store/modules/brand";
 import storeCarConfigReducer from "@/store/modules/storeCarConfig";
+import logReducer from "@/store/modules/log";
 
 const store =  configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store =  configureStore({
     storeGuids: storeGuids,
     brands: brandReducer,
     storeCarConfig: storeCarConfigReducer,
+    log: logReducer
   },
 })
 
