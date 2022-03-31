@@ -21,6 +21,7 @@ import Brand from "@/pages/Car/Brand";
 import Home from "@/pages/Home";
 import Config from "@/pages/Car/Config";
 import Log from "@/pages/setting/Log";
+import Car from "@/pages/Car/Car";
 
 export type MenuItemType = {
   name: string;
@@ -113,7 +114,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     children: [
       {
         path: 'cars',
-        element: <Order1/>,
+        element: <Car/> ,
         icon: <FontIcon name='car' className={style.navIcon}/> ,
         hideInMenu: false,
         name: '汽车管理',

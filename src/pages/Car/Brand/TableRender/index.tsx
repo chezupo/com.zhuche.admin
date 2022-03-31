@@ -8,12 +8,14 @@ import {getBrandThunk, initBrandThunk} from "@/store/modules/brand";
 import EditModal from "./EditModel";
 import Permission from "@/components/Permission";
 import {RoleType} from "@/store/modules/me";
+import BrandSeries from "@/pages/Car/Brand/TableRender/BrandSeries";
 
 const TableRender: React.FC = () => {
   const dispatch = useAppDispatch()
   const data = useAppSelector(state => state.brands.list)
   const loading = useAppSelector(state => state.brands.loading)
   const [editBrand, setEditBrand] = useState<BrandItemType | null>(null)
+  const [visitSeries, setVisitSeries] = useState<BrandItemType | null>(null)
   useEffect(() => {
     if (data.list.length === 0) {
       dispatch(initBrandThunk()).then(() => {
@@ -47,11 +49,14 @@ const TableRender: React.FC = () => {
       title: '操作',
       render: (v, record) => {
         return (<>
-          <Row>
+          <Row gutter={[24, 0]}>
             <Col><Button
               type='primary'
               onClick={() => setEditBrand(record)}
             >修改</Button></Col>
+            <Col><Button
+              onClick={() => setVisitSeries(record)}
+            >查看车系</Button></Col>
           </Row>
         </>)
       }
@@ -69,6 +74,7 @@ const TableRender: React.FC = () => {
       onUpdated={() => setEditBrand(null)}
       onCancel={() => setEditBrand(null)}
     /> }
+    { visitSeries && <BrandSeries data={visitSeries} onClose={() => setVisitSeries(null)} /> }
     <Spin spinning={loading}>
       <div className={style.main}>
         <Row gutter={[0, 12]} >

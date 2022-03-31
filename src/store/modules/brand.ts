@@ -1,7 +1,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppDispatch, RootState} from "@/store";
 import {createBrand, CreateBrandType, getBrands, GetBrandsQueryType, updateBrand} from "@/api/brand";
-import {obj2Query, query2Obj} from "@wuchuhengtools/helper";
+import {query2Obj} from "@wuchuhengtools/helper";
+import {createBrandSeries} from "@/api/BrandSeries";
 
 type InitialStateType = {
   list: PageType<BrandItemType>
@@ -21,6 +22,9 @@ const brandSlice = createSlice({
   initialState,
   reducers: {
     init: (state, action: PayloadAction<PageType<BrandItemType>>): InitialStateType => {
+      return {...state, list: action.payload}
+    },
+    save: (state, action: PayloadAction<PageType<BrandItemType>>): InitialStateType => {
       return {...state, list: action.payload}
     },
     setLoading: (state, action: PayloadAction<boolean>): InitialStateType => {
@@ -93,7 +97,33 @@ const updateBrandThunk = (data: BrandItemType) => {
   }
 }
 
-const { setLoading, init} = brandSlice.actions
-export {createBrandThunk, initBrandThunk, getBrandThunk, updateBrandThunk}
+const createBrandSeriesThunk = (brandId: number, requestBody: {name: string}) => {
+  return async (dispatch: AppDispatch, getState: () => RootState): Promise<BrandSeriesItemType> => {
+    dispatch( setLoading(true) )
+    try {
+      const newBrandSeries = await createBrandSeries(brandId, requestBody)
+      const brands = getState().brands
+      const newList = brands.list.list.map(brand => {
+        if (brand.id === brandId) {
+          return {...brand, seriesList: [...brand.seriesList, newBrandSeries] }
+        }
+        return brand
+      })
+      dispatch(save({...brands.list, list: newList}))
+      return newBrandSeries;
+    }finally {
+      dispatch( setLoading(false) )
+    }
+  }
+}
+
+const { setLoading, init, save} = brandSlice.actions
+export {
+  createBrandThunk,
+  initBrandThunk,
+  getBrandThunk,
+  updateBrandThunk,
+  createBrandSeriesThunk
+}
 export default brandReducer
 

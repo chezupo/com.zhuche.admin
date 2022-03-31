@@ -94,7 +94,7 @@ declare type BrandItemType = {
   name: string
   imgKey: string
   store: StoreItemType
-  series: BrandSeriesItemType[]
+  seriesList: BrandSeriesItemType[]
 }
 
 declare type StoreCarConfigItemType = {
@@ -114,4 +114,31 @@ declare type LogItemType = {
   requestPath: string
   className: string
   user: UserType
+}
+declare enum CarPowerType {
+  GAS = 'GAS', // 汽油
+  ELECTRIC_GAS = 'ELECTRIC_GAS', // 油电
+  ELECTRIC = 'ELECTRIC' // 纯电
+}
+
+declare type CarEngineType  = 'SUPERCHARGED' | 'NATURALLY_ASPIRATED' // 自然吸汽
+declare type CarShiftType = 'AUTO' | 'MANUAL'
+
+declare type CarItemType = {
+  id: number
+  powerType: CarPowerType // 动力类型
+  isSelfHelp: boolean // 是否自助
+  displacement: number // 排量
+  shift:CarShiftType // 档类型
+  gasVolume: number // 油量
+  seats: number // 座位数
+  engineType:CarEngineType // 发动机类型
+  name: string
+  cover: string // 封面
+  type: string // 车型
+  tags: string[] // 标签
+  licenseType: string // 牌照
+  number: string // 车牌号
+  isOnline: boolean // 是否上架
+  brand: BrandItemType // 品牌
 }
