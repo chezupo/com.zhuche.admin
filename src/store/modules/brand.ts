@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppDispatch, RootState} from "@/store";
 import {createBrand, CreateBrandType, getBrands, GetBrandsQueryType, updateBrand} from "@/api/brand";
 import {query2Obj} from "@wuchuhengtools/helper";
-import {createBrandSeries} from "@/api/BrandSeries";
+import {createBrandSeries, deleteBrandSeries, updateBrandSeries} from "@/api/BrandSeries";
 
 type InitialStateType = {
   list: PageType<BrandItemType>
@@ -117,13 +117,54 @@ const createBrandSeriesThunk = (brandId: number, requestBody: {name: string}) =>
   }
 }
 
+
+const updateBrandSeriesThunk = (brandId: number,requestBody: BrandSeriesItemType) => {
+  return async (dispatch: AppDispatch, getState: () => RootState): Promise<BrandSeriesItemType> => {
+    dispatch( setLoading(true) )
+    try {
+      const newBrandSeries = await updateBrandSeries(requestBody)
+      const brands = getState().brands
+      const newList = brands.list.list.map(brand => {
+        if (brand.id === brandId) {
+          return {...brand, seriesList: [...brand.seriesList.map(el => el.id === requestBody.id ? requestBody : el)] }
+        }
+        return brand
+      })
+      dispatch(save({...brands.list, list: newList}))
+      return newBrandSeries;
+    }finally {
+      dispatch( setLoading(false) )
+    }
+  }
+}
+
+const deleteBrandSeriesThunk = (brandId: number,id:number) => {
+  return async (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
+    dispatch( setLoading(true) )
+    try {
+      const newBrandSeries = await deleteBrandSeries(id)
+      const brands = getState().brands
+      const newList = brands.list.list.map(brand => {
+        if (brand.id === brandId) {
+          return {...brand, seriesList: [...brand.seriesList.filter(el => el.id !== id)] }
+        }
+        return brand
+      })
+      dispatch(save({...brands.list, list: newList}))
+    }finally {
+      dispatch( setLoading(false) )
+    }
+  }
+}
 const { setLoading, init, save} = brandSlice.actions
 export {
   createBrandThunk,
   initBrandThunk,
   getBrandThunk,
   updateBrandThunk,
-  createBrandSeriesThunk
+  createBrandSeriesThunk,
+  updateBrandSeriesThunk,
+  deleteBrandSeriesThunk
 }
 export default brandReducer
 
