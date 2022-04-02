@@ -115,14 +115,14 @@ declare type LogItemType = {
   className: string
   user: UserType
 }
-declare enum CarPowerType {
-  GAS = 'GAS', // 汽油
-  ELECTRIC_GAS = 'ELECTRIC_GAS', // 油电
-  ELECTRIC = 'ELECTRIC' // 纯电
-}
-
 declare type CarEngineType  = 'SUPERCHARGED' | 'NATURALLY_ASPIRATED' // 自然吸汽
 declare type CarShiftType = 'AUTO' | 'MANUAL'
+
+declare type CarPowerType =
+  'GAS' // 汽油
+  | 'ELECTRIC_GAS' // 油电
+  | 'ELECTRIC'// 纯电
+
 
 declare type CarItemType = {
   id: number
@@ -138,6 +138,7 @@ declare type CarItemType = {
   type: string // 车型
   tags: string[] // 标签
   licenseType: string // 牌照
+  seriesId: number
   number: string // 车牌号
   isOnline: boolean // 是否上架
   brand: BrandItemType // 品牌

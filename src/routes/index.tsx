@@ -125,7 +125,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         element: <Brand />,
         icon: <FontIcon name='brand' className={style.navIcon}/> ,
         hideInMenu: false,
-        name: '品牌管理',
+        name: '品牌车系',
         roles: [RoleType.ROLE_BUSINESS, RoleType.ROLE_ADMIN],
         children: [ ]
       },

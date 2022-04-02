@@ -20,10 +20,14 @@ const getBrands = async (page: GetBrandsQueryType): Promise<PageType<BrandItemTy
   return await get<PageType<BrandItemType>>('/brands', {...page})
 }
 
+const getAllBrands = async (): Promise<PageType<BrandItemType>> => {
+  return await get<PageType<BrandItemType>>('/brands')
+}
+
 const updateBrand = async (data: BrandItemType): Promise<BrandItemType> => {
   const {id, name, imgKey} = data
   return await patch<BrandItemType>(`/brands/${id}`, {imgKey, name})
 
 }
 
-export {createBrand, getBrands, updateBrand}
+export {createBrand, getBrands, updateBrand, getAllBrands}
