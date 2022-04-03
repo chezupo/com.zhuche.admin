@@ -21,7 +21,7 @@ const LiItem: React.FC<LiItemPropsType> = ({onMatch, ...props}) => {
   const myRoute = props.level === 1 ? props.prefix + props.data.path : props.prefix + '/' + props.data.path
   const currentRoute = location.pathname
   const isActive = myRoute === currentRoute
-  const isParentRoute = !!currentRoute.match(myRoute.replace(/\\/g, '/'))  && !isActive
+  const isParentRoute = currentRoute.match && !!(currentRoute.match(myRoute.replace(/\\/g, '/')))  && !isActive
   useEffect(() => {
     isActive && onMatch(props.data.name)
   }, [])

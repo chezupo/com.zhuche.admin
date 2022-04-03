@@ -4,7 +4,6 @@ type PageQueryType = {
   page: number
   size: number
 }
-
 const getPageQuery = (page: number, size: number): PageQueryType => {
   const {search} = document.location
   const searchObj = query2Obj(search)

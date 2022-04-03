@@ -1,11 +1,15 @@
 import React, {useEffect} from "react";
-import {Col, Form, Row, Table, Image, Button, Tag} from "antd";
+import {Button, Col, Image, Row, Table, Tag} from "antd";
 import Permission from "@/components/Permission";
 import {RoleType} from "@/store/modules/me";
 import CreateModal from "@/pages/Car/Car/TableRender/CreateModal";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
-import {initThunk} from "@/store/modules/car";
+import {fetchThunk, initThunk} from "@/store/modules/car";
 import {ColumnsType} from "antd/lib/table/interface";
+import {getPageQuery} from "@/util/paginationUtil";
+import {useNavigate} from "react-router-dom";
+import {obj2Query} from "@wuchuhengtools/helper";
+import PaginationListener from "@/components/PaginationListener";
 
 const TableRender: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -143,22 +147,37 @@ const TableRender: React.FC = () => {
       }
     }
   ]
+  const handleFetch = () => {
+    dispatch(fetchThunk()).then(() => {
+      console.log("Fetched cars.")
+    })
+  }
+  const navigator = useNavigate()
+  const handleChange = (page: number, size: number) => {
+    const {pathname}  = document.location
+    const queryObj = getPageQuery(page, size)
+    const queryStr = obj2Query({...queryObj, page, size})
+    navigator(pathname + queryStr)
+  }
 
   return (<>
+    <PaginationListener onChange={handleFetch} />
     <Row gutter={[0, 12]}>
       <Permission roles={[RoleType.ROLE_BUSINESS]} >
         <Col span={24}>
           <CreateModal />
         </Col>
       </Permission>
-      <Col span={24}>
-        <Table
-          scroll={{ x: 1300 }}
-          loading={loading}
-          columns={columns}
-          dataSource={list.list}
-          rowKey={record => record.id }
-        />
+      <Col span={24} onClick={e => e.stopPropagation()}>
+          <Table
+            scroll={{ x: 1300 }}
+            loading={loading}
+            columns={columns}
+            dataSource={list.list}
+            pagination={{pageSize: list.size, current: list.currentPage, total: list.total}}
+            rowKey={record => record.id }
+            onChange={e => handleChange(e.current!, e.pageSize!)}
+          />
       </Col>
     </Row>
   </>)
