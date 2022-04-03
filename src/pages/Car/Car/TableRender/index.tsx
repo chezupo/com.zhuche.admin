@@ -7,13 +7,14 @@ import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {fetchThunk, initThunk} from "@/store/modules/car";
 import {ColumnsType} from "antd/lib/table/interface";
 import {getPageQuery} from "@/util/paginationUtil";
-import {useNavigate} from "react-router-dom";
-import {obj2Query} from "@wuchuhengtools/helper";
+import {useLocation, useNavigate} from "react-router-dom";
+import {obj2Query, query2Obj} from "@wuchuhengtools/helper";
 import PaginationListener from "@/components/PaginationListener";
 import EditModel from "@/pages/Car/Car/TableRender/EditModel";
 
 const TableRender: React.FC = () => {
   const dispatch = useAppDispatch()
+  const {roles} = useAppSelector(state => state.me)
   const [editCarItem, setEditCarItem] = useState<CarItemType | null>( null)
   const {list, loading} = useAppSelector(state => state.cars)
   useEffect(() => {
@@ -23,6 +24,7 @@ const TableRender: React.FC = () => {
       })
     }
   }, [])
+  const isAdmin: boolean = roles.includes(RoleType.ROLE_ADMIN)
   const columns:ColumnsType<CarItemType> = [
     { title: 'ID', dataIndex: 'id', fixed: 'left', width: 100},
     { title: '名称', dataIndex: 'name', fixed: 'left', width: 100 },
@@ -38,6 +40,14 @@ const TableRender: React.FC = () => {
       fixed: 'left',
       render: src => <Image src={src} width={'2rem'} />
     },
+    ...(isAdmin ? [
+      {
+        title: '归属门店',
+        width: 150,
+        render: (_: any, record: { store: { name: string } }) => record.store.name
+
+      }
+    ] : []),
     { title: '排量', dataIndex: 'displacement', width: 100 },
     {
       title: '用户自助',
@@ -151,10 +161,14 @@ const TableRender: React.FC = () => {
       }
     }
   ]
+  const {search} = useLocation()
   const handleFetch = () => {
-    dispatch(fetchThunk()).then(() => {
-      console.log("Fetched cars.")
-    })
+    // const obj = query2Obj(search)
+    // if (!((obj.page && obj.page === '1' || !obj.page) && list.list.length > 0 )) {
+      dispatch(fetchThunk()).then(() => {
+        console.log("Fetched cars.")
+      })
+    // }
   }
   const navigator = useNavigate()
   const handleChange = (page: number, size: number) => {

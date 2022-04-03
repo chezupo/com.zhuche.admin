@@ -147,4 +147,5 @@ declare type CarItemType = {
   deposit: number
   createdAt: string
   updatedAt: string
+  store: StoreItemType
 }
