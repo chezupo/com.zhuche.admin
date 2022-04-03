@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Col, Image, Row, Table, Tag} from "antd";
 import Permission from "@/components/Permission";
 import {RoleType} from "@/store/modules/me";
@@ -10,9 +10,11 @@ import {getPageQuery} from "@/util/paginationUtil";
 import {useNavigate} from "react-router-dom";
 import {obj2Query} from "@wuchuhengtools/helper";
 import PaginationListener from "@/components/PaginationListener";
+import EditModel from "@/pages/Car/Car/TableRender/EditModel";
 
 const TableRender: React.FC = () => {
   const dispatch = useAppDispatch()
+  const [editCarItem, setEditCarItem] = useState<CarItemType | null>(null)
   const {list, loading} = useAppSelector(state => state.cars)
   useEffect(() => {
     if (list.list.length === 0) {
@@ -139,9 +141,9 @@ const TableRender: React.FC = () => {
       width: 200,
       fixed: 'right',
       render: (_, record) => {
-      return <Row>
+      return <Row gutter={[0, 12]}>
         <Col>
-          <Button type='primary' >编辑</Button>
+          <Button type='primary' onClick={() => setEditCarItem(record)} >编辑</Button>
         </Col>
       </Row>
       }
@@ -180,6 +182,7 @@ const TableRender: React.FC = () => {
           />
       </Col>
     </Row>
+    <EditModel data={editCarItem} />
   </>)
 }
 

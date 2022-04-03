@@ -1,10 +1,9 @@
 import {MenuItemType} from '@/routes'
-import React, {useEffect} from 'react'
-import {useObserve} from '@wuchuheng/rxjs'
-import {toggleObserve} from '@/store/toggleObserve'
+import React, {useContext, useEffect} from 'react'
 import {useLocation} from 'react-router-dom'
 import style from './style.module.less'
 import {HiOutlineChevronLeft} from 'react-icons/hi'
+import {FoldContext} from "@/container/Layout";
 
 type LiItemPropsType = {
   onClick: () => void;
@@ -16,7 +15,7 @@ type LiItemPropsType = {
 }
 
 const LiItem: React.FC<LiItemPropsType> = ({onMatch, ...props}) => {
-  const [toggle] = useObserve(toggleObserve)
+  const toggle = useContext(FoldContext)
   const location = useLocation()
   const myRoute = props.level === 1 ? props.prefix + props.data.path : props.prefix + '/' + props.data.path
   const currentRoute = location.pathname
@@ -30,18 +29,18 @@ const LiItem: React.FC<LiItemPropsType> = ({onMatch, ...props}) => {
     <a
       className={[
         style.liItem,
-        isActive || (isParentRoute && toggle) ? style.active : '',
+        isActive || (isParentRoute && !toggle) ? style.active : '',
         isParentRoute && !toggle ? style.activeParent : ''
       ].join(' ')}
       onClick={() => {onMatch(props.data.name); props.onClick()}}
       style={{
-        paddingLeft: !toggle ?  props.level + 'rem' : '0px'
+        paddingLeft: toggle ?  props.level + 'rem' : '0px'
       }}
     >
       {props.data?.children && props.data.children.length > 0 && (
         <>
           {props.data.icon }
-          {!toggle && (
+          {toggle && (
             <>
               <span>{props.data.name}</span>
               <HiOutlineChevronLeft className={[style.icon, props.isOpen ? style.open : ''].join(' ')} />
@@ -52,7 +51,7 @@ const LiItem: React.FC<LiItemPropsType> = ({onMatch, ...props}) => {
       {!props.data?.children || props.data.children.length === 0 && (
         <>
           {props.data.icon }
-          {!toggle && <span>{props.data.name}</span> }
+          {toggle && <span>{props.data.name}</span> }
         </>
       ) }
 

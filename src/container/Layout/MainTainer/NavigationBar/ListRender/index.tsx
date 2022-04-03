@@ -1,28 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useObserve } from '@wuchuheng/rxjs'
-import { toggleObserve } from '@/store/toggleObserve'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 import style from '@/container/Layout/MainTainer/NavigationBar/style.module.less'
-import { useNavigate } from 'react-router-dom'
-import { MenuItemType } from '@/routes'
+import {useNavigate} from 'react-router-dom'
+import {MenuItemType} from '@/routes'
 import LiItem from '@/container/Layout/MainTainer/NavigationBar/LiItem'
 import {useAppSelector} from "@/store/hooks";
+import {FoldContext} from "@/container/Layout";
+import {TopBarPropsType} from "@/container/Layout/Topbar/MainContainer/TopBar";
 
 export type ListRenderPropsType = {
   data: MenuItemType;
   level: number;
   prefix: string;
   onMatch?: (name: string) => void
-}
+} & TopBarPropsType
 
 const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
   const me = useAppSelector(state => state.me)
   const ulRef = useRef<HTMLUListElement>(null)
   const[isOpen, setIsOpen] = useState<boolean>(false)
   const [maxHeight, setMaxHeight] = useState<number>(0)
-  const [toggle, toggleDispatcher] = useObserve(toggleObserve)
+  const isFold = useContext(FoldContext)
   useEffect(() => {
-    isOpen && toggle && handleClose()
-  } , [toggle])
+    isOpen && !isFold && handleClose()
+  } , [isFold])
   const handleClose = (): void => {
     ulRef.current?.classList.add(style.closeUl)
     ulRef.current?.classList.remove(style.openUl)
@@ -43,7 +43,7 @@ const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
     if (isOpen) {
       handleClose()
     } else {
-      toggle && props.data.children.length > 0 && toggleDispatcher.next(false)
+      !isFold && props.data.children.length > 0 && props.onFold(true)
       handleOpen()
     }
     if (data.children.length === 0) {
@@ -91,6 +91,7 @@ const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
                     data={item} key={item.path} level={props.level + 1} prefix={
                     prefix.length === 0 ? '' + data.path : prefix + '/' + data.path
                   }
+                    onFold={props.onFold}
                   />
                 ))}
               </ul>

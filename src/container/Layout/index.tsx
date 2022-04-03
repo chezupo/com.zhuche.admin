@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import style from './style.module.less'
 import TopBar from '@/container/Layout/Topbar'
 import Maintainer from '@/container/Layout/MainTainer'
@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom'
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {setLoading} from "@/store/modules/loading";
 
+export const FoldContext = React.createContext<boolean>(true)
 const Layout: React.FC = () => {
   const isLogin = useAppSelector(state => state.me.isLogin)
   const loading = useAppSelector(state => state.loading)
@@ -23,14 +24,19 @@ const Layout: React.FC = () => {
       }, 1000)
     }
   }, [])
+  const [isFold, setIsFold] = useState<boolean>(true)
+  const handleChangeFold = (newIsFold: boolean) => setIsFold(newIsFold)
+
 
   return (
-    <Spin spinning={loading}>
-      <div className={style.main}>
-        <TopBar />
-        <Maintainer/>
-      </div>
-    </Spin>
+    <FoldContext.Provider value={isFold}>
+      <Spin spinning={loading}>
+        <div className={style.main}>
+          <TopBar onFold={handleChangeFold} />
+          <Maintainer onFold={handleChangeFold} />
+        </div>
+      </Spin>
+    </FoldContext.Provider>
   )
 }
 

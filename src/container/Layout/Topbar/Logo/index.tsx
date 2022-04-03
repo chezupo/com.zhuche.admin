@@ -1,22 +1,28 @@
-import React, { useEffect, useRef } from 'react'
-import { useObserve } from '@wuchuheng/rxjs'
+import React, {useContext, useEffect, useRef} from 'react'
 import style from './style.module.less'
 import classNames from 'classnames'
-import { toggleObserve } from '@/store/toggleObserve'
-import {useSelector} from "react-redux";
-import {useAppDispatch, useAppSelector} from "@/store/hooks";
+import {useAppSelector} from "@/store/hooks";
+import {FoldContext} from "@/container/Layout";
 
 const Logo: React.FC = () => {
   const configuration = useAppSelector(state => state.configuration);
   const avatar = `${configuration.imgPrefix}/${configuration.logo}`
   const mainRef = useRef<HTMLDivElement>(null)
+  const isFold = useContext(FoldContext)
+  const handleChangeClass = () => {
+    if (isFold) {
+      mainRef.current?.classList.remove(style.active)
+    } else {
+      mainRef.current?.classList.add(style.active)
+    }
+  }
   useEffect(() => {
-    const subscriptionHandler = toggleObserve.subscription(() =>
-      mainRef.current?.classList.toggle(style.active)
-    )
-    return () => { toggleObserve.unSubscription(subscriptionHandler) }
-
+    handleChangeClass()
+  }, [isFold])
+  useEffect(() => {
+    handleChangeClass()
   }, [])
+
   return (
     <div className={[style.container].join(' ')} ref={mainRef}>
       <img src={avatar} />
@@ -27,12 +33,12 @@ const Logo: React.FC = () => {
 
 const SideBar: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
-  const [toggle] = useObserve(toggleObserve)
+  const toggle = useContext(FoldContext)
 
   return (
       <div className={classNames({
         [style.main]: true,
-        [style.active]: toggle
+        [style.active]: !toggle
       })} ref={mainRef}>
         <Logo />
       </div>

@@ -1,17 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import style from './style.module.less'
-import {AiOutlineMenuFold,
-  AiOutlineMenuUnfold
-} from 'react-icons/ai'
-import { useObserve } from '@wuchuheng/rxjs'
-import { toggleObserve } from '@/store/toggleObserve'
+import {AiOutlineMenuFold, AiOutlineMenuUnfold} from 'react-icons/ai'
 import Search from './Search'
 import UserInfo from '@/container/Layout/Topbar/MainContainer/TopBar/RightWrapper'
+import {FoldContext} from "@/container/Layout";
 
-const TopBar: React.FC = () => {
-  const [toggle, toggleDispatcher] = useObserve(toggleObserve)
+export type TopBarPropsType = {
+  onFold: (isFold: boolean) => void
+}
+const TopBar: React.FC<TopBarPropsType> = props => {
+  const toggle = useContext(FoldContext)
   const handleToggle = (): void => {
-    toggleDispatcher.next(!toggle)
+    props.onFold(!toggle)
   }
   const MenuFold: React.FC = () => {
     return (
