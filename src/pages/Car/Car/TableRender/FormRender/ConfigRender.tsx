@@ -14,10 +14,16 @@ const ConfigRender: React.FC<ConfigRenderPropsType> = props => {
   }
 
   useEffect(() => {
+    let isMounted = true
     getStoreCarConfigs({}).then(res => {
-      setOptions(res.list)
+      if (isMounted) {
+        setOptions(res.list)
+      }
     })
     handleInitCheckIds()
+    return () => {
+      isMounted = false
+    }
   }, [] )
   useEffect(() => {
     handleInitCheckIds()

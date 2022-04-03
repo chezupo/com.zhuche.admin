@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Button, Col, Form, Input, InputNumber, Row, Select} from "antd";
-import UploadImg from "@/components/UploadImg";
-import {useAppSelector} from "@/store/hooks";
 import TagsRender from "@/pages/Car/Car/TableRender/FormRender/TagsRender";
 import ConfigRender from "@/pages/Car/Car/TableRender/FormRender/ConfigRender";
 import SeriesRender from "@/pages/Car/Car/TableRender/FormRender/SeriesRender";
@@ -11,6 +9,7 @@ import FormUpload from "@/components/FormUpload";
 type FormRenderPropsType = {
   onFinish: (newData: Omit<CarItemType, 'id'>) => void
   isReset?: boolean
+  data?: CarItemType
 }
 
 const FormRender: React.FC<FormRenderPropsType> = props => {
@@ -21,11 +20,17 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
   const handleFinish = (newData: CarItemType): void => {
     props.onFinish(newData)
   }
+  const handleInit = () => {
+    const initData = props.data || {isSelfHelp: false, isOnline: true}
+    form.setFieldsValue(initData)
+  }
+  useEffect(() => handleInit(), [])
+  useEffect(() => handleInit(), [props.data])
+
   return (
     <Form
       labelCol={{span: 7}}
       form={form}
-      initialValues={{isSelfHelp: false, isOnline: true}}
       onFinish={handleFinish}
     >
       <Row gutter={[24, 0]}>

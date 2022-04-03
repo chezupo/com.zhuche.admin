@@ -146,4 +146,5 @@ declare type CarItemType = {
   configs: StoreCarConfigItemType[]
   deposit: number
   createdAt: string
+  updatedAt: string
 }

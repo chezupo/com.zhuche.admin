@@ -14,7 +14,7 @@ import EditModel from "@/pages/Car/Car/TableRender/EditModel";
 
 const TableRender: React.FC = () => {
   const dispatch = useAppDispatch()
-  const [editCarItem, setEditCarItem] = useState<CarItemType | null>(null)
+  const [editCarItem, setEditCarItem] = useState<CarItemType | null>( null)
   const {list, loading} = useAppSelector(state => state.cars)
   useEffect(() => {
     if (list.list.length === 0) {
@@ -131,11 +131,13 @@ const TableRender: React.FC = () => {
           }
         </Row>)
     },
+    {title: '修改时间',
+      width: 150,
+      render: (_, record) => record.updatedAt
+    },
     {title: '创建时间',
       width: 150,
-      render: (_, record) => {
-      return record.createdAt
-      }
+      render: (_, record) => record.createdAt
     },
     {title: '操作',
       width: 200,
@@ -182,7 +184,7 @@ const TableRender: React.FC = () => {
           />
       </Col>
     </Row>
-    <EditModel data={editCarItem} />
+    <EditModel data={editCarItem} onSuccess={() => setEditCarItem(null)} onCancel={() => setEditCarItem(null)} />
   </>)
 }
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import {Cascader} from "antd";
 import {getAllBrands} from "@/api/brand";
 
@@ -11,39 +11,54 @@ type SeriesRenderPropsType = {
   value?: BrandSeriesItemType
   onChange?: (value: BrandSeriesItemType) => void
 }
-const idMapSeries = new Map<number, BrandSeriesItemType>()
+const idMapSeries = new Map<number, BrandSeriesItemType & {parent: BrandItemType}>()
 const SeriesRender:React.FC<SeriesRenderPropsType> = props => {
-  const [options, setOptions] = useState<OptionType[]>([])
+  const [options, setOptions] = useReducer((state: OptionType[], payload: OptionType[] ): OptionType[] => {
+    return payload
+  }, [])
   useEffect(() => {
+    let isMounted = true
     getAllBrands().then(res => {
       const newOptions: OptionType[] = res.list
         .filter(el => el.seriesList?.length > 0)
-        .map((el): OptionType => {
+        .map((brandItem): OptionType => {
           let children: OptionType[] = []
-          if (el.seriesList?.length > 0) {
-            children = el.seriesList.map((el): OptionType => {
-              idMapSeries.set(el.id, el)
+          if (brandItem.seriesList?.length > 0) {
+            children = brandItem.seriesList.map((series): OptionType => {
+              idMapSeries.set(series.id, {...series, parent: brandItem})
               return {
-                label: el.name,
-                value: el.id
+                label: series.name,
+                value: series.id
               }
             })
           }
           return {
-            label: el.name,
-            value: el.id,
+            label: brandItem.name,
+            value: brandItem.id,
             children
           }
         })
-      setOptions(newOptions)
+      isMounted && setOptions(JSON.parse(JSON.stringify( newOptions)))
     })
+    return () => {
+      isMounted = false
+    }
   }, [])
+  let value: number[] = []
+  if (options.length > 0 && props.value) {
+    const series = idMapSeries.get(props.value.id)
+    if (series) {
+      value = [series.parent.id, series.id]
+    }
+  }
   const handleChange = (values: number[]) => {
    const series: BrandSeriesItemType = idMapSeries.get(values[1]) as BrandSeriesItemType
     props.onChange && props.onChange(series)
   }
+
   return (<>
     <Cascader
+      value={value}
       options={options}
       placeholder="请选择车系"
       onChange={handleChange}

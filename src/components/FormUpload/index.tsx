@@ -12,7 +12,8 @@ const FormUpload: React.FC<UploadRenderPropsType> = props => {
   const [url, setUrl] = useState<string>('')
   const handleInitUrl = () => {
     if (imgPrefix && props.value) {
-      setUrl(`${imgPrefix}/${props.value}`)
+      const prefix = `${imgPrefix}/`
+      setUrl(`${prefix}${props.value.replace(prefix, '')}`)
     }
   }
   useEffect(() => handleInitUrl(), [])

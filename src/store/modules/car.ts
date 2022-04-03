@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppDispatch, RootState} from "@/store";
-import {createCar, CreateQueryType, fetchCars} from "@/api/car";
+import {createCar, CreateQueryType, fetchCars, updateCar} from "@/api/car";
 import {getPageQuery} from "@/util/paginationUtil";
 
 type InitialStateType = {
@@ -45,6 +45,18 @@ const createCarHunk = (requestData: CreateQueryType) => {
   }
 }
 
+const updateCarThunk = (requestData: CarItemType) => {
+  return async (dispatch: AppDispatch, getState: () => RootState):Promise<void> => {
+    dispatch(setLoading(true))
+    try {
+      await updateCar(requestData)
+      await dispatch(fetchThunk())
+    }finally {
+      dispatch(setLoading(false))
+    }
+  }
+}
+
 const fetchThunk = () => {
   return async (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
     dispatch(setLoading(true))
@@ -74,5 +86,5 @@ const initThunk = () => {
 }
 
 export const {setLoading, init, save} = carSlice.actions
-export {createCarHunk, initThunk, fetchThunk}
+export {createCarHunk, initThunk, fetchThunk, updateCarThunk}
 export default carReducer
