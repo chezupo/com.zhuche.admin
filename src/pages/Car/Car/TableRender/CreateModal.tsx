@@ -8,7 +8,7 @@ import {createCarHunk} from "@/store/modules/car";
 import {successMessage} from "@/util/messageUtil";
 
 const CreateModal:React.FC = () => {
-  const [visitable, setVisitable] = useState<boolean>(true)
+  const [visitable, setVisitable] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [isResetForm, setIsResetForm] = useState<boolean>(false)
   const dispatch = useAppDispatch()

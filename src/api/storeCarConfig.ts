@@ -1,8 +1,8 @@
 import {deleteRequest, get, patch, post} from "@/util/httpClient";
 
 export type GetStoreCarConfigsQueryType = {
-  page: number
-  size: number
+  page?: number
+  size?: number
   name?: string
 }
 export type CreateStoreCarConfigQueryType = {

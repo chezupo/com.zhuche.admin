@@ -1,81 +1,31 @@
 import React, {useEffect, useState} from "react";
-import {Button, Cascader, Col, Form, Input, InputNumber, Row, Select, Switch} from "antd";
+import {Button, Col, Form, Input, InputNumber, Row, Select} from "antd";
 import UploadImg from "@/components/UploadImg";
-import {getAllBrands} from "@/api/brand";
 import {useAppSelector} from "@/store/hooks";
 import TagsRender from "@/pages/Car/Car/TableRender/FormRender/TagsRender";
+import ConfigRender from "@/pages/Car/Car/TableRender/FormRender/ConfigRender";
+import SeriesRender from "@/pages/Car/Car/TableRender/FormRender/SeriesRender";
+import SwitchRender from "@/pages/Car/Car/TableRender/FormRender/SwitchRender";
+import FormUpload from "@/components/FormUpload";
 
-type OptionType = {
-  value: number
-  label: string
-  children?: OptionType[]
-}
 type FormRenderPropsType = {
   onFinish: (newData: Omit<CarItemType, 'id'>) => void
   isReset?: boolean
 }
-type UploadRenderPropsType = {
-  value?: string
-  onChange?: (value: string) => void
-}
-const UploadRender: React.FC<UploadRenderPropsType> = props => {
-  const {imgPrefix} = useAppSelector(state => state.configuration)
-  const [url, setUrl] = useState<string>('')
-  const handleInitUrl = () => {
-    if (imgPrefix && props.value) {
-      setUrl(`${imgPrefix}/${props.value}`)
-    }
-  }
-  useEffect(() => handleInitUrl(), [])
-  useEffect(() => handleInitUrl(), [props.value, imgPrefix])
-
-  return (<>
-    <UploadImg
-      {...(url.length > 0 ? {imageUrl: url} : {})}
-      onUploaded={newImg => props.onChange && props.onChange(newImg.key)}
-    />
-  </>)
-}
 
 const FormRender: React.FC<FormRenderPropsType> = props => {
   const [form] = Form.useForm<CarItemType>();
-  const [options, setOptions] = useState<OptionType[]>([])
   useEffect(() => {
     form.resetFields()
   }, [props.isReset])
-  useEffect(() => {
-    getAllBrands().then(res => {
-      const newOptions: OptionType[] = res.list
-        .filter(el => el.seriesList?.length > 0)
-        .map((el): OptionType => {
-        let children: OptionType[] = []
-        if (el.seriesList?.length > 0) {
-         children = el.seriesList.map((el): OptionType => {
-              return {
-                label: el.name,
-                value: el.id
-              }
-            })
-        }
-        return {
-          label: el.name,
-          value: el.id,
-          children
-        }
-      })
-      setOptions(newOptions)
-    })
-  }, [])
   const handleFinish = (newData: CarItemType): void => {
-    const seriesId = newData.seriesId as number[]
-    newData.seriesId = seriesId[1]
     props.onFinish(newData)
   }
-
   return (
     <Form
-      labelCol={{span: 6}}
+      labelCol={{span: 7}}
       form={form}
+      initialValues={{isSelfHelp: false, isOnline: true}}
       onFinish={handleFinish}
     >
       <Row gutter={[24, 0]}>
@@ -88,13 +38,24 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col span={6}>
           <Form.Item
+            labelCol={{span: 12}}
             name='isSelfHelp'
             label='自助'
             rules={[{required: true, message: '自助不能为空'}]}
           >
-            <Switch checkedChildren="是" unCheckedChildren="否" />
+            <SwitchRender checkedChildren="是" unCheckedChildren="否" />
+          </Form.Item>
+        </Col>
+        <Col span={6}>
+          <Form.Item
+            labelCol={{span: 12}}
+            name='isOnline'
+            label='上/下架'
+            rules={[{required: true, message: '上/下架助不能为空'}]}
+          >
+            <SwitchRender checkedChildren="上架" unCheckedChildren="下架" />
           </Form.Item>
 
         </Col>
@@ -143,7 +104,7 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
             label='封面'
             rules={[{required: true, message: '封面不能为空'}]}
           >
-            <UploadRender />
+            <FormUpload accept='.jpg,.jpeg,.png' />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -166,11 +127,11 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
         </Col>
         <Col span={12}>
           <Form.Item
-            name='seriesId'
+            name='brandSeries'
             label='车系'
             rules={[{required: true, message: '车系不能为空'}]}
           >
-            <Cascader options={options} placeholder="请选择车系" />
+            <SeriesRender />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -205,6 +166,32 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
             rules={[{required: true, message:'标签不能为空'}]}
           >
             <TagsRender />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name='price'
+            label='价格(元/1天)'
+            rules={[{required: true, message:'价格不能为空'}]}
+          >
+            <InputNumber min={0.01} style={{width: '100%'}} />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name='configs'
+            label='汽车配置'
+          >
+            <ConfigRender />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name='deposit'
+            label='押金'
+            rules={[{required: true, message:'押金不能为空'}]}
+          >
+            <InputNumber style={{width: '100%'}} min={0} />
           </Form.Item>
         </Col>
         <Col span={24}>

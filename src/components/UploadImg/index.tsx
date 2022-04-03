@@ -8,6 +8,7 @@ export type ImgType = {key: string; prefixUrl: string}
 export type UploadImgPropsType = {
   onUploaded?: (newImg: ImgType) => void
   imageUrl?: string
+  accept?: string
 }
 const UploadImg = (props: UploadImgPropsType) => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -51,6 +52,7 @@ const UploadImg = (props: UploadImgPropsType) => {
         className="avatar-uploader"
         showUploadList={false}
         beforeUpload={beforeUpload}
+        {...(props.accept ? {accept: props.accept} : {})}
       >
         {props.imageUrl? <img src={props.imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
       </Upload>

@@ -138,8 +138,12 @@ declare type CarItemType = {
   type: string // 车型
   tags: string[] // 标签
   licenseType: string // 牌照
-  seriesId: number
+  brandSeries: BrandSeriesItemType
+  rand: BrandItemType // 品牌
   number: string // 车牌号
   isOnline: boolean // 是否上架
-  brand: BrandItemType // 品牌
+  price: number
+  configs: StoreCarConfigItemType[]
+  deposit: number
+  createdAt: string
 }

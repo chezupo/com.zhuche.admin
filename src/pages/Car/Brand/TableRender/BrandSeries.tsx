@@ -17,13 +17,15 @@ const BrandSeries: React.FC<BrandSeriesPropsType> = props => {
   const [editItem, setEditItem] = useState<BrandSeriesItemType | null>(null)
   const dispatch = useAppDispatch()
   const handleCreate = () => {
-    dispatch(createBrandSeriesThunk(props.data.id, {name: createItem!.name})).then(newSeries => {
-      successMessage('添加成功🎉🎉🎉')
-      setData([
-        ...data.filter(el => el.id !== newId)
-        , newSeries])
-      setCreateItem(null)
-    })
+    if (createItem!.name.trim().length > 0) {
+      dispatch(createBrandSeriesThunk(props.data.id, {name: createItem!.name})).then(newSeries => {
+        successMessage('添加成功🎉🎉🎉')
+        setData([
+          ...data.filter(el => el.id !== newId)
+          , newSeries])
+        setCreateItem(null)
+      })
+    }
   }
   useEffect(() => {
     setData(props.data.seriesList)
@@ -53,7 +55,7 @@ const BrandSeries: React.FC<BrandSeriesPropsType> = props => {
     },
     { title: '名称', render: (_, record) => {
         if (record.id === newId) {
-          return <Input value={createItem?.name} onChange={v => setCreateItem({...createItem!, name: v.target.value}) } />
+          return <Input value={createItem?.name} onChange={v => setCreateItem({...createItem!, name: v.target.value}) } onPressEnter={() => handleCreate()} />
         } else if (!!editItem && editItem.id === record.id) {
           return <Input value={editItem?.name} onChange={v => setEditItem({...editItem!, name: v.target.value}) } />
         }
@@ -65,7 +67,11 @@ const BrandSeries: React.FC<BrandSeriesPropsType> = props => {
         return (<Row gutter={[24, 0]}>
           {
             record.id === newId && (<>
-              <Col><Button type='primary' onClick={handleCreate}>创建</Button></Col>
+              <Col><Button
+                type='primary'
+                onClick={handleCreate}
+                disabled={!createItem || createItem.name.trim().length === 0}
+              >创建</Button></Col>
               <Col><Button onClick={handleCancelCreate}>取消</Button></Col>
             </>)
           }

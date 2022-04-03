@@ -1,9 +1,20 @@
-import {post} from "@/util/httpClient";
+import {get, post} from "@/util/httpClient";
 
 export type CreateQueryType = Omit<CarItemType, 'id'>
 
-const createCar = async (query: CreateQueryType): Promise<CarItemType> => {
-  return await post<CarItemType>('/cars', query)
+export type FetchCarsQueryType = {
+  page: number
+  size: number
 }
 
-export {createCar}
+const createCar = async (query: CreateQueryType): Promise<CarItemType> => {
+  const {brandSeries, configs,  ...other} = query
+
+  return await post<CarItemType>('/cars', {...other, seriesId: brandSeries.id, configIds: configs.map((el): number => el.id )})
+}
+
+const fetchCars = async (query: FetchCarsQueryType): Promise<PageType<CarItemType>> => {
+  return await get<PageType<CarItemType>>('/cars', query);
+}
+
+export {createCar, fetchCars}
