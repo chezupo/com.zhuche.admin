@@ -26,7 +26,7 @@ const LiItem: React.FC<LiItemPropsType> = ({onMatch, ...props}) => {
   }, [])
 
   return (
-    <a
+    <nav
       className={[
         style.liItem,
         isActive || (isParentRoute && !toggle) ? style.active : '',
@@ -55,7 +55,7 @@ const LiItem: React.FC<LiItemPropsType> = ({onMatch, ...props}) => {
         </>
       ) }
 
-    </a>
+    </nav>
   )
 }
 
