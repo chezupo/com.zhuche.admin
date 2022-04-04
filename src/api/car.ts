@@ -1,4 +1,4 @@
-import {get, patch, post} from "@/util/httpClient";
+import {deleteRequest, get, patch, post} from "@/util/httpClient";
 
 export type CreateQueryType = Omit<CarItemType, 'id'>
 
@@ -23,4 +23,8 @@ const fetchCars = async (query: FetchCarsQueryType): Promise<PageType<CarItemTyp
   return await get<PageType<CarItemType>>('/cars', query);
 }
 
-export {createCar, fetchCars, updateCar}
+const destroyCar = async (id: number): Promise<void> => {
+  return await  deleteRequest<void>(`/cars/${id}`);
+}
+
+export {createCar, fetchCars, updateCar, destroyCar}

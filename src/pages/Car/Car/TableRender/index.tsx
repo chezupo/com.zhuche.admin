@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Image, Row, Table, Tag} from "antd";
+import {Button, Col, Image, Popconfirm, Row, Table, Tag} from "antd";
 import Permission from "@/components/Permission";
 import {RoleType} from "@/store/modules/me";
 import CreateModal from "@/pages/Car/Car/TableRender/CreateModal";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
-import {fetchThunk, initThunk} from "@/store/modules/car";
+import {deleteThunk, fetchThunk, initThunk} from "@/store/modules/car";
 import {ColumnsType} from "antd/lib/table/interface";
 import {getPageQuery} from "@/util/paginationUtil";
 import {useLocation, useNavigate} from "react-router-dom";
-import {obj2Query, query2Obj} from "@wuchuhengtools/helper";
+import {obj2Query} from "@wuchuhengtools/helper";
 import PaginationListener from "@/components/PaginationListener";
 import EditModel from "@/pages/Car/Car/TableRender/EditModel";
+import {destroyCar} from "@/api/car";
+import {successMessage} from "@/util/messageUtil";
 
 const TableRender: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -25,6 +27,11 @@ const TableRender: React.FC = () => {
     }
   }, [])
   const isAdmin: boolean = roles.includes(RoleType.ROLE_ADMIN)
+  const handleDelete = (id: number) => {
+    dispatch(deleteThunk(id)).then(() => {
+      successMessage()
+    })
+  }
   const columns:ColumnsType<CarItemType> = [
     { title: 'ID', dataIndex: 'id', fixed: 'left', width: 100},
     { title: '名称', dataIndex: 'name', fixed: 'left', width: 100 },
@@ -153,9 +160,14 @@ const TableRender: React.FC = () => {
       width: 200,
       fixed: 'right',
       render: (_, record) => {
-      return <Row gutter={[0, 12]}>
+      return <Row gutter={[12, 0]}>
         <Col>
           <Button type='primary' onClick={() => setEditCarItem(record)} >编辑</Button>
+        </Col>
+        <Col>
+          <Popconfirm placement="top" title='是否确定要删除?' onConfirm={() => handleDelete(record.id)} okText="是" cancelText="否">
+          <Button danger>删除</Button>
+          </Popconfirm>
         </Col>
       </Row>
       }
