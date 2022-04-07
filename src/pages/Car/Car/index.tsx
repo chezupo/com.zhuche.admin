@@ -4,6 +4,7 @@ import ContentContainer from "@/components/ContentContainer";
 import style from "./style.module.less";
 import {Col, Row} from "antd";
 import TableRender from "@/pages/Car/Car/TableRender";
+import FilterRender from "@/pages/Car/Car/FilterRender";
 
 const Car: React.FC = () => {
   return (
@@ -13,9 +14,9 @@ const Car: React.FC = () => {
       </HeaderPage>
 
       <ContentContainer>
-        <Row gutter={[0, 24]}>
+        <Row gutter={[12, 24]}>
           <Col span={24}>
-            <div className={style.main}> filter</div>
+            <FilterRender />
           </Col>
           <Col span={24}>
             <div className={style.main}>

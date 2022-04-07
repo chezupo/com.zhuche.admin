@@ -24,6 +24,7 @@ export const objectToQueryStr = (obj: object): string => {
 }
 
 export const queryStrToObject = (queryStr: string): Record<string, QueryValueType> => {
+  queryStr = queryStr.replaceAll('%20', ' ')
   queryStr = queryStr.substring(1)
   const items: string[] = queryStr.split('&')
   const result: Record<string, QueryValueType> = {}

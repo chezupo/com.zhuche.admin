@@ -8,7 +8,7 @@ const getPageQuery = (page: number, size: number): PageQueryType => {
   const {search} = document.location
   const searchObj = query2Obj(search)
 
-  return  {page: parseInt(searchObj?.page) || page, size: parseInt(searchObj?.size) || size }
+  return  {...searchObj, page: parseInt(searchObj?.page) || page, size: parseInt(searchObj?.size) || size }
 }
 
 export {getPageQuery}

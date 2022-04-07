@@ -11,7 +11,6 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {obj2Query} from "@wuchuhengtools/helper";
 import PaginationListener from "@/components/PaginationListener";
 import EditModel from "@/pages/Car/Car/TableRender/EditModel";
-import {destroyCar} from "@/api/car";
 import {successMessage} from "@/util/messageUtil";
 
 const TableRender: React.FC = () => {
