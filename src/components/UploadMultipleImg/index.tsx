@@ -9,6 +9,7 @@ import SubscriptionService from "@wuchuheng/rxjs";
 export type UploadMultipleImgPropsType = {
   onChange?: (keys:string[]) => void
   value?: string[]
+  accept?: string
 }
 const UploadMultipleImg: React.FC<UploadMultipleImgPropsType> = (props) => {
   const queueSubscription = useMemo(() =>  new SubscriptionService<(UploadFile)[]>([]), [])
@@ -103,6 +104,7 @@ const UploadMultipleImg: React.FC<UploadMultipleImgPropsType> = (props) => {
         onPreview={handlePreview}
         onChange={handleChange}
         beforeUpload={handleBeforeUpload}
+        {...(props.accept ? {accept: props.accept} : {})}
       >
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>

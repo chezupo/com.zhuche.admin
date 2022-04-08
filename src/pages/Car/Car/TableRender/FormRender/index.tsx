@@ -1,10 +1,13 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Col, Form, Input, InputNumber, Row, Select} from "antd";
 import TagsRender from "@/pages/Car/Car/TableRender/FormRender/TagsRender";
 import ConfigRender from "@/pages/Car/Car/TableRender/FormRender/ConfigRender";
 import SeriesRender from "@/pages/Car/Car/TableRender/FormRender/SeriesRender";
 import SwitchRender from "@/pages/Car/Car/TableRender/FormRender/SwitchRender";
 import FormUpload from "@/components/FormUpload";
+import {fetchCarCategory} from "@/api/carCategory";
+import carCategoryReducer from "@/store/modules/carCatetory";
+import CarStyleSelectRender from "@/pages/Car/Car/TableRender/FormRender/CarStyleSelectRender";
 
 type FormRenderPropsType = {
   onFinish: (newData: Omit<CarItemType, 'id'>) => void
@@ -62,7 +65,6 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
           >
             <SwitchRender checkedChildren="上架" unCheckedChildren="下架" />
           </Form.Item>
-
         </Col>
         <Col span={12}>
           <Form.Item
@@ -197,6 +199,15 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
             rules={[{required: true, message:'押金不能为空'}]}
           >
             <InputNumber style={{width: '100%'}} min={0} />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name='carCategory'
+            label='类型'
+            rules={[{required: true, message:'类型不能为空'}]}
+          >
+            <CarStyleSelectRender />
           </Form.Item>
         </Col>
         <Col span={24}>

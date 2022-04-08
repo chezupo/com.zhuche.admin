@@ -9,10 +9,6 @@ import SwitchRender
   from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/SwitchRender'
 import MapRender from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/MapRender'
 import TimeRange from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/TimeRange'
-import {
-  iAmOkSubscription,
-  StepIndexType
-} from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender'
 import { RuleObject } from 'rc-field-form/lib/interface'
 import SubscriptionService from '@wuchuheng/rxjs'
 

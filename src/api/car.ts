@@ -8,15 +8,25 @@ export type FetchCarsQueryType = {
 }
 
 const createCar = async (query: CreateQueryType): Promise<CarItemType> => {
-  const {brandSeries, configs,  ...other} = query
+  const {brandSeries, configs, carCategory, ...other} = query
 
-  return await post<CarItemType>('/cars', {...other, seriesId: brandSeries.id, configIds: configs.map((el): number => el.id )})
+  return await post<CarItemType>('/cars', {
+    ...other,
+    carCategoryId: carCategory.id,
+    seriesId: brandSeries.id,
+    configIds: configs.map((el): number => el.id )
+  })
 }
 
 const updateCar = async (query: CarItemType): Promise<CarItemType> => {
-  const {brandSeries, configs,  ...other} = query
+  const {brandSeries, configs,carCategory, ...other} = query
 
-  return await patch<CarItemType>(`/cars/${query.id}`, {...other, seriesId: brandSeries.id, configIds: configs.map((el): number => el.id )})
+  return await patch<CarItemType>(`/cars/${query.id}`, {
+    ...other,
+    seriesId: brandSeries.id,
+    carCategoryId: carCategory.id,
+    configIds: configs.map((el): number => el.id )
+  })
 }
 
 const fetchCars = async (query: FetchCarsQueryType): Promise<PageType<CarItemType>> => {

@@ -19,7 +19,7 @@ const UploadMultipleImgRender: React.FC<UploadMultipleImgPropsType> = (props) =>
     props.onChange && props.onChange(newKes)
   }
 
-  return <UploadMultipleImg onChange={handleChange} value={value}/>
+  return <UploadMultipleImg onChange={handleChange} value={value} accept='.png,.jpg,.jpeg' />
 }
 
 const BannerInputRender: React.FC<InputRenderPropsType & {form: FormInstance<CreateStoreType>}> = (props)=> {

@@ -148,4 +148,11 @@ declare type CarItemType = {
   createdAt: string
   updatedAt: string
   store: StoreItemType
+  carCategory: CarCategoryItemType
+}
+
+declare type CarCategoryItemType = {
+  id: number
+  name: string
+  store: StoreItemType
 }

@@ -68,6 +68,13 @@ const TableRender: React.FC = () => {
       }
     },
     {
+      title: '类型',
+      width: 100,
+      render: (_, record) => {
+        return (<>{record.carCategory.name}</>)
+      }
+    },
+    {
       title: '挂档方式',
       width: 100,
       dataIndex: 'shift',

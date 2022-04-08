@@ -22,6 +22,7 @@ import Home from "@/pages/Home";
 import Config from "@/pages/Car/Config";
 import Log from "@/pages/setting/Log";
 import Car from "@/pages/Car/Car";
+import Category from "@/pages/Car/Category";
 
 export type MenuItemType = {
   name: string;
@@ -135,6 +136,15 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         icon: <FontIcon name='config' className={style.navIcon}/> ,
         hideInMenu: false,
         name: '配置管理',
+        roles: [RoleType.ROLE_BUSINESS, RoleType.ROLE_ADMIN],
+        children: [ ]
+      },
+      {
+        path: 'categories',
+        element: <Category />,
+        icon: <FontIcon name='category' className={style.navIcon}/> ,
+        hideInMenu: false,
+        name: '分类管理',
         roles: [RoleType.ROLE_BUSINESS, RoleType.ROLE_ADMIN],
         children: [ ]
       }
