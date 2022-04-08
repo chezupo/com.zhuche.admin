@@ -92,7 +92,8 @@ const TableRender: React.FC = () => {
               pagination={{
                 total: data.total,
                 pageSize: data.size,
-                current: data.currentPage
+                current: data.currentPage,
+                showTotal: () => (<>共{data.total}条</>)
               }}
             />
           </Col>

@@ -8,9 +8,11 @@ import {ColumnsType} from "antd/lib/table/interface";
 import {getLogsThunk, initThunk} from "@/store/modules/log";
 import {useLocation, useNavigate} from "react-router-dom";
 import {obj2Query, query2Obj} from "@wuchuhengtools/helper";
+import { prettyPrintJson } from "pretty-print-json"
+
 
 const Log: React.FC = () => {
-  const [detail, setDetail] = useState<string>('')
+  const [detail, setDetail] = useState<object | null>(null)
   const [prevSearch, setPrevSearch] = useState<string>('')
   const columns: ColumnsType<LogItemType>  = [
     {
@@ -44,14 +46,14 @@ const Log: React.FC = () => {
       title: '处理的文件',
       dataIndex: 'className',
       render: (v) => {
-        return (<a onClick={() => setDetail(v)}>查看</a>)
+        return (<a onClick={() => setDetail({file: v})}>查看</a>)
       }
     },
     {
       title: '数据',
       dataIndex: 'params',
       render: (v) => {
-        return (<a onClick={() => setDetail(v)}>查看</a>)
+        return (<a onClick={() => setDetail(JSON.parse(v))}>查看</a>)
       }
     },
     {
@@ -106,8 +108,18 @@ const Log: React.FC = () => {
     </HeaderPage>
     <ContentContainer>
       <Spin spinning={logs.loading}>
-        <Modal visible={detail.length > 0} footer={null} onCancel={() => setDetail('')}>
-          {detail}
+        <Modal
+          visible={!!detail}
+          footer={null} onCancel={() => setDetail(null)}
+          width={"50%"}
+        >
+          {
+            !!detail &&
+            <pre dangerouslySetInnerHTML={{__html:
+                prettyPrintJson.toHtml(detail)
+            }} >
+            </pre>
+          }
         </Modal>
         <div className={style.main}>
           <Table
@@ -115,7 +127,12 @@ const Log: React.FC = () => {
             columns={columns}
             rowKey={record => record.id}
             dataSource={logs.list.list}
-            pagination={{pageSize: logs.list.size, total: logs.list.total, current: logs.list.currentPage}}
+            pagination={{
+              pageSize: logs.list.size,
+              total: logs.list.total,
+              current: logs.list.currentPage,
+              showTotal: () => (<>共{logs.list.total}条</>)
+            }}
           />
         </div>
       </Spin>

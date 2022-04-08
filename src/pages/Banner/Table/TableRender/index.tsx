@@ -55,7 +55,12 @@ const TableRender = () => {
     handleFetchPageData(pagination.current!)
   }
   useEffect(() => handleFetchPageData(currentPage) , [])
-  const pagination:TablePaginationConfig = {pageSize: size, total, current: currentPage}
+  const pagination:TablePaginationConfig = {
+    pageSize: size,
+    total,
+    current: currentPage,
+    showTotal: () => (<>共{total}条</>)
+  }
   return (<Spin spinning={loading}>
     <AntTable
       dataSource={list}

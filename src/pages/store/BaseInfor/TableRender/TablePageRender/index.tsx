@@ -198,7 +198,12 @@ const TablePageRender: React.FC = () => {
 
   return (<>
     <Table
-      pagination={{pageSize: size, current: currentPage, total}}
+      pagination={{
+        pageSize: size,
+        current: currentPage,
+        total,
+        showTotal: () => (<>共{total}条</>)
+      }}
       onChange={handleChange}
       scroll={{ x: 1300 }}
       columns={columns}

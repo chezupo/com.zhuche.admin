@@ -210,7 +210,12 @@ const TableRender: React.FC = () => {
             loading={loading}
             columns={columns}
             dataSource={list.list}
-            pagination={{pageSize: list.size, current: list.currentPage, total: list.total}}
+            pagination={{
+              pageSize: list.size,
+              current: list.currentPage,
+              total: list.total,
+              showTotal: () => (<>共{list.total}条</>)
+          }}
             rowKey={record => record.id }
             onChange={e => handleChange(e.current!, e.pageSize!)}
           />
