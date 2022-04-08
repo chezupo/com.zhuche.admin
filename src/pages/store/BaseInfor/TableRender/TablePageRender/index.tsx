@@ -12,6 +12,7 @@ import store from '@/store'
 import { errorMessage, successMessage } from '@/util/messageUtil'
 import EditorRender from '@/pages/store/BaseInfor/TableRender/EditorRender'
 import GuidePreviewRender from '@/pages/store/BaseInfor/TableRender/TablePageRender/GuidePreviewRender'
+import EditPasswordRender from "@/pages/store/BaseInfor/TableRender/TablePageRender/EditPasswordRender";
 
 export  const StateRender: React.FC<{isOk: boolean}>  = (props) => {
   return props.isOk ?  <Tag color='blue'>是</Tag> : <Tag color='red'>否</Tag>
@@ -145,7 +146,7 @@ const TablePageRender: React.FC = () => {
       }
     },
     {
-      width: 150,
+      width: 200,
       fixed: 'right',
       title: '操作',
       render: (record: StoreItemType) => {
@@ -156,6 +157,9 @@ const TablePageRender: React.FC = () => {
               type='primary'
               onClick={() => setEditData(record)}
             >编辑</Button></Col>
+            <Col>
+              <EditPasswordRender value={record}/>
+            </Col>
             <Permission roles={[RoleType.ROLE_ADMIN]} >
               <Col>
                 <Popconfirm title='确认删除?' cancelText='取消' okText='确认' onConfirm={() => handleDestroy(record.id)}>

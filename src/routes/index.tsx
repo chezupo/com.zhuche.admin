@@ -69,7 +69,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         element: <BaseInfor/>,
         icon: <BsShop className={style.navIcon}/> ,
         hideInMenu: false,
-        name: '基本信息',
+        name: '门店管理',
         children: [ ]
       },
       {

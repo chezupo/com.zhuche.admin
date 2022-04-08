@@ -20,7 +20,7 @@ const Log: React.FC = () => {
       dataIndex: 'id'
     },
     {
-      title: '标题',
+      title: '操作名',
       dataIndex: 'title'
     },
     {
