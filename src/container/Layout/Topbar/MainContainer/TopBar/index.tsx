@@ -16,12 +16,12 @@ const TopBar: React.FC<TopBarPropsType> = props => {
   const MenuFold: React.FC = () => {
     return (
       <>
-        { toggle && <AiOutlineMenuUnfold
+        { !toggle && <AiOutlineMenuUnfold
           className={style.icon}
           onClick={handleToggle}
         />
         }
-        { !toggle &&
+        { toggle &&
         <AiOutlineMenuFold
           className={style.icon}
           onClick={handleToggle}
