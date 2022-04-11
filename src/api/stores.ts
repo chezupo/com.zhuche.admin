@@ -34,16 +34,26 @@ export type UpdateStoreType = Omit<
   returnGuids: UpdateItemGuidType[]
 }
 
-export const createStore = async (data: CreateStoreType) => await requestClient.post<StoreItemType>('/stores', data)
+const createStore = async (data: CreateStoreType) => await requestClient.post<StoreItemType>('/stores', data)
 
-export const getStores = async (query: Record<string, QueryValueType>) => {
+const getStores = async (query: Record<string, QueryValueType>) => {
   return await requestClient.get<PageType<StoreItemType>>("/stores", query)
 }
 
-export const destroy = async (id: number) => await requestClient.deleteRequest(`/stores/${id}`)
+const destroy = async (id: number) => await requestClient.deleteRequest(`/stores/${id}`)
 
-export const update = async (id: number, data:UpdateStoreType) => {
+const update = async (id: number, data:UpdateStoreType) => {
   return await requestClient.patch<StoreItemType>(`/stores/${id}`, data)
 }
 
+const getStoreBrandsByStoreId = async (storeId: number):Promise<BrandItemType[]>  => {
+  return await requestClient.get<BrandItemType[]>(`/stores/${storeId}/brands`)
+}
 
+export {
+  destroy,
+  update,
+  getStores,
+  createStore,
+  getStoreBrandsByStoreId
+}

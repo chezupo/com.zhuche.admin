@@ -138,7 +138,7 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
             label='车系'
             rules={[{required: true, message: '车系不能为空'}]}
           >
-            <SeriesRender />
+            <SeriesRender data={props.data}/>
           </Form.Item>
         </Col>
         <Col span={12}>
