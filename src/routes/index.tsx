@@ -23,6 +23,7 @@ import Config from "@/pages/Car/Config";
 import Log from "@/pages/setting/Log";
 import Car from "@/pages/Car/Car";
 import Category from "@/pages/Car/Category";
+import Insurance from "@/pages/Insurance";
 
 export type MenuItemType = {
   name: string;
@@ -87,7 +88,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     hideInMenu: false,
     element: <Layout/>,
     icon: <FontIcon name='order' className={style.navIcon}/> ,
-    name: '订单', children: [
+    name: '订单管理', children: [
       {
         path: 'order1',
         element: <Order1/>,
@@ -165,6 +166,23 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         roles: [RoleType.ROLE_ADMIN],
         children: [ ]
 
+      },
+    ]
+  },
+  {
+    path: '/',
+    hideInMenu: false,
+    element: <Layout/>,
+    icon: <FontIcon name='insurance' className={style.navIcon}/> ,
+    name: '',
+    children: [
+      {path: 'insurance',
+        element: <Insurance />,
+        icon: <FontIcon name='insurance' className={style.navIcon}/> ,
+        hideInMenu: false,
+        name: '驾无忧管理',
+        roles: [RoleType.ROLE_ADMIN],
+        children: [ ]
       },
     ]
   },

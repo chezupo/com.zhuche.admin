@@ -1,6 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ConfigurationType, getConfiguration, updateConfiguration, UpdateConfigurationType } from '@/api/Configurations'
-import { AppDispatch } from '@/store'
+import {
+  ConfigurationType,
+  getConfiguration,
+  updateConfiguration,
+  UpdateConfigurationType,
+  updateInsurance
+} from '@/api/Configurations'
+import {AppDispatch, RootState} from '@/store'
 
 const initialState: ConfigurationType = {
   imgPrefix: '',
@@ -40,3 +46,15 @@ export const updateConfigurationThunk = (data: UpdateConfigurationType) => {
     dispatch(save(res))
   }
 }
+
+const updateInsuranceThunk = (insurance: number) => {
+  return async (dispatch: AppDispatch, getState: () => RootState ): Promise<void> => {
+    const newConfig = await updateInsurance(insurance)
+    dispatch(save({
+      ...getState().configuration,
+      ...newConfig
+    }))
+  }
+}
+
+export {updateInsuranceThunk}

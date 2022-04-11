@@ -75,7 +75,7 @@ const SeriesRender:React.FC<SeriesRenderPropsType> = props => {
       value={value}
       options={options}
       placeholder="请选择车系"
-      onChange={handleChange}
+      onChange={(v) => handleChange(v as number[])}
     />
   </>)
 }

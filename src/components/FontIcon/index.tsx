@@ -2,7 +2,7 @@ import React from 'react'
 
 type FontIconPropsType = {
   className?: string;
-  name: 'order' | 'car' |  'nav' | 'hetong' | 'config' | 'brand' | 'plus' | 'log' | 'category'
+  name: 'order' | 'car' |  'nav' | 'hetong' | 'config' | 'brand' | 'plus' | 'log' | 'category' | 'insurance'
 }
 const FontIcon: React.FC<FontIconPropsType> = props => {
   return (

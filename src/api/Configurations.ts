@@ -7,6 +7,7 @@ export type ConfigurationType = {
   amapKey: string
   amapSearchKey: string
   notice: string
+  insurance: number
 }
 
 export const getConfiguration = async (): Promise<ConfigurationType> => await get<ConfigurationType>("/configuration")
@@ -14,3 +15,11 @@ export const getConfiguration = async (): Promise<ConfigurationType> => await ge
 export type UpdateConfigurationType =  Omit<ConfigurationType, 'imgPrefix'>
 export const updateConfiguration = async (data: UpdateConfigurationType): Promise<ConfigurationType> =>
   await patch<ConfigurationType>("/configuration", data)
+
+const updateInsurance = async (insurance: number): Promise<ConfigurationType> => {
+  return await patch<ConfigurationType>('/configuration/insurance', {
+    insurance
+  })
+}
+
+export {updateInsurance}
