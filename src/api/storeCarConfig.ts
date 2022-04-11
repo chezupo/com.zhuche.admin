@@ -31,8 +31,13 @@ const destoryStoreCarConfig = async (id: number): Promise<void> => {
 
 }
 
+const getStoreCarConfigByStoreId = async (storeId: number): Promise<StoreCarConfigItemType[]> => {
+  return await get<StoreCarConfigItemType[]>(`/stores/${storeId}/cars/configs`)
+}
+
 
 export {
+  getStoreCarConfigByStoreId,
   getStoreCarConfigs,
   createStoreCarConfig,
   updateStoreCarConfig,

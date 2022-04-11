@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Checkbox, Col, Row} from "antd";
-import {getStoreCarConfigs} from "@/api/storeCarConfig";
+import {getStoreCarConfigByStoreId, getStoreCarConfigs} from "@/api/storeCarConfig";
+import {isAdmin} from "@/util/AuthUtil";
 
 type ConfigRenderPropsType = {
   value?: StoreCarConfigItemType[]
   onChange?: (value: StoreCarConfigItemType[]) => void
+  data?: CarItemType
 }
 const ConfigRender: React.FC<ConfigRenderPropsType> = props => {
   const [options, setOptions] = useState<StoreCarConfigItemType[]>([])
@@ -15,11 +17,23 @@ const ConfigRender: React.FC<ConfigRenderPropsType> = props => {
 
   useEffect(() => {
     let isMounted = true
-    getStoreCarConfigs({}).then(res => {
-      if (isMounted) {
-        setOptions(res.list)
-      }
-    })
+    const setOption = () => {
+      getStoreCarConfigs({}).then(res => {
+        if (isMounted) {
+          setOptions(res.list)
+        }
+      })
+    }
+    if (isAdmin()) {
+      getStoreCarConfigByStoreId(props.data!.store.id).then(res => {
+        if (isMounted) {
+          setOptions(res)
+        }
+      })
+    } else {
+      setOption()
+    }
+
     handleInitCheckIds()
     return () => {
       isMounted = false

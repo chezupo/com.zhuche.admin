@@ -24,9 +24,9 @@ declare type DivisionType = {
   areas: AreaType[]
 }
 
-declare enum RoleType {
-  ROLE_ADMIN = 'ROLE_ADMIN',
-}
+declare type ROLE_ADMIN = 'ROLE_ADMIN'
+declare type RoleType = 'ROLE_ADMIN'
+
 declare type UserType = {
   id: number
   username: string

@@ -189,7 +189,7 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
             name='configs'
             label='汽车配置'
           >
-            <ConfigRender />
+            <ConfigRender data={props.data} />
           </Form.Item>
         </Col>
         <Col span={12}>
