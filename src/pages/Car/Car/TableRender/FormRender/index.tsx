@@ -178,7 +178,7 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
         <Col span={12}>
           <Form.Item
             name='price'
-            label='价格(元/1天)'
+            label='价格(天)'
             rules={[{required: true, message:'价格不能为空'}]}
           >
             <InputNumber min={0.01} style={{width: '100%'}} />
@@ -197,6 +197,33 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
             name='deposit'
             label='押金'
             rules={[{required: true, message:'押金不能为空'}]}
+          >
+            <InputNumber style={{width: '100%'}} min={0} />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name='deposit'
+            label='押金'
+            rules={[{required: true, message:'押金不能为空'}]}
+          >
+            <InputNumber style={{width: '100%'}} min={0} />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name='handlingFee'
+            label='手续费'
+            rules={[{required: true, message:'手续费不能为空'}]}
+          >
+            <InputNumber style={{width: '100%'}} min={0} />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name='serviceFee'
+            label='保障费(天)'
+            rules={[{required: true, message:'服务保障费不能为空'}]}
           >
             <InputNumber style={{width: '100%'}} min={0} />
           </Form.Item>

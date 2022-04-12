@@ -55,6 +55,8 @@ const TableRender: React.FC = () => {
       }
     ] : []),
     { title: '排量', dataIndex: 'displacement', width: 100 },
+    { title: '保障服务费', dataIndex: 'serviceFee', width: 150 },
+    { title: '手续费', dataIndex: 'handlingFee', width: 100 },
     {
       title: '用户自助',
       width: 100,

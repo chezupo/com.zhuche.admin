@@ -149,6 +149,8 @@ declare type CarItemType = {
   updatedAt: string
   store: StoreItemType
   carCategory: CarCategoryItemType
+  handlingFee: number
+  serviceFee: number
 }
 
 declare type CarCategoryItemType = {
