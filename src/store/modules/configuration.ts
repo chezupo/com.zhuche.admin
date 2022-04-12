@@ -14,7 +14,9 @@ const initialState: ConfigurationType = {
   logo: '',
   amapKey: '',
   amapSearchKey: '',
-  notice: ''
+  notice: '',
+  insurance: 0,
+  servicePhone: ''
 }
 
 const configurationSlice = createSlice({

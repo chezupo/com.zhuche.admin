@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Form, Input, Spin} from "antd";
+import {Button, Form, Input, InputNumber, Spin} from "antd";
 import UploadImg from "@/components/UploadImg";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {updateConfigurationThunk} from "@/store/modules/configuration";
@@ -7,15 +7,20 @@ import {UpdateConfigurationType} from "@/api/Configurations";
 import {successMessage} from "@/util/messageUtil";
 
 const FormRender: React.FC = () => {
-  const {appName, imgPrefix, logo, notice} = useAppSelector(state => state.configuration)
+  const {appName, imgPrefix, logo, notice, servicePhone} = useAppSelector(state => state.configuration)
   const [form] = Form.useForm();
   const [imgUrl, setImgUrl] = useState<string>(logo)
-  form.setFieldsValue({appName, logo})
+
   useEffect(() => {
-    form.setFieldsValue({appName, logo})
     setImgUrl(logo)
   }, [appName, imgPrefix, logo])
-
+  const init = () => {
+    form.setFieldsValue({appName, imgPrefix, logo, notice, servicePhone})
+  }
+  useEffect(() => init(), [])
+  useEffect(() => init(), [
+    appName, imgPrefix, logo, notice, servicePhone
+  ])
   const handleUploadIg = (newLogo: string) => {
     setImgUrl(newLogo)
   }
@@ -61,6 +66,13 @@ const FormRender: React.FC = () => {
           rules={[{required: true, message: '公告不能为空'}]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          label='客服电话'
+          name='servicePhone'
+          rules={[{required: true, message: '客服电话不能为空'}]}
+        >
+          <InputNumber min={0} style={{width: '100%'}} />
         </Form.Item>
         <Form.Item wrapperCol={{offset: 10, span: 14 }} >
           <Button type="primary" htmlType="submit">保存</Button>

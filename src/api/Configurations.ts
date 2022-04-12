@@ -8,6 +8,7 @@ export type ConfigurationType = {
   amapSearchKey: string
   notice: string
   insurance: number
+  servicePhone: string
 }
 
 export const getConfiguration = async (): Promise<ConfigurationType> => await get<ConfigurationType>("/configuration")
