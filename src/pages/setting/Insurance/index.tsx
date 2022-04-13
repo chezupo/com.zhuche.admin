@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import HeaderPage from "@/components/HeaderPage";
 import ContentContainer from "@/components/ContentContainer";
 import style from "./style.module.less";
-import {Button, Col, Form, Input, InputNumber, Row, Spin} from "antd";
+import {Button, Col, Form, InputNumber, Row, Spin} from "antd";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {updateInsuranceThunk} from "@/store/modules/configuration";
 import {successMessage} from "@/util/messageUtil";
@@ -12,7 +12,11 @@ const Insurance: React.FC = () => {
   const config = useAppSelector(state => state.configuration)
   const init = () => {
     if (config) {
-      form.setFieldsValue({insurance: config.insurance })
+      form.setFieldsValue({
+        insurance: config.insurance,
+        insuranceAgreement: config.insuranceAgreement,
+        orderAgreement: config.orderAgreement
+      })
     }
   }
   useEffect(() => init(), [])

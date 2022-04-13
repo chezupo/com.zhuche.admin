@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import {FileLoader} from '@ckeditor/ckeditor5-upload/src/filerepository'
@@ -11,11 +11,14 @@ function MyCustomUploadAdapterPlugin(editor) {
 }
 
 type TextEditorPropsType = {
-  value: string
+  value?: string
   onChange?: (value: string) => void
 }
 
+let  mounted = false
 const TextEditor: React.FC<TextEditorPropsType>  = (props) => {
+  const value = props.value || ''
+
     const custom_config = {
       extraPlugins: [ MyCustomUploadAdapterPlugin ],
       table: {
@@ -23,14 +26,31 @@ const TextEditor: React.FC<TextEditorPropsType>  = (props) => {
       }
     }
     const [editorInstance, setEditorInstance] = useState<any>(null)
-    props.value.length === 0 && editorInstance !== null && editorInstance.getData().length > 0 && editorInstance.setData('')
+  const init = () => {
+    mounted && value.length === 0 && editorInstance !== null && editorInstance.getData().length > 0 && editorInstance.setData('')
+  }
+
+  useEffect(() => {
+    mounted = true
+    init()
+    return () => {
+      mounted = false
+    }
+  }, [])
+  useEffect(() => {
+    mounted = true
+    init()
+    return () => {
+      mounted = false
+    }
+  }, [props.value])
 
     return(
       <CKEditor
         required
         editor={ClassicEditor}
         config={custom_config}
-        data={props.value}
+        data={value}
         onReady={editor => {
           setEditorInstance(editor)
         } }

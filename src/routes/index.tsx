@@ -23,13 +23,14 @@ import Config from "@/pages/Car/Config";
 import Log from "@/pages/setting/Log";
 import Car from "@/pages/Car/Car";
 import Category from "@/pages/Car/Category";
-import Insurance from "@/pages/Insurance";
+import Insurance from "@/pages/setting/Insurance";
+import Agreement from "@/pages/setting/Agreement";
 
 export type MenuItemType = {
   name: string;
-  hideInMenu: boolean;
+  hideInMenu?: boolean;
   icon: React.ReactElement
-  children: MenuItemType[]
+  children?: MenuItemType[]
   roles?: RoleType[];
 } & RouteObject
 
@@ -38,13 +39,11 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     path: '/',
     element: <Home/>,
     hideInMenu: true,
-    children: []
   },
   {
     path: '/layout',
     element: <Layout/>,
     hideInMenu: true,
-    children: []
   },
   {
     path: '/',
@@ -54,13 +53,11 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
       {path: 'dashboard',
         element: <Dashboard />,
         icon: <AiOutlineDashboard className={style.navIcon}/> ,
-        hideInMenu: false,
-        name: '仪表盘', children: [ ]},
+        name: '仪表盘'},
     ]
   },
   {
     path: '/stores',
-    hideInMenu: false,
     element: <Layout/>,
     icon: <BsShop className={style.navIcon}/> ,
     name: '门店管理',
@@ -69,23 +66,18 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         path: '',
         element: <BaseInfor/>,
         icon: <BsShop className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '门店管理',
-        children: [ ]
       },
       {
         path: 'comments',
         element: <Store/>,
         icon: <AiOutlineComment className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '门店评论',
-        children: [ ]
       },
     ]
   },
   {
     path: '/orders',
-    hideInMenu: false,
     element: <Layout/>,
     icon: <FontIcon name='order' className={style.navIcon}/> ,
     name: '订单管理', children: [
@@ -93,22 +85,17 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         path: 'order1',
         element: <Order1/>,
         icon: <AiOutlineDashboard className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '订单1',
-        children: [ ]
       },
       {
         path: 'order2',
         element: <Order2/>,
         icon: <AiOutlineDashboard className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '订单2',
-        children: [ ]
       },
     ]},
   {
     path: '/cars',
-    hideInMenu: false,
     element: <Layout/>,
     icon: <FontIcon name='car' className={style.navIcon}/> ,
     name: '汽车管理',
@@ -118,42 +105,33 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         path: 'cars',
         element: <Car/> ,
         icon: <FontIcon name='car' className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '汽车管理',
-        children: [ ]
       },
       {
         path: 'brands',
         element: <Brand />,
         icon: <FontIcon name='brand' className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '品牌车系',
         roles: [RoleType.ROLE_BUSINESS, RoleType.ROLE_ADMIN],
-        children: [ ]
       },
       {
         path: 'cofnig',
         element: <Config />,
         icon: <FontIcon name='config' className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '配置管理',
         roles: [RoleType.ROLE_BUSINESS, RoleType.ROLE_ADMIN],
-        children: [ ]
       },
       {
         path: 'categories',
         element: <Category />,
         icon: <FontIcon name='category' className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '分类管理',
         roles: [RoleType.ROLE_BUSINESS, RoleType.ROLE_ADMIN],
-        children: [ ]
       }
     ]
   },
   {
     path: '/',
-    hideInMenu: false,
     element: <Layout/>,
     icon: <FontIcon name='order' className={style.navIcon}/> ,
     name: '',
@@ -161,35 +139,14 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
       {path: 'banners',
         element: <Banner/>,
         icon: <BiSlideshow className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '幻灯片管理',
         roles: [RoleType.ROLE_ADMIN],
-        children: [ ]
 
       },
     ]
   },
-  {
-    path: '/',
-    hideInMenu: false,
-    element: <Layout/>,
-    icon: <FontIcon name='insurance' className={style.navIcon}/> ,
-    name: '',
-    children: [
-      {path: 'insurance',
-        element: <Insurance />,
-        icon: <FontIcon name='insurance' className={style.navIcon}/> ,
-        hideInMenu: false,
-        name: '驾无忧管理',
-        roles: [RoleType.ROLE_ADMIN],
-        children: [ ]
-      },
-    ]
-  },
-
   {
     path: '/setting',
-    hideInMenu: false,
     element: <Layout/>,
     icon: <FiSettings name='icon-order' className={style.navIcon}/> ,
     name: '系统设置',
@@ -197,25 +154,25 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
       {path: 'base',
         element: <BaseSetting/>,
         icon: <FontIcon name='nav' className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '基础设置',
-        children: [ ]
+      },
+      {path: 'insurance',
+        element: <Insurance />,
+        icon: <FontIcon name='insurance' className={style.navIcon}/> ,
+        name: '驾无忧价格',
+        roles: [RoleType.ROLE_ADMIN],
       },
       {
         path: 'agreement',
-        element: <Banner/>,
+        element: <Agreement />,
         icon: <FontIcon name='hetong' className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '协议管理',
-        children: [ ]
       },
       {
         path: 'logs',
         element: <Log />,
         icon: <FontIcon name='log' className={style.navIcon}/> ,
-        hideInMenu: false,
         name: '操作日志',
-        children: [ ]
       },
     ],
     roles: [RoleType.ROLE_ADMIN]
@@ -225,24 +182,23 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     path: '/login',
     element: <Login />,
     hideInMenu: true,
-    children: []
   },
   {
     path: '/*',
     element: <NotFound /> ,
     hideInMenu: true,
-    children: []
   }
 ]
 
 export const getMenu = (children?:MenuItemType[]): MenuItemType[] => {
   const routeMenus = children ? children : routes
 
-  return routeMenus.filter(route =>  !route.hideInMenu)
+  return routeMenus.filter(route => !route.hideInMenu)
     .map(route => {
       if (route.children && route.children.length > 0) {
         route.children = getMenu(route.children as MenuItemType[] )
       }
+      if (!route.children) route.children = []
 
       return route as MenuItemType
     })

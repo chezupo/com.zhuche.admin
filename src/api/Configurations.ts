@@ -9,6 +9,8 @@ export type ConfigurationType = {
   notice: string
   insurance: number
   servicePhone: string
+  insuranceAgreement: string
+  orderAgreement: string
 }
 
 export const getConfiguration = async (): Promise<ConfigurationType> => await get<ConfigurationType>("/configuration")

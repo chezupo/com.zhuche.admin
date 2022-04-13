@@ -35,18 +35,18 @@ const ListRender: React.FC<ListRenderPropsType> = (props) =>  {
     ulRef.current?.classList.remove(style.closeUl)
     setIsOpen(true)
   }
-  const isTopOneItem: boolean = props.data.children.length === 1 && props.data.children[0].children.length === 0
-  const data = isTopOneItem ? props.data.children[0] : props.data;
+  const isTopOneItem: boolean = props.data.children!.length === 1 && props.data.children![0].children!.length === 0
+  const data = isTopOneItem ? props.data.children![0] : props.data;
   const prefix: string = isTopOneItem ? props.prefix + props.data.path : props.prefix
   const navigate = useNavigate();
   const handleClick = (): void => {
     if (isOpen) {
       handleClose()
     } else {
-      !isFold && props.data.children.length > 0 && props.onFold(true)
+      !isFold && props.data.children!.length > 0 && props.onFold(true)
       handleOpen()
     }
-    if (data.children.length === 0) {
+    if (data.children!.length === 0) {
       const myRoute = prefix === '/' ? prefix + data.path : prefix + '/' + data.path
       navigate(myRoute)
     }
