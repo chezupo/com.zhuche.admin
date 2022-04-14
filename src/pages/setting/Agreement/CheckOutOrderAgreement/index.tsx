@@ -7,11 +7,7 @@ import FormRender from "@/pages/setting/Agreement/CheckOutOrderAgreement/FormRen
 const CheckOutOrderAgreement: React.FC = props => {
   const [data, setData] = useState<AgreementItemType[]>([])
   const [loading, setLoading] = useState<boolean>(false)
-  const [editItem, setEditItem] = useState<AgreementItemType | undefined >({
-    id: 1,
-    title: 'hello',
-    content: 'content'
-  })
+  const [editItem, setEditItem] = useState<AgreementItemType | undefined >()
   const handleFetchData = () => {
     setLoading(true)
     getCheckoutAgreements().then(res => {
