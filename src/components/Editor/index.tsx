@@ -22,8 +22,10 @@ const TextEditor: React.FC<TextEditorPropsType>  = (props) => {
     const custom_config = {
       extraPlugins: [ MyCustomUploadAdapterPlugin ],
       table: {
-        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
-      }
+        contentToolbar: [
+          'tableColumn', 'tableRow', 'mergeTableCells'
+        ]
+      },
     }
     const [editorInstance, setEditorInstance] = useState<any>(null)
   const init = () => {

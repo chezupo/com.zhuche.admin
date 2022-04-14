@@ -158,3 +158,9 @@ declare type CarCategoryItemType = {
   name: string
   store: StoreItemType
 }
+
+declare interface AgreementItemType {
+  id: number
+  title: string
+  content: string
+}

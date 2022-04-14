@@ -1,0 +1,23 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 info pnpm": {
+    "err": {
+      "name": "Error",
+      "message": "not found: installdraft-js",
+      "code": "ENOENT",
+      "stack": "Error: not found: installdraft-js\n    at getNotFoundError (/Users/wuchuheng/.nvm/versions/node/v16.14.2/lib/node_modules/pnpm/dist/pnpm.cjs:41595:51)\n    at Function.whichSync [as sync] (/Users/wuchuheng/.nvm/versions/node/v16.14.2/lib/node_modules/pnpm/dist/pnpm.cjs:41672:13)\n    at getCommandAbsolutePathSync (/Users/wuchuheng/.nvm/versions/node/v16.14.2/lib/node_modules/pnpm/dist/pnpm.cjs:43237:44)\n    at default_1 (/Users/wuchuheng/.nvm/versions/node/v16.14.2/lib/node_modules/pnpm/dist/pnpm.cjs:43246:32)\n    at /Users/wuchuheng/.nvm/versions/node/v16.14.2/lib/node_modules/pnpm/dist/pnpm.cjs:178115:39"
+    }
+  },
+  "2 error pnpm": {
+    "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+    "prefix": "/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.admin",
+    "err": {
+      "name": "pnpm",
+      "message": "not found: installdraft-js",
+      "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+      "stack": "Error: not found: installdraft-js\n    at getNotFoundError (/Users/wuchuheng/.nvm/versions/node/v16.14.2/lib/node_modules/pnpm/dist/pnpm.cjs:41595:51)\n    at Function.whichSync [as sync] (/Users/wuchuheng/.nvm/versions/node/v16.14.2/lib/node_modules/pnpm/dist/pnpm.cjs:41672:13)\n    at getCommandAbsolutePathSync (/Users/wuchuheng/.nvm/versions/node/v16.14.2/lib/node_modules/pnpm/dist/pnpm.cjs:43237:44)\n    at default_1 (/Users/wuchuheng/.nvm/versions/node/v16.14.2/lib/node_modules/pnpm/dist/pnpm.cjs:43246:32)\n    at /Users/wuchuheng/.nvm/versions/node/v16.14.2/lib/node_modules/pnpm/dist/pnpm.cjs:178115:39"
+    }
+  }
+}

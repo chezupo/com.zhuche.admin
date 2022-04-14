@@ -1,0 +1,95 @@
+Arguments: 
+  /Users/wuchuheng/.nvm/versions/node/v16.14.2/bin/node /Users/wuchuheng/.nvm/versions/node/v16.14.2/bin/yarn add yarn add braft-editor
+
+PATH: 
+  /Users/wuchuheng/.nvm/versions/node/v16.14.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.admin/node_modules/.bin
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  16.14.2
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: EINVAL: invalid argument, mkdir '/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.admin/node_modules/@types/ckeditor__ckeditor5-heading/node_modules/@types'
+
+npm manifest: 
+  {
+    "name": "com.zhuche.admin",
+    "version": "0.0.0",
+    "scripts": {
+      "dev": "vite --host=0.0.0.0",
+      "build": "tsc && vite build",
+      "preview": "vite preview"
+    },
+    "dependencies": {
+      "@ant-design/icons": "^4.7.0",
+      "@ckeditor/ckeditor5-build-classic": "^32.0.0",
+      "@ckeditor/ckeditor5-react": "^3.0.3",
+      "@reduxjs/toolkit": "^1.7.1",
+      "@types/react-redux": "^7.1.22",
+      "@uiw/react-amap": "^2.5.0",
+      "@wuchuheng/rxjs": "^1.0.4",
+      "@wuchuhengtools/helper": "^1.0.10",
+      "antd": "^4.18.5",
+      "axios": "^0.26.0",
+      "axios-middleware": "^0.3.1",
+      "classnames": "^2.3.1",
+      "graphql": "^16.3.0",
+      "image-file-resize": "^1.0.5",
+      "js-cookie": "^3.0.1",
+      "moment": "^2.29.1",
+      "pretty-print-json": "^1.2.3",
+      "qiniu-js": "^3.4.0",
+      "react": "^17.0.2",
+      "react-dom": "^17.0.2",
+      "react-icons": "^4.3.1",
+      "react-redux": "^7.2.6",
+      "react-router-dom": "6"
+    },
+    "devDependencies": {
+      "@types/ckeditor__ckeditor5-build-classic": "^29.0.1",
+      "@types/ckeditor__ckeditor5-core": "^28.0.10",
+      "@types/js-cookie": "^3.0.1",
+      "@types/node": "^17.0.13",
+      "@types/react": "^17.0.33",
+      "@types/react-dom": "^17.0.10",
+      "@types/react-html-parser": "^2.0.2",
+      "@typescript-eslint/eslint-plugin": "^5.10.1",
+      "@typescript-eslint/parser": "^5.10.1",
+      "@uiw/react-amap-types": "^2.5.0",
+      "@vitejs/plugin-react": "^1.0.7",
+      "eslint": "^8.7.0",
+      "eslint-plugin-react": "^7.28.0",
+      "husky": "4.3.8",
+      "less": "^4.1.2",
+      "lint-staged": "^12.3.2",
+      "prettier": "^2.5.1",
+      "typescript": "^4.4.4",
+      "vite": "^2.8.4"
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "lint-staged"
+      }
+    },
+    "lint-staged": {
+      "src/**/*.{ts,tsx}": [
+        "eslint --fix",
+        "git add"
+      ],
+      "src/**/*.{js,jsx}": [
+        "eslint --fix",
+        "git add"
+      ]
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

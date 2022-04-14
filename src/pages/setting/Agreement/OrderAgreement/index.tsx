@@ -4,6 +4,7 @@ import Editor from "@/components/Editor";
 import {getConfiguration} from "@/api/Configurations";
 import {updateAgreement, UpdateAgreementQueryType} from "@/api/agreement";
 import {successMessage} from "@/util/messageUtil";
+import CustomerEditor from "@/components/BraftEditor";
 
 const OrderAgreement: React.FC = () => {
   const [form] = Form.useForm()
@@ -38,14 +39,14 @@ const OrderAgreement: React.FC = () => {
           rules={[{required: true, message: '协议不能为空'}]}
           label='下单协议'
         >
-          <Editor />
+          <CustomerEditor style={{border: 'solid 1px gray'}} />
         </Form.Item>
         <Form.Item
           name='insuranceAgreement'
           rules={[{required: true, message: '协议不能为空'}]}
           label='驾无忧协议'
         >
-          <Editor />
+          <CustomerEditor style={{border: 'solid 1px gray'}} />
         </Form.Item>
         <Form.Item>
           <Row justify='center'>
