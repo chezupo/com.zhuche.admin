@@ -164,3 +164,9 @@ declare interface AgreementItemType {
   title: string
   content: string
 }
+
+declare type HolidayItemType = {
+  id: number
+  day: number
+  mark: string
+}

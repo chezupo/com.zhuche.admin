@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3194065 */
-  src: url('iconfont.woff2?t=1649719360256') format('woff2'),
-       url('iconfont.woff?t=1649719360256') format('woff'),
-       url('iconfont.ttf?t=1649719360256') format('truetype');
+  src: url('iconfont.woff2?t=1649917590384') format('woff2'),
+       url('iconfont.woff?t=1649917590384') format('woff'),
+       url('iconfont.ttf?t=1649917590384') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,22 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-right:before {
+  content: "\e84e";
+}
+
+.icon-left:before {
+  content: "\e84f";
+}
+
+.icon-holiday:before {
+  content: "\e89e";
+}
+
+.icon-coupon:before {
+  content: "\e60e";
 }
 
 .icon-insurance:before {

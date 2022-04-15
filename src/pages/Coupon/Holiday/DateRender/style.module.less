@@ -1,0 +1,24 @@
+@import "../../../../styles/global.module.less";
+
+.main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .container {
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 1vw;
+    .icon{
+      text-align: center;
+    }
+  }
+}
+.date {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
