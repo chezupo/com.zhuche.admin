@@ -14,7 +14,11 @@ const Holiday: React.FC = () => {
 
   return (<>
     <HeaderPage>
+      <>
       节假日需要管理员来指定，它直接关系着有节假日限制的优惠卷能否被用户使用.
+      <br />
+        (注: 由于每年的假日安排都不一样，所以还是交给管理员来根据情况的需要来决定什么是节假日)
+      </>
     </HeaderPage>
     <ContentContainer classname={style.main}>
       <DateRender
