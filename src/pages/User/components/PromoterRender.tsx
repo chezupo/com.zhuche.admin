@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Button, Col, Popconfirm, Spin} from "antd";
 import {isPromoter} from "@/util/AuthUtil";
-import {getUser, setUserPromoter, unsetUserPromoter} from "@/api/users";
+import {setUserPromoter, unsetUserPromoter} from "@/api/users";
 import {successMessage} from "@/util/messageUtil";
 
 type PromoterRenderPropsType = {
