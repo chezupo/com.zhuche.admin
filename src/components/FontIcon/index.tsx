@@ -15,7 +15,10 @@ type FontIconPropsType = {
     'coupon' |
     'holiday' |
     'left' |
-    'right',
+    'right' |
+    'alipay' |
+    'bitDance'
+    ,
   onClick?: () => void
 }
 const FontIcon: React.FC<FontIconPropsType> = props => {

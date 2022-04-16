@@ -10,6 +10,7 @@ import {obj2Query} from "@wuchuhengtools/helper";
 import AddModalRender from "@/pages/Coupon/Coupon/AddModalRender";
 import EditRender from "@/pages/Coupon/Coupon/EditRender";
 import {successMessage} from "@/util/messageUtil";
+import BooleanTag from "@/components/BooleanTag";
 
 const Coupon: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -24,14 +25,6 @@ const Coupon: React.FC = () => {
   }
 
   useEffect(() => handleFetchData(), [])
- const BooleanTag: React.FC<{isOk: boolean}> = ({isOk}) => {
-    return (
-      <>
-        {isOk && <Tag color='green'>是</Tag>}
-        {!isOk && <Tag color='red'>否</Tag>}
-      </>
-    )
- }
   const  handleDelete = (id: number) => {
     setLoading(true)
     deleteCoupon(id).then(() => {

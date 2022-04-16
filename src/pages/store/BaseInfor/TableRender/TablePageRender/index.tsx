@@ -7,7 +7,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { objectToQueryStr, queryStrToObject } from '@/util/helper'
 import style from './style.module.less'
 import Permission from '@/components/Permission'
-import { RoleType } from '@/store/modules/me'
 import store from '@/store'
 import { errorMessage, successMessage } from '@/util/messageUtil'
 import EditorRender from '@/pages/store/BaseInfor/TableRender/EditorRender'
@@ -160,7 +159,7 @@ const TablePageRender: React.FC = () => {
             <Col>
               <EditPasswordRender value={record}/>
             </Col>
-            <Permission roles={[RoleType.ROLE_ADMIN]} >
+            <Permission roles={['ROLE_ADMIN']} >
               <Col>
                 <Popconfirm title='确认删除?' cancelText='取消' okText='确认' onConfirm={() => handleDestroy(record.id)}>
                   <Button size='small' danger>删除</Button>

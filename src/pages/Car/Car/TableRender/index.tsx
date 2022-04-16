@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, Image, Popconfirm, Row, Table, Tag} from "antd";
 import Permission from "@/components/Permission";
-import {RoleType} from "@/store/modules/me";
 import CreateModal from "@/pages/Car/Car/TableRender/CreateModal";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {deleteThunk, fetchThunk, initThunk} from "@/store/modules/car";
@@ -25,7 +24,7 @@ const TableRender: React.FC = () => {
       })
     }
   }, [])
-  const isAdmin: boolean = roles.includes(RoleType.ROLE_ADMIN)
+  const isAdmin: boolean = roles.includes('ROLE_ADMIN')
   const handleDelete = (id: number) => {
     dispatch(deleteThunk(id)).then(() => {
       successMessage()
@@ -201,7 +200,7 @@ const TableRender: React.FC = () => {
   return (<>
     <PaginationListener onChange={handleFetch} />
     <Row gutter={[0, 12]}>
-      <Permission roles={[RoleType.ROLE_BUSINESS]} >
+      <Permission roles={['ROLE_BUSINESS']} >
         <Col span={24}>
           <CreateModal />
         </Col>

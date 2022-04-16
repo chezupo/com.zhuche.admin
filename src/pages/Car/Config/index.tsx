@@ -10,7 +10,6 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {obj2Query, query2Obj} from "@wuchuhengtools/helper";
 import CreateRender from "@/pages/Car/Config/CreateRender";
 import Permission from "@/components/Permission";
-import {RoleType} from "@/store/modules/me";
 import EditRender from "@/pages/Car/Config/EditRender";
 
 const Config: React.FC = () => {
@@ -93,7 +92,7 @@ const Config: React.FC = () => {
     <ContentContainer>
       <div className={style.main}>
         <Row>
-          <Permission roles={[RoleType.ROLE_BUSINESS]}>
+          <Permission roles={['ROLE_BUSINESS']}>
               <Col span={24}>
                 <CreateRender />
               </Col>

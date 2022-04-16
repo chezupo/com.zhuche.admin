@@ -2,7 +2,6 @@ import React from "react";
 import {Button, Col, Form, Input, Row} from "antd";
 import style from './style.module.less'
 import Permission from "@/components/Permission";
-import {RoleType} from "@/store/modules/me";
 
 export type DataType = {
   storeName: string
@@ -32,7 +31,7 @@ const FilterSearch: React.FC<FilterSearchPropsType> = props => {
           onFinish={handleFinish}
     >
       <Row gutter={[12, 0]}>
-        <Permission roles={[RoleType.ROLE_ADMIN]}>
+        <Permission roles={['ROLE_ADMIN']}>
           <Col span={8}>
             <Form.Item name='storeName' label='门店名' className={style.item}>
               <Input />

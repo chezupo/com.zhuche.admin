@@ -1,5 +1,4 @@
 import {deleteRequest, get, patch, post} from "@/util/httpClient";
-import { PageType } from '@/typings'
 
 export type BannerType = {
   id: number;

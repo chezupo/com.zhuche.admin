@@ -12,7 +12,6 @@ import {createStoreThunk} from '@/store/modules/stores'
 import {successMessage} from '@/util/messageUtil'
 import SubscriptionService from '@wuchuheng/rxjs'
 import Permission from "@/components/Permission";
-import {RoleType} from "@/store/modules/me";
 
 export const resetSubscription = new SubscriptionService<boolean>(true)
 const CreateStore: React.FC = () => {
@@ -44,7 +43,7 @@ const CreateStore: React.FC = () => {
 
   return (
     <>
-      <Permission roles={[RoleType.ROLE_ADMIN]}>
+      <Permission roles={['ROLE_ADMIN']}>
         <Button type='primary' onClick={() => setVisitable(true)} >
           <div className={style.buttonContentWrapper}>
             <AiOutlinePlus className={style.createButton}/>

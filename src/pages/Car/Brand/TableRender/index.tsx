@@ -7,7 +7,6 @@ import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {getBrandThunk, initBrandThunk} from "@/store/modules/brand";
 import EditModal from "./EditModel";
 import Permission from "@/components/Permission";
-import {RoleType} from "@/store/modules/me";
 import BrandSeries from "@/pages/Car/Brand/TableRender/BrandSeries";
 
 const TableRender: React.FC = () => {
@@ -78,7 +77,7 @@ const TableRender: React.FC = () => {
     <Spin spinning={loading}>
       <div className={style.main}>
         <Row gutter={[0, 12]} >
-          <Permission roles={[RoleType.ROLE_BUSINESS]} >
+          <Permission roles={['ROLE_BUSINESS']} >
             <Col span={24}>
               <CreateForm />
             </Col>

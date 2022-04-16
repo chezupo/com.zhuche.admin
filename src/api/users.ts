@@ -1,5 +1,6 @@
-import {get, patch} from '@/util/httpClient'
+import {deleteRequest, get, patch} from '@/util/httpClient'
 import {stat} from "fs";
+import {getPageQuery} from "@/util/paginationUtil";
 
 type HasUserType = {
   hasUser: boolean
@@ -21,4 +22,23 @@ const updateUserPassword = (userId: number, newPassword: string) => {
   }
 }
 
-export {hasUser, getUser, updateUserPassword}
+const getAlipayUsers = async (): Promise<PageType<UserType>> => {
+  return await get<PageType<UserType>>(`/users/alipay/users`, getPageQuery(1, 12))
+}
+
+const setUserPromoter = async (userId: number): Promise<UserType> => {
+  return await patch<UserType>(`/users/${userId}/roles/ROLE_PROMOTER`)
+}
+
+const unsetUserPromoter = async (userId: number): Promise<UserType> => {
+  return await deleteRequest<UserType>(`/users/${userId}/roles/ROLE_PROMOTER`)
+}
+
+export {
+  hasUser,
+  getUser,
+  updateUserPassword,
+  getAlipayUsers,
+  setUserPromoter,
+  unsetUserPromoter
+}

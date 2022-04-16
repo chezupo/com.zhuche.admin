@@ -15,7 +15,6 @@ import {BsShop} from 'react-icons/bs'
 import BaseSetting from '@/pages/setting/BaseSetting'
 import Store from '@/pages/store'
 import BaseInfor from '@/pages/store/BaseInfor'
-import {RoleType} from "@/store/modules/me";
 import NotFound from "@/pages/NotFound";
 import Brand from "@/pages/Car/Brand";
 import Home from "@/pages/Home";
@@ -27,6 +26,7 @@ import Insurance from "@/pages/setting/Insurance";
 import Agreement from "@/pages/setting/Agreement";
 import Holiday from "@/pages/Coupon/Holiday";
 import Coupon from "@/pages/Coupon/Coupon";
+import AlipayUser from "@/pages/User/AlipayUser";
 
 export type MenuItemType = {
   name: string;
@@ -79,6 +79,21 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     ]
   },
   {
+    path: '/users',
+    element: <Layout/>,
+    icon: <BsShop className={style.navIcon}/> ,
+    roles: ['ROLE_ADMIN'],
+    name: '用户管理',
+    children: [
+      {
+        path: '',
+        element: <AlipayUser/>,
+        icon: <FontIcon name='alipay' className={style.navIcon}/> ,
+        name: '支付宝用户',
+      }
+    ]
+  },
+  {
     path: '/orders',
     element: <Layout/>,
     icon: <FontIcon name='order' className={style.navIcon}/> ,
@@ -101,7 +116,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     element: <Layout/>,
     icon: <FontIcon name='car' className={style.navIcon}/> ,
     name: '汽车管理',
-    roles: [RoleType.ROLE_BUSINESS, RoleType.ROLE_ADMIN],
+    roles: ['ROLE_BUSINESS', 'ROLE_ADMIN'],
     children: [
       {
         path: 'cars',
@@ -114,21 +129,21 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         element: <Brand />,
         icon: <FontIcon name='brand' className={style.navIcon}/> ,
         name: '品牌车系',
-        roles: [RoleType.ROLE_BUSINESS, RoleType.ROLE_ADMIN],
+        roles: ['ROLE_BUSINESS', 'ROLE_ADMIN'],
       },
       {
         path: 'cofnig',
         element: <Config />,
         icon: <FontIcon name='config' className={style.navIcon}/> ,
         name: '配置管理',
-        roles: [RoleType.ROLE_BUSINESS, RoleType.ROLE_ADMIN],
+        roles: ['ROLE_BUSINESS', 'ROLE_ADMIN'],
       },
       {
         path: 'categories',
         element: <Category />,
         icon: <FontIcon name='category' className={style.navIcon}/> ,
         name: '分类管理',
-        roles: [RoleType.ROLE_BUSINESS, RoleType.ROLE_ADMIN],
+        roles: ['ROLE_BUSINESS', 'ROLE_ADMIN'],
       }
     ]
   },
@@ -136,7 +151,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     name: '优惠卷管理',
     path: '/',
     element: <Layout />,
-    roles: [RoleType.ROLE_ADMIN],
+    roles: ['ROLE_ADMIN'],
     icon: <FontIcon name='coupon' />,
     children: [
       {
@@ -163,7 +178,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         element: <Banner/>,
         icon: <BiSlideshow className={style.navIcon}/> ,
         name: '幻灯片管理',
-        roles: [RoleType.ROLE_ADMIN],
+        roles: ['ROLE_ADMIN'],
 
       },
     ]
@@ -183,7 +198,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         element: <Insurance />,
         icon: <FontIcon name='insurance' className={style.navIcon}/> ,
         name: '驾无忧价格',
-        roles: [RoleType.ROLE_ADMIN],
+        roles: ['ROLE_ADMIN'],
       },
       {
         path: 'agreement',
@@ -198,7 +213,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         name: '操作日志',
       },
     ],
-    roles: [RoleType.ROLE_ADMIN]
+    roles: ['ROLE_ADMIN']
   },
   {
     path: '/login',

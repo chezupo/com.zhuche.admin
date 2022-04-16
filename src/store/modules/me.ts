@@ -3,11 +3,6 @@ import {AppDispatch, RootState} from '@/store'
 import {createToken} from "@/api/Authroization";
 import {getAccessToken, resetAccessToken, setAccessToken} from "@/util/AuthUtil";
 
-export enum RoleType {
-  ROLE_ADMIN="ROLE_ADMIN",
-  ROLE_BUSINESS = "ROLE_BUSINESS",
-  ROLE_CUSTOMER = "ROLE_CUSTOMER",
-}
 export type MeType = {
   isLogin: boolean;
   accessToken: string;

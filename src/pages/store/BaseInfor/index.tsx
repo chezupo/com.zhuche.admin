@@ -4,7 +4,6 @@ import ContentContainer from "@/components/ContentContainer";
 import { Col, Row, Spin } from 'antd'
 import FilterRender from "@/pages/store/BaseInfor/FilterRender";
 import Permission from "@/components/Permission";
-import {RoleType} from "@/store/modules/me";
 import TableRender from "@/pages/store/BaseInfor/TableRender";
 import { useAppSelector } from '@/store/hooks'
 
@@ -18,7 +17,7 @@ const BaseInfor: React.FC = () => {
     <ContentContainer>
       <Spin spinning={loading}>
       <Row justify='center' gutter={[0, 12]}>
-        <Permission roles={[RoleType.ROLE_ADMIN]}>
+        <Permission roles={['ROLE_ADMIN']}>
           <Col span={24}>
             <FilterRender/>
           </Col>

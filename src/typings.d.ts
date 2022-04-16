@@ -24,13 +24,29 @@ declare type DivisionType = {
   areas: AreaType[]
 }
 
-declare type ROLE_ADMIN = 'ROLE_ADMIN'
-declare type RoleType = 'ROLE_ADMIN'
+declare type RoleType = 'ROLE_ADMIN' |
+  'ROLE_USER' | // 用户
+  'ROLE_BUSINESS' | // 门店
+  'ROLE_CUSTOMER' | // 客户服
+  'ROLE_AGENT' | // 推广员
+  'ROLE_PROMOTER' // 业务员
 
+declare type AlipayAccountType = {
+  id: number
+  createdAt: string
+  avatar: string
+  city: string
+  nickName?: string
+  phone?: string
+  province: string
+  gender?: 'f' | 'm'
+  countryCode: string
+}
 declare type UserType = {
   id: number
   username: string
   roles: RoleType[]
+  alipayAccount?: AlipayAccountType
 }
 declare type StoreBanner = {
   id: number

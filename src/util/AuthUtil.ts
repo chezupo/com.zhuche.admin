@@ -1,7 +1,6 @@
 import Cookies from "js-cookie";
 import {AccessTokenInfoType} from "@/api/Authroization";
 import store from "@/store";
-import {RoleType} from "@/store/modules/me";
 
 const accessTokenKey = 'accessToken';
 
@@ -28,13 +27,16 @@ const resetAccessToken =  (): void => {
 const isAdmin = (): boolean => {
   const myRoles: RoleType[] = store.getState().me.roles;
 
-  return myRoles.includes(RoleType.ROLE_ADMIN)
+  return myRoles.includes('ROLE_ADMIN')
 }
+
+const isPromoter = (roles: RoleType[]) => roles.includes('ROLE_PROMOTER')
 
 export {
   resetAccessToken,
   getAccessToken,
   setAccessToken,
-  isAdmin
+  isAdmin,
+  isPromoter
 }
 

@@ -1,5 +1,4 @@
 import {post} from "@/util/httpClient";
-import {RoleType} from "@/store/modules/me";
 
 export type AccessTokenInfoType = {
   accessToken: string;
