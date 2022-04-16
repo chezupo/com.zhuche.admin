@@ -170,3 +170,16 @@ declare type HolidayItemType = {
   day: number
   mark: string
 }
+
+declare type CouponItemType = {
+  id: number
+  title: string
+  content: string
+  isAutoDispatchingToNewUser: boolean
+  amount: number
+  meetAmount: number
+  expired: number
+  isWithHoliday: boolean
+  isWithRent: boolean
+  isWithServiceAmount: boolean
+}

@@ -26,6 +26,7 @@ import Category from "@/pages/Car/Category";
 import Insurance from "@/pages/setting/Insurance";
 import Agreement from "@/pages/setting/Agreement";
 import Holiday from "@/pages/Coupon/Holiday";
+import Coupon from "@/pages/Coupon/Coupon";
 
 export type MenuItemType = {
   name: string;
@@ -138,6 +139,12 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     roles: [RoleType.ROLE_ADMIN],
     icon: <FontIcon name='coupon' />,
     children: [
+      {
+        path: 'coupon',
+        name: '优惠卷管理',
+        icon: <FontIcon name='coupon' />,
+        element: <Coupon />
+      },
       {
         path: 'holiday',
         name: '节假日管理',
