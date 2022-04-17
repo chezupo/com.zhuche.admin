@@ -47,6 +47,7 @@ declare type UserType = {
   username: string
   roles: RoleType[]
   alipayAccount?: AlipayAccountType
+  userCoupons: UserCouponItemType[]
 }
 declare type StoreBanner = {
   id: number
@@ -198,4 +199,13 @@ declare type CouponItemType = {
   isWithHoliday: boolean
   isWithRent: boolean
   isWithServiceAmount: boolean
+}
+
+declare type UserCouponItemType = {
+  id: number
+  user: UserType
+  coupon: CouponItemType
+  isValid: boolean
+  expired: number
+  createdAt: string
 }

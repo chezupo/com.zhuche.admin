@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import BraftEditor, {EditorState} from 'braft-editor';
-import 'braft-extensions/dist/table.css'
 import 'braft-editor/dist/index.css';
 
 type BraftEditorPropsType = {

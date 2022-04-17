@@ -3,6 +3,7 @@ import {Button, Col, Popconfirm, Spin} from "antd";
 import {isPromoter} from "@/util/AuthUtil";
 import {setUserPromoter, unsetUserPromoter} from "@/api/users";
 import {successMessage} from "@/util/messageUtil";
+import {size} from "@/pages/User/components/config";
 
 type PromoterRenderPropsType = {
   id: number
@@ -38,7 +39,9 @@ const PromoterRender: React.FC<PromoterRenderPropsType> = props => {
               cancelText='取消'
               onConfirm={() => handleOk()}
             >
-              <Button type='primary'>设为业务员</Button>
+              <Button type='primary'
+                      size={size}
+              >设为业务员</Button>
             </Popconfirm>
           </Col>
         )
@@ -52,12 +55,13 @@ const PromoterRender: React.FC<PromoterRenderPropsType> = props => {
               cancelText='取消'
               onConfirm={() => handleCancel()}
             >
-              <Button type='primary' danger>取消业务员</Button>
+              <Button type='primary' size={size} danger>取消业务员</Button>
             </Popconfirm>
           </Col>
         )
       }
     </Spin>
+
   </>)
 }
 

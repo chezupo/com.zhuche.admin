@@ -8,11 +8,12 @@ type ReloadPaginationQueryType = {
 }
 type ReloadPaginationType = (query: ReloadPaginationQueryType) => void
 type UseIsReloadPaginationQueryType = () => void
+type RefreshType= () => void
 /**
  *  触发分页加载回调函数
  * @param callBack
  */
-const useIsReloadPagination = (callBack: UseIsReloadPaginationQueryType): ReloadPaginationType => {
+const useReloadPagination = (callBack: UseIsReloadPaginationQueryType): [ReloadPaginationType, RefreshType] => {
   const [preSearch, setPreSearch] = useState<string>('')
   let isReload: boolean
   const navigator = useNavigate()
@@ -35,21 +36,32 @@ const useIsReloadPagination = (callBack: UseIsReloadPaginationQueryType): Reload
   isReload &&  callBack()
   useEffect(() => callBack(), [])
 
-  return handleReloadPagination
+  return [handleReloadPagination, callBack]
 }
 
-type UsePaginationFilterType = (query: Record<string, string | number>) => void
+type UsePaginationFilterReturnType  = Record<string, string | number>
+type UsePaginationFilterType = (query: UsePaginationFilterReturnType) => void
 
 /**
  *  分页搜索
  */
 const usePaginationFilter = (): UsePaginationFilterType  => {
   const navigate = useNavigate()
-  const {pathname, search} = useLocation()
+  const {pathname, search} = useLocation();
+  const removeEmptyValue = (newValue: UsePaginationFilterReturnType): UsePaginationFilterReturnType => {
+    const objQuery: UsePaginationFilterReturnType = {}
+    for (const key in newValue) {
+      if (newValue[key]) {
+        objQuery[key] = newValue[key]
+      }
+    }
+    return objQuery;
+  }
+
   const handleFilter: UsePaginationFilterType = query => {
     const queryObj = {
-     ...query2Obj(search),
-      ...query
+     ...(removeEmptyValue(query2Obj(search))),
+      ...(removeEmptyValue(query))
     }
     navigate(pathname + obj2Query(queryObj))
   }
@@ -71,4 +83,4 @@ const useRestPaginationFilter = (): UseRestPaginationFilterType => {
   return handleFilter
 }
 
-export {useIsReloadPagination, usePaginationFilter, useRestPaginationFilter}
+export {useReloadPagination, usePaginationFilter, useRestPaginationFilter}

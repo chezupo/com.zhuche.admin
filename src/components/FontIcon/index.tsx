@@ -17,7 +17,8 @@ type FontIconPropsType = {
     'left' |
     'right' |
     'alipay' |
-    'bitDance'
+    'bitDance' |
+    'userCoupon'
     ,
   onClick?: () => void
 }

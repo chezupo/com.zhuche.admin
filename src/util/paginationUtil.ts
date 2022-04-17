@@ -4,11 +4,42 @@ type PageQueryType = {
   page: number
   size: number
 }
-const getPageQuery = (page: number, size: number): PageQueryType => {
+type PageDataConvertPaginationType = {
+  pageSize: number
+  current: number
+  total: number
+  showTotal: () => string
+}
+const getPageQuery = (page?: number, size?: number): PageQueryType => {
+  page = page || 1
+  size = size || 12
   const {search} = document.location
   const searchObj = query2Obj(search)
 
   return  {...searchObj, page: parseInt(searchObj?.page) || page, size: parseInt(searchObj?.size) || size }
 }
 
-export {getPageQuery}
+const initPaginationData = <T>(): PageType<T> => {
+  return {
+    list: [],
+    total: 0,
+    currentPage: 1,
+    size: 12
+  }
+}
+
+const pageDataConvertPagination = <T>(data: PageType<T>):PageDataConvertPaginationType  => {
+  return {
+    pageSize: data.size,
+    current: data.currentPage,
+    total: data.total,
+    showTotal: () =>  `共${data.total}条`
+  }
+}
+
+
+export {
+  getPageQuery,
+  initPaginationData,
+  pageDataConvertPagination
+}

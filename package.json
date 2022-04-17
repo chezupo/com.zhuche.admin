@@ -14,7 +14,7 @@
     "@types/react-redux": "^7.1.22",
     "@uiw/react-amap": "^2.5.0",
     "@wuchuheng/rxjs": "^1.0.4",
-    "@wuchuhengtools/helper": "^1.0.10",
+    "@wuchuhengtools/helper": "^1.0.12",
     "antd": "^4.18.5",
     "axios": "^0.26.0",
     "axios-middleware": "^0.3.1",

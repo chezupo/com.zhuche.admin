@@ -1,11 +1,16 @@
 import React from "react";
 import {Tag} from "antd";
 
-const BooleanTag: React.FC<{isOk: boolean}> = ({isOk}) => {
+type BooleanTagPropsType = {
+  isOk: boolean
+  okText?: string
+  cancelText?: string
+}
+const BooleanTag: React.FC<BooleanTagPropsType> = ({isOk, okText, cancelText}) => {
   return (
     <>
-      {isOk && <Tag color='green'>是</Tag>}
-      {!isOk && <Tag color='red'>否</Tag>}
+      {isOk && <Tag color='green'>{okText || '是'}</Tag>}
+      {!isOk && <Tag color='red'>{cancelText || '否'}</Tag>}
     </>
   )
 }

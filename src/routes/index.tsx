@@ -27,6 +27,7 @@ import Agreement from "@/pages/setting/Agreement";
 import Holiday from "@/pages/Coupon/Holiday";
 import Coupon from "@/pages/Coupon/Coupon";
 import AlipayUser from "@/pages/User/AlipayUser";
+import UserCoupon from "@/pages/Coupon/UserCoupon";
 
 export type MenuItemType = {
   name: string;
@@ -149,7 +150,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
   },
   {
     name: '优惠卷管理',
-    path: '/',
+    path: '/coupon',
     element: <Layout />,
     roles: ['ROLE_ADMIN'],
     icon: <FontIcon name='coupon' />,
@@ -159,6 +160,12 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         name: '优惠卷管理',
         icon: <FontIcon name='coupon' />,
         element: <Coupon />
+      },
+      {
+        path: 'userCoupons',
+        name: '用户优惠卷',
+        icon: <FontIcon name='userCoupon' />,
+        element: <UserCoupon />
       },
       {
         path: 'holiday',
