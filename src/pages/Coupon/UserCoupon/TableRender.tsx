@@ -43,13 +43,13 @@ const TableRender: React.FC = () => {
     },
     { title: '剩余有效时长',
       render: (_, record) => {
-        if (!record.isValid) {
-          return '0天';
-        }
         const dayTimestampLength = 60 * 60 * 24 * 1000;
         const days = ((new Date(record.createdAt)).getTime() + record.expired * dayTimestampLength - Date.now()) /dayTimestampLength
         return days.toFixed(2) + '天'
       }
+    },
+    { title: '原因',
+      render: (_, record) => record.reason
     },
     {
       title: '状态',

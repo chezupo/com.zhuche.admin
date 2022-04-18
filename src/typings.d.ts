@@ -205,6 +205,7 @@ declare type UserCouponItemType = {
   id: number
   user: UserType
   coupon: CouponItemType
+  reason: string
   isValid: boolean
   expired: number
   createdAt: string
