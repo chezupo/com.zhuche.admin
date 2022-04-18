@@ -16,10 +16,11 @@ const DateItemRender: React.FC<DateItemRenderPropsType> = props => {
   const [loading, setLoading] = useState<boolean>(false)
   const now = dateConvertDate(new Date())
   const isInvalid = now.getTime() > props.dateTime.getTime()
+  const isToday = now.getTime() === dateConvertDate(props.dateTime).getTime()
   const dom = (
     <td>
       <div className={[style.main, isInvalid ? style.invalid : ''].join(' ')}>
-        <div>{props.dateTime.getDate()}</div>
+        <div>{isToday ? '今' : props.dateTime.getDate()}</div>
         <div className={style.subtitle}>{props.holiday?.mark}</div>
       </div>
     </td>

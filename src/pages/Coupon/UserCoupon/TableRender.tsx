@@ -5,7 +5,6 @@ import BooleanTag from "@/components/BooleanTag";
 import {initPaginationData, pageDataConvertPagination} from "@/util/paginationUtil";
 import {useReloadPagination} from "@/util/paginationHook";
 import {getUserCoupons} from "@/api/userCoupon";
-import {successMessage} from "@/util/messageUtil";
 import MarkSearchKeyword from "@/components/MarkSearchKeyword";
 
 const TableRender: React.FC = () => {
@@ -13,10 +12,9 @@ const TableRender: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [setPagination] = useReloadPagination(() => {
     setLoading(true)
-    getUserCoupons().then(res => {
+    getUserCoupons().then(res =>
       setData(res)
-      successMessage()
-    }).finally(() => setLoading(false))
+    ).finally(() => setLoading(false))
   })
 
   const columns: ColumnsType<UserCouponItemType> = [
