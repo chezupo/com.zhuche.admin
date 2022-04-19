@@ -159,7 +159,7 @@ declare type CarItemType = {
   rand: BrandItemType // 品牌
   number: string // 车牌号
   isOnline: boolean // 是否上架
-  price: number
+  rent: number
   configs: StoreCarConfigItemType[]
   deposit: number
   createdAt: string
@@ -167,7 +167,7 @@ declare type CarItemType = {
   store: StoreItemType
   carCategory: CarCategoryItemType
   handlingFee: number
-  serviceFee: number
+  insuranceFee: number
 }
 
 declare type CarCategoryItemType = {

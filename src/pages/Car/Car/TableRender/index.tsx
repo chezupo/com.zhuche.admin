@@ -35,12 +35,18 @@ const TableRender: React.FC = () => {
     { title: '名称', dataIndex: 'name', fixed: 'left', width: 100 },
     {title: '押金', dataIndex: 'deposit',
       fixed: 'left',
-      width: 100
+      width: 100,
+      render: deposit => `￥${deposit.toFixed(2)}`
     },
-    {title: '价格(天)', dataIndex: 'price',
+    {title: '租金(天)', dataIndex: 'rent',
       fixed: 'left',
-      width: 150
+      width: 150,
+      render: rent => `￥${rent.toFixed(2)}`
     },
+    { title: '手续费', dataIndex: 'handlingFee', width: 100 , render: handleFee => `￥${handleFee.toFixed(2)}`,
+      fixed: 'left',
+    },
+    { title: '驾无忧(天)', dataIndex: 'insuranceFee', width: 150, render: insuranceFee => `￥${insuranceFee.toFixed(2)}`, fixed: 'left' },
     { title: '封面', dataIndex: 'cover', width: 100,
       fixed: 'left',
       render: src => <Image src={src} width={'2rem'} />
@@ -53,9 +59,7 @@ const TableRender: React.FC = () => {
 
       }
     ] : []),
-    { title: '排量', dataIndex: 'displacement', width: 100 },
-    { title: '保障服务费', dataIndex: 'serviceFee', width: 150 },
-    { title: '手续费', dataIndex: 'handlingFee', width: 100 },
+    { title: '排量', dataIndex: 'displacement', width: 100, render: displacement => `${displacement.toFixed(1)}`},
     {
       title: '用户自助',
       width: 100,
@@ -88,8 +92,8 @@ const TableRender: React.FC = () => {
         }
       }
     },
-    { title: '油量(L)', dataIndex: 'gasVolume', width: 100  },
-    { title: '座位数', dataIndex: 'seats', width: 100 },
+    { title: '油量(L)', dataIndex: 'gasVolume', width: 100, render: gasVolume => `${gasVolume.toFixed(1)}L`  },
+    { title: '座位数', dataIndex: 'seats', width: 100, render: seats => `${seats}座` },
     {title: '车型', dataIndex: 'type', width: 100},
     {title: '车牌号', dataIndex: 'number', width: 100},
     {title: '上/下架', dataIndex: 'isOnline', width: 100,
@@ -141,7 +145,6 @@ const TableRender: React.FC = () => {
         )
       }
     },
-    {title: '价格(元/1天)', dataIndex: 'price', width: 150},
     {title: '汽车配置',
       width: 150,
       render: (_, record) =>
