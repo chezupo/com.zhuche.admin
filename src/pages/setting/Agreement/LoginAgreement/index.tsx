@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {getCheckoutAgreements} from "@/api/agreement";
+import {getLoginAgreements} from "@/api/agreement";
 import AgreementTableRender from "@/pages/setting/Agreement/components/AgreementTableRender";
 
-const CheckOutOrderAgreement: React.FC = props => {
+const LoginAgreement: React.FC = () => {
   const [data, setData] = useState<AgreementItemType[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const handleFetchData = () => {
     setLoading(true)
-    getCheckoutAgreements().then(res => {
+    getLoginAgreements().then(res => {
       setData(res)
     })
       .finally(() => setLoading(false))
@@ -18,6 +18,7 @@ const CheckOutOrderAgreement: React.FC = props => {
   return (
     <AgreementTableRender loading={loading} data={data} onChanged={handleFetchData} />
   )
+
 }
 
-export default CheckOutOrderAgreement
+export default LoginAgreement

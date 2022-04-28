@@ -14,6 +14,7 @@ import logReducer from "@/store/modules/log";
 import carReducer from "@/store/modules/car";
 import carCategoryReducer from "@/store/modules/carCatetory";
 import userReducer from "@/store/modules/user";
+import orderReducer from "@/store/modules/order";
 
 const store =  configureStore({
   reducer: {
@@ -31,7 +32,8 @@ const store =  configureStore({
     log: logReducer,
     cars: carReducer,
     carCategory: carCategoryReducer,
-    users: userReducer
+    users: userReducer,
+    orders: orderReducer
   },
 })
 

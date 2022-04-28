@@ -1,7 +1,7 @@
 import React, {ReactNode, useEffect, useState} from "react";
 import style from "@/pages/Coupon/Holiday/style.module.less";
 import DateItemRender from "@/pages/Coupon/Holiday/DateItemRender";
-import {dateConvertDate, dateConvertNextMonth} from "@/util/date";
+import {dateConvertDate, dateConvertNextMonth} from "@/util/dateUtil";
 import {getHolidays} from "@/api/holiday";
 import {Spin} from "antd";
 

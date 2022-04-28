@@ -28,6 +28,10 @@ const initPaginationData = <T>(): PageType<T> => {
   }
 }
 
+/**
+ * 分页条
+ * @param data
+ */
 const pageDataConvertPagination = <T>(data: PageType<T>):PageDataConvertPaginationType  => {
   return {
     pageSize: data.size,

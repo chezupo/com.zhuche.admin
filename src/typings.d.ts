@@ -210,3 +210,52 @@ declare type UserCouponItemType = {
   expired: number
   createdAt: string
 }
+
+/**
+ * 订单状态
+ */
+declare type OrderStatusType =
+'CREDITING' | // 信用授权中
+  'PAYING' | // 支付中
+  'CAR_PICKUP_IN_PROGRESS' | // 取车中
+  'USING' | // 使用中
+  'OVERTIME' | // 用车超时
+  'RETURNING' | // 还车中
+  'FINISHED' | // 已完成
+  'RENEWED' | // 已续约
+  'CANCELED'  // 已取消
+
+/**
+ * 支付类型
+ */
+declare type OrderPayType =
+  'ALIPAY' | // 支付宝
+  'WECHAT' // 微信
+
+/**
+ * 订单数据类型
+ */
+declare type OrderItemType = {
+  createdAt: string
+  updatedAt: string
+  id: number
+  startTimeStamp: number // 开始时间
+  endTimeStamp: number// 还车时间
+  isInsurance: boolean // 是否使用驾无忧
+  cover: string // 图片
+  insuranceFee: number //  驾无忧费用
+  rent: number //费用
+  deposit: number // 租金
+  handlingFee: number // 手续费
+  waiverAmount: number // 减免费用
+  amount: number // 总费用
+  alipayTradeNo: string // 支付宝订单号
+  status: OrderStatusType // 订单状态
+  title: string // 商品名
+  startStore: StoreItemType
+  payType: OrderPayType
+  endStore: StoreItemType
+  car: CarItemType
+  user: UserType
+  wechatTradeNo: string // 微信订单号
+}

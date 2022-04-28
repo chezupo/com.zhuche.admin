@@ -5,6 +5,7 @@ import {Tabs} from "antd";
 import style from './style.module.less';
 import OrderAgreement from "@/pages/setting/Agreement/OrderAgreement";
 import CheckOutOrderAgreement from "@/pages/setting/Agreement/CheckOutOrderAgreement";
+import LoginAgreement from "@/pages/setting/Agreement/LoginAgreement";
 
 const Agreement: React.FC = () => {
 
@@ -25,8 +26,8 @@ const Agreement: React.FC = () => {
         <Tabs.TabPane tab="下单规则" key="2">
           <CheckOutOrderAgreement />
         </Tabs.TabPane>
-        <Tabs.TabPane tab="Tab 3" key="3">
-          Content of Tab Pane 3
+        <Tabs.TabPane tab="登录界面相关协议" key="3">
+          <LoginAgreement />
         </Tabs.TabPane>
       </Tabs>
     </ContentContainer>

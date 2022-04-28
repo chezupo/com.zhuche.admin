@@ -1,7 +1,7 @@
 import React from "react";
 import style from './style.module.less';
 import FontIcon from "@/components/FontIcon";
-import {dateConvertMonth, dateConvertNextMonth, dateConvertPrevMonth} from "@/util/date";
+import {dateConvertMonth, dateConvertNextMonth, dateConvertPrevMonth} from "@/util/dateUtil";
 import {Button} from "antd";
 
 type DateRenderPropsType = {

@@ -17,8 +17,15 @@ const getCheckoutAgreements = async (): Promise<AgreementItemType[]>  => {
   return await get<AgreementItemType[]>('/agreements/checkoutOrderAgreements')
 }
 
+/**
+ * 获取登录相关的说明协议
+ */
+const getLoginAgreements = async (): Promise<AgreementItemType[]>  => {
+  return await get<AgreementItemType[]>('/agreements/loginAgreements')
+}
+
 const updateAgreementById =  async (id: number, query: UpdateAgreementByIdQueryType): Promise<AgreementItemType> => {
   return await patch<AgreementItemType>(`/agreements/${id}`, query)
 }
 
-export {updateAgreement, getCheckoutAgreements, updateAgreementById}
+export {updateAgreement, getCheckoutAgreements, updateAgreementById, getLoginAgreements}

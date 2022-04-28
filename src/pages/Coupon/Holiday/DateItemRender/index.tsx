@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import style from './style.module.less'
-import {dateConvertDate} from "@/util/date";
+import {dateConvertDate} from "@/util/dateUtil";
 import {Button, Col, Form, Input, Popconfirm, Row, Spin} from "antd";
 import {deleteHoliday, setHoliday} from "@/api/holiday";
 import {successMessage} from "@/util/messageUtil";

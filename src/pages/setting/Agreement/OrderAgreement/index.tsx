@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, Form, Row, Spin} from "antd";
-import Editor from "@/components/Editor";
 import {getConfiguration} from "@/api/Configurations";
 import {updateAgreement, UpdateAgreementQueryType} from "@/api/agreement";
 import {successMessage} from "@/util/messageUtil";

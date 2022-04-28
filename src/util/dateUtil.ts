@@ -39,9 +39,30 @@ const dateConvertPrevMonth = (date: Date): Date => {
   return new Date(`${y}-${m + 1}-1`)
 }
 
+/**
+ * 时间格式化字符串
+ * @param date
+ */
+const dateConvertStr = (date: Date): string => {
+  const format = (d: number) => (d > 9 ? d : '0' + d) + ''
+
+  return `${date.getFullYear()}-${
+    format(date.getMonth() + 1)
+  }-${
+    format(date.getDate())
+  } ${
+    format(date.getHours())
+  }:${
+    format(date.getMinutes())
+  }:${
+    format(date.getSeconds())
+  }`
+}
+
 export {
   dateConvertMonth,
   dateConvertNextMonth,
   dateConvertPrevMonth,
-  dateConvertDate
+  dateConvertDate,
+  dateConvertStr
 }

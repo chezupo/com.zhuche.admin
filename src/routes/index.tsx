@@ -6,7 +6,7 @@ import Dashboard from '@/pages/Dashboard'
 import {AiOutlineComment, AiOutlineDashboard} from 'react-icons/ai'
 import FontIcon from '@/components/FontIcon'
 import style from '@/styles/global.module.less'
-import Order1 from '@/pages/order/Order1'
+import Order from '@/pages/order/Order'
 import Order2 from '@/pages/order/Order2'
 import Banner from '@/pages/Banner'
 import {BiSlideshow} from 'react-icons/bi'
@@ -100,10 +100,10 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     icon: <FontIcon name='order' className={style.navIcon}/> ,
     name: '订单管理', children: [
       {
-        path: 'order1',
-        element: <Order1/>,
-        icon: <AiOutlineDashboard className={style.navIcon}/> ,
-        name: '订单1',
+        path: 'orders',
+        element: <Order/>,
+        icon: <FontIcon name='order' className={style.navIcon}/> ,
+        name: '订单管理',
       },
       {
         path: 'order2',
@@ -200,12 +200,6 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         element: <BaseSetting/>,
         icon: <FontIcon name='nav' className={style.navIcon}/> ,
         name: '基础设置',
-      },
-      {path: 'insurance',
-        element: <Insurance />,
-        icon: <FontIcon name='insurance' className={style.navIcon}/> ,
-        name: '驾无忧价格',
-        roles: ['ROLE_ADMIN'],
       },
       {
         path: 'agreement',
