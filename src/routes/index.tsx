@@ -22,12 +22,13 @@ import Config from "@/pages/Car/Config";
 import Log from "@/pages/setting/Log";
 import Car from "@/pages/Car/Car";
 import Category from "@/pages/Car/Category";
-import Insurance from "@/pages/setting/Insurance";
 import Agreement from "@/pages/setting/Agreement";
 import Holiday from "@/pages/Coupon/Holiday";
 import Coupon from "@/pages/Coupon/Coupon";
 import AlipayUser from "@/pages/User/AlipayUser";
 import UserCoupon from "@/pages/Coupon/UserCoupon";
+import TransactionPage from "@/pages/finance/TransactionPage";
+import WithdrawPage from "@/pages/finance/WithdrawPage";
 
 export type MenuItemType = {
   name: string;
@@ -87,7 +88,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     name: '用户管理',
     children: [
       {
-        path: '',
+        path: 'alipayUser',
         element: <AlipayUser/>,
         icon: <FontIcon name='alipay' className={style.navIcon}/> ,
         name: '支付宝用户',
@@ -189,6 +190,28 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
 
       },
     ]
+  },
+
+  {
+    path: '/finance',
+    element: <Layout/>,
+    icon: <FontIcon name='finance' className={style.navIcon}/> ,
+    name: '账务管理',
+    children: [
+      {path: 'transaction',
+        element: <TransactionPage />,
+        icon: <FontIcon name='transaction' className={style.navIcon}/> ,
+        name: '账单管理',
+        roles: ['ROLE_ADMIN']
+      },
+      {path: 'withdraw',
+        element: <WithdrawPage />,
+        icon: <FontIcon name='withdraw' className={style.navIcon}/> ,
+        name: '提现管理',
+        roles: ['ROLE_ADMIN']
+      }
+    ],
+    roles: ['ROLE_ADMIN']
   },
   {
     path: '/setting',

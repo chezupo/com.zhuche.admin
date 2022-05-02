@@ -259,3 +259,19 @@ declare type OrderItemType = {
   user: UserType
   wechatTradeNo: string // 微信订单号
 }
+
+declare type TransactionItemType = {
+  createdAt: string
+  id: number
+  balance: number
+  amount: number
+  title: string
+  payType: OrderPayType
+  status: 'FINISHED' | 'PROCESSING' | 'FAILED'
+  remark: string
+  alipayOutTradeNo: string // 支付宝订单号
+  tradeNo: string // 订单号
+  user: UserType
+}
+
+

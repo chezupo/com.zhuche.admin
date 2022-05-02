@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {CSSProperties} from 'react'
 
 type FontIconPropsType = {
   className?: string;
+  style?: CSSProperties
   name: 'order' |
     'car' |
     'nav' |
@@ -18,13 +19,17 @@ type FontIconPropsType = {
     'right' |
     'alipay' |
     'bitDance' |
-    'userCoupon'
-    ,
+    'userCoupon' |
+    'transaction' |
+    'finance' |
+    'withdraw' |
+    'wechat'
   onClick?: () => void
 }
 const FontIcon: React.FC<FontIconPropsType> = props => {
   return (
     <i
+      style={props.style}
       onClick={() => props.onClick && props.onClick()}
       className={[
       'iconfont',
