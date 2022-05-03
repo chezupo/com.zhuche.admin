@@ -27,7 +27,7 @@ const Order: React.FC = () => {
       title: '单号',
       render: (_, record) => {
         if (record.payType == 'ALIPAY' ) {
-          return record.alipayTradeNo
+          return record.alipayOutTradeNo
         } else {
           return record.wechatTradeNo
         }
@@ -35,14 +35,33 @@ const Order: React.FC = () => {
       fixed: 'left', width: 150
     },
     { title: '标题', dataIndex: 'title', fixed: 'left', width: 150 },
-    { title: '租金', dataIndex: 'rent', render: (rent) => `¥${rent}`, fixed: 'left', width: 100 },
+    { title: '租金', render: (rent, record) => {
+      if (record.waiverRent > 0) {
+        return (
+          <>
+            <span style={{textDecoration: 'line-through'}}>¥{(record.rent + record.waiverRent).toFixed(2)}</span>
+            <span style={{marginLeft: ".5em"}}>¥{(record.rent).toFixed(2)}</span>
+          </>
+        )
+      }
+        return `¥${record.rent}`
+      }, fixed: 'left', width: 150 },
     { title: '押金', dataIndex: 'deposit', render: deposit => `¥${deposit}`,  fixed: 'left', width: 100 },
-  { title: '手续费', dataIndex: 'handlingFee', render: handlingFee => `¥${handlingFee}` , fixed: 'left', width: 100},
-    { title: '合计', render: (_, record) => `¥${record.amount}`, width: 100},
+  { title: '手续费', dataIndex: 'handlingFee', render: (handlingFee, record) => {
+    if (record.waiverHandlingFee > 0) {
+      return (
+        <>
+          <span style={{textDecoration: 'line-through'}}>¥{(handlingFee + record.waiverHandlingFee).toFixed(2)}</span>
+          <span style={{marginLeft: ".5em"}}>¥{(record.handlingFee).toFixed(2)}</span>
+        </>
+      )
+    }
+      return `¥${handlingFee}`
+    }, fixed: 'left', width: 150},
+    { title: '合计', render: (_, record) => `¥${record.amount.toFixed(2)}`, width: 100},
     { title: '是否使用驾无忧', dataIndex: 'isInsurance', render: isInsurance => <BooleanTag isOk={isInsurance} /> ,  width: 150},
-    { title: '驾无忧费用', dataIndex: 'insuranceFee', render: insuranceFee => `¥${insuranceFee}`, width: 150},
-    { title: '减免费用', dataIndex: 'waiverAmount', render: waiverAmount => `¥${waiverAmount}`,  width: 150},
-    { title: '总费用', dataIndex: 'amount', render: amount => `¥${amount}` , width: 150},
+    { title: '驾无忧费用', dataIndex: 'insuranceFee', render: insuranceFee => `¥${insuranceFee.toFixed(2)}`, width: 150},
+    { title: '减免费用', render: (_,record) => `¥${(record.waiverHandlingFee + record.waiverRent).toFixed(2)}`,  width: 150},
     { title: '图片', dataIndex: 'cover', render: cover =>  <Image
         src={cover}
         style={{height: '1rem'}}

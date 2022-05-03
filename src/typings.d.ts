@@ -247,9 +247,11 @@ declare type OrderItemType = {
   rent: number //费用
   deposit: number // 租金
   handlingFee: number // 手续费
-  waiverAmount: number // 减免费用
   amount: number // 总费用
+  waiverHandlingFee: number // 减免手续费
+  waiverRent: number // 减免的租金
   alipayTradeNo: string // 支付宝订单号
+  alipayOutTradeNo: string // 支付宝订单号
   status: OrderStatusType // 订单状态
   title: string // 商品名
   startStore: StoreItemType
