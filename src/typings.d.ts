@@ -1,3 +1,5 @@
+import userInfo from "@/container/Layout/Topbar/MainContainer/TopBar/RightWrapper/UserInfo";
+
 declare type AddressType = {
   province: string
   name: string
@@ -42,7 +44,7 @@ declare type AlipayAccountType = {
   gender?: 'f' | 'm'
   countryCode: string
 }
-declare type UserType = {
+declare type UserItemType = {
   id: number
   username: string
   roles: RoleType[]
@@ -89,7 +91,7 @@ declare type StoreItemType = {
     isStation: boolean
     isAirport: boolean
     isSelfService: boolean;
-    admin: UserType
+    admin: UserItemType
     banners: StoreBanner[],
     pickupGuides: StoreGuideType[]
     returnGuides: StoreGuideType[]
@@ -130,7 +132,7 @@ declare type LogItemType = {
   description: string
   requestPath: string
   className: string
-  user: UserType
+  user: UserItemType
 }
 declare type CarEngineType  = 'SUPERCHARGED' | 'NATURALLY_ASPIRATED' // 自然吸汽
 declare type CarShiftType = 'AUTO' | 'MANUAL'
@@ -203,7 +205,7 @@ declare type CouponItemType = {
 
 declare type UserCouponItemType = {
   id: number
-  user: UserType
+  user: UserItemType
   coupon: CouponItemType
   reason: string
   isValid: boolean
@@ -258,7 +260,7 @@ declare type OrderItemType = {
   payType: OrderPayType
   endStore: StoreItemType
   car: CarItemType
-  user: UserType
+  user: UserItemType
   wechatTradeNo: string // 微信订单号
 }
 
@@ -273,7 +275,14 @@ declare type TransactionItemType = {
   remark: string
   alipayOutTradeNo: string // 支付宝订单号
   tradeNo: string // 订单号
-  user: UserType
+  user: UserItemType
 }
 
-
+declare type CommentItemType = {
+  id: number
+  user: UserItemType
+  store: StoreItemType
+  rate: number
+  content: string
+  createdAt: string
+}

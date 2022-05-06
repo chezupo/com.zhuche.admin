@@ -15,12 +15,30 @@ import StoreFieldRender from "@/pages/order/Order/StoreFieldRender";
 import UserFieldRender from "@/pages/order/Order/UserFieldRender";
 import CarDetailFieldRender from "@/pages/order/Order/CarDetailFieldRender";
 import ActionFieldRender from "@/pages/order/Order/ActionFieldRender";
+import {confirmFinished, confirmPickUpCar} from "@/api/order";
+import {successMessage} from "@/util/messageUtil";
 
 const Order: React.FC = () => {
-  const handleCarPickup = (order: OrderItemType) => {
-    console.log("carpick")
+  const {loading, pageData} = useAppSelector(state => state.orders)
+  const [reloadPage, forceReload] = useReloadPagination(() => {
+    dispatch(getOrderThunk()).then(() => {
+      console.log("loading order.")
+    })
+  });
+  /**
+   * 确认取车
+   * @param order
+   */
+  const handleCarPickup = async (order: OrderItemType) => {
+    await confirmPickUpCar(order.id)
+    successMessage()
+    forceReload()
   }
-
+  const handleFinishedOrder = async (order: OrderItemType) => {
+    await confirmFinished(order.id)
+    successMessage()
+    forceReload()
+  }
   const columns: ColumnsType<OrderItemType> = [
     { title:'ID', dataIndex: 'id', fixed: 'left', width: 100 },
     {
@@ -58,9 +76,9 @@ const Order: React.FC = () => {
     }
       return `¥${handlingFee}`
     }, fixed: 'left', width: 150},
+    { title: '驾无忧费用', dataIndex: 'insuranceFee', render: insuranceFee => `¥${insuranceFee.toFixed(2)}`, width: 150},
     { title: '合计', render: (_, record) => `¥${record.amount.toFixed(2)}`, width: 100},
     { title: '是否使用驾无忧', dataIndex: 'isInsurance', render: isInsurance => <BooleanTag isOk={isInsurance} /> ,  width: 150},
-    { title: '驾无忧费用', dataIndex: 'insuranceFee', render: insuranceFee => `¥${insuranceFee.toFixed(2)}`, width: 150},
     { title: '减免费用', render: (_,record) => `¥${(record.waiverHandlingFee + record.waiverRent).toFixed(2)}`,  width: 150},
     { title: '图片', dataIndex: 'cover', render: cover =>  <Image
         src={cover}
@@ -68,8 +86,9 @@ const Order: React.FC = () => {
 
       /> , width: 150},
     {
-      title: '支付方式', dataIndex: ': OrderPayType', render:  payType=> {
-        if (payType === 'ALIPAY') {
+      title: '支付方式', render:  (_, record)=> {
+        console.log(record.payType)
+        if (record.payType === 'ALIPAY') {
           return '支付宝'
         } else {
           return '微信'
@@ -85,17 +104,12 @@ const Order: React.FC = () => {
     { title: '取车时间', render: (_, record) => dateConvertStr( new Date( record.startTimeStamp ) ) , width: 150},
     { title: '创建时间', render: (_, record) => dateConvertStr(new Date(record.createdAt)) , width: 150},
     { title: '操作', render: (_, record) => { return (<ActionFieldRender
+        onFinishedOrder={handleFinishedOrder}
         order={record}
         onCarPickup={() => handleCarPickup(record)}
-      />) }, width: 300, fixed: 'right'},
+      />) }, width: 200, fixed: 'right'},
   ];
-  const {loading, pageData} = useAppSelector(state => state.orders)
   const dispatch = useAppDispatch()
-  const [reloadPage] = useReloadPagination(() => {
-      dispatch(getOrderThunk()).then(() => {
-        console.log("loading order.")
-      })
-  });
 
   return <>
     <HeaderPage>

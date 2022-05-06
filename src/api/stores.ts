@@ -1,5 +1,6 @@
 import * as requestClient from '@/util/httpClient'
 import { QueryValueType } from '@/util/helper'
+import {get} from "@/util/httpClient";
 
 type GuidType = {
   id: number
@@ -49,11 +50,13 @@ const update = async (id: number, data:UpdateStoreType) => {
 const getStoreBrandsByStoreId = async (storeId: number):Promise<BrandItemType[]>  => {
   return await requestClient.get<BrandItemType[]>(`/stores/${storeId}/brands`)
 }
+const getMyStore = async () => await get<StoreItemType>(`/stores/myStore`)
 
 export {
   destroy,
   update,
   getStores,
   createStore,
-  getStoreBrandsByStoreId
+  getStoreBrandsByStoreId,
+  getMyStore
 }

@@ -91,6 +91,16 @@ export const patch= async <T>(url: string, data?: object): Promise<T> =>  {
   return res as T;
 }
 
+// put 请求
+export const put = async <T>(url: string, data?: object): Promise<T> =>  {
+  const response = await httpClient.put(url, data)
+  response.data === undefined && delete response.data;
+  console.log(`Patch request: ${url}`)
+  const res = response as unknown as T;
+
+  return res as T;
+}
+
 // delete 请求
 export const deleteRequest = async <T>(url: string): Promise<T> =>  {
   const response = await httpClient.delete(url)

@@ -3,6 +3,7 @@ import {AccessTokenInfoType} from "@/api/Authroization";
 import store from "@/store";
 
 const accessTokenKey = 'accessToken';
+const myStoreKey = 'myStore';
 
 type CookiesAccessTokenType = {username: string} & AccessTokenInfoType
 const setAccessToken = (accessTokenInfo: CookiesAccessTokenType): void => {
@@ -18,6 +19,17 @@ const getAccessToken = (): CookiesAccessTokenType | null => {
   }
 
   return null
+}
+const setMyStore = (value: StoreItemType): void => {
+  localStorage.setItem(myStoreKey, JSON.stringify(value))
+}
+
+const getMyStore = (): StoreItemType | undefined => {
+  const store = localStorage.getItem(myStoreKey)
+  if (store) {
+    return JSON.parse(store) as StoreItemType
+  }
+  return undefined
 }
 
 const resetAccessToken =  (): void => {
@@ -37,6 +49,8 @@ export {
   getAccessToken,
   setAccessToken,
   isAdmin,
-  isPromoter
+  isPromoter,
+  setMyStore,
+  getMyStore
 }
 

@@ -29,6 +29,7 @@ import AlipayUser from "@/pages/User/AlipayUser";
 import UserCoupon from "@/pages/Coupon/UserCoupon";
 import TransactionPage from "@/pages/finance/TransactionPage";
 import WithdrawPage from "@/pages/finance/WithdrawPage";
+import StoreCommentPage from "@/pages/store/StoreCommentPage";
 
 export type MenuItemType = {
   name: string;
@@ -74,7 +75,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
       },
       {
         path: 'comments',
-        element: <Store/>,
+        element: <StoreCommentPage />,
         icon: <AiOutlineComment className={style.navIcon}/> ,
         name: '门店评论',
       },

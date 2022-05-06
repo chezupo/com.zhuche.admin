@@ -1,7 +1,14 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {AppDispatch, RootState} from '@/store'
 import {createToken} from "@/api/Authroization";
-import {getAccessToken, resetAccessToken, setAccessToken} from "@/util/AuthUtil";
+import {
+  getAccessToken,
+  resetAccessToken,
+  setAccessToken,
+  getMyStore as getMyStoreInCookie,
+  setMyStore
+} from "@/util/AuthUtil";
+import {getMyStore} from "@/api/stores";
 
 export type MeType = {
   isLogin: boolean;
@@ -9,6 +16,7 @@ export type MeType = {
   expiredAt: string;
   username: string
   roles: RoleType[]
+  store?: StoreItemType
 }
 const cookiesAccessToken = getAccessToken()
 const initialState: MeType = {
@@ -16,14 +24,15 @@ const initialState: MeType = {
   accessToken: cookiesAccessToken ? cookiesAccessToken.accessToken : '',
   expiredAt: cookiesAccessToken ? cookiesAccessToken.expiration + '' : '',
   username: cookiesAccessToken ? cookiesAccessToken.username : '',
-  roles: cookiesAccessToken ? cookiesAccessToken.roles : []
+  roles: cookiesAccessToken ? cookiesAccessToken.roles : [],
+  store: getMyStoreInCookie()
 }
 export const meSlice = createSlice({
   name: 'me',
   initialState,
   reducers: {
     login: (state, action: PayloadAction<MeType>) => {
-      return action.payload
+      return {...state, ...action.payload}
     },
     logout: (state, action: PayloadAction<MeType>) => {
       return action.payload
@@ -43,6 +52,10 @@ export const loginThunk = (username: string, password: string)=> {
       expiredAt:expiration + '',
       username: username,
       roles: roles
+    }
+    if ( roles.includes("ROLE_BUSINESS")) {
+      me.store = await getMyStore()
+      setMyStore(me.store)
     }
     dispatch(login(me))
   }

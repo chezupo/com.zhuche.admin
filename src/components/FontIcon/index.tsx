@@ -23,7 +23,8 @@ type FontIconPropsType = {
     'transaction' |
     'finance' |
     'withdraw' |
-    'wechat'
+    'wechat' |
+    'star'
   onClick?: () => void
 }
 const FontIcon: React.FC<FontIconPropsType> = props => {
