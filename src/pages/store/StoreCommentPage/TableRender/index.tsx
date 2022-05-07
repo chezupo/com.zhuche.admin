@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {Table} from "antd";
 import {ColumnsType} from "antd/lib/table/interface";
-import {CommentItemType, PageType} from "@/typings";
 import style from './style.module.less';
 import {useReloadPagination} from "@/util/paginationHook";
 import {getStoreComments} from "@/api/storeComments";

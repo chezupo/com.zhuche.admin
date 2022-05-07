@@ -3,7 +3,7 @@ import {Col, Image, Popover, Row} from "antd";
 import DetailRowRender from "@/pages/order/Order/components/DetailRowRender";
 
 type UserFieldRenderPropsType = {
-  user: UserType
+  user: UserItemType
 }
 const UserFieldRender: React.FC<UserFieldRenderPropsType> = props => {
   const user = props.user

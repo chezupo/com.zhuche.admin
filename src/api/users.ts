@@ -6,8 +6,8 @@ type HasUserType = {
   hasUser: boolean
 }
 
-const getUser =  async (username: string): Promise<UserType> => {
-  const {id, username: resUsername, roles} = await get<UserType>(`/users/${username}`)
+const getUser =  async (username: string): Promise<UserItemType> => {
+  const {id, username: resUsername, roles} = await get<UserItemType>(`/users/${username}`)
 
   return {id, username: resUsername, roles}
 }
@@ -18,20 +18,20 @@ const hasUser =  async (username: string): Promise<HasUserType> => {
 
 const updateUserPassword = (userId: number, newPassword: string) => {
   return  async (): Promise<void> => {
-    await patch<UserType>(`/users/${userId}/password`, {password: newPassword})
+    await patch<UserItemType>(`/users/${userId}/password`, {password: newPassword})
   }
 }
 
-const getAlipayUsers = async (): Promise<PageType<UserType>> => {
-  return await get<PageType<UserType>>(`/users/alipay/users`, getPageQuery(1, 12))
+const getAlipayUsers = async (): Promise<PageType<UserItemType>> => {
+  return await get<PageType<UserItemType>>(`/users/alipay/users`, getPageQuery(1, 12))
 }
 
-const setUserPromoter = async (userId: number): Promise<UserType> => {
-  return await patch<UserType>(`/users/${userId}/roles/ROLE_PROMOTER`)
+const setUserPromoter = async (userId: number): Promise<UserItemType> => {
+  return await patch<UserItemType>(`/users/${userId}/roles/ROLE_PROMOTER`)
 }
 
-const unsetUserPromoter = async (userId: number): Promise<UserType> => {
-  return await deleteRequest<UserType>(`/users/${userId}/roles/ROLE_PROMOTER`)
+const unsetUserPromoter = async (userId: number): Promise<UserItemType> => {
+  return await deleteRequest<UserItemType>(`/users/${userId}/roles/ROLE_PROMOTER`)
 }
 
 export {

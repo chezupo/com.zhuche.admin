@@ -1,6 +1,5 @@
 import React, {ReactChildren} from "react";
 import {useAppSelector} from "@/store/hooks";
-
 type PermissionPropsType = {
   roles: RoleType[];
   children: React.ReactChild | ReactChildren | React.ReactChild[] | ReactChildren[]

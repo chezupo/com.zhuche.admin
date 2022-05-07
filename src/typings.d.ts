@@ -1,5 +1,3 @@
-import userInfo from "@/container/Layout/Topbar/MainContainer/TopBar/RightWrapper/UserInfo";
-
 declare type AddressType = {
   province: string
   name: string
@@ -26,7 +24,8 @@ declare type DivisionType = {
   areas: AreaType[]
 }
 
-declare type RoleType = 'ROLE_ADMIN' |
+declare type RoleType =
+  'ROLE_ADMIN' |
   'ROLE_USER' | // 用户
   'ROLE_BUSINESS' | // 门店
   'ROLE_CUSTOMER' | // 客户服
@@ -284,5 +283,14 @@ declare type CommentItemType = {
   store: StoreItemType
   rate: number
   content: string
+  createdAt: string
+}
+
+declare type FeedbackItemType = {
+  id: number
+  content: string
+  flag: string
+  phone: string
+  email: string
   createdAt: string
 }

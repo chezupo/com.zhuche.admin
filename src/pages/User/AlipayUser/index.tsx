@@ -17,7 +17,7 @@ import {pageDataConvertPagination} from "@/util/paginationUtil";
 import MarkSearchKeyword from "@/components/MarkSearchKeyword";
 
 const AlipayUser: React.FC = () => {
-  const [data, setData] = useState<PageType<UserType>>({ list: [], total: 0, size: 12, currentPage: 1 })
+  const [data, setData] = useState<PageType<UserItemType>>({ list: [], total: 0, size: 12, currentPage: 1 })
   const [loading, setLoading] = useState<boolean>(false)
   const [setReloadPagination, refreshPagination]= useReloadPagination(
     () => {
@@ -30,12 +30,12 @@ const AlipayUser: React.FC = () => {
   const handleChange = (newPage:number, size: number) => {
     setReloadPagination({page: newPage, size})
   }
-  const handleChangeUserRole = (newUser: UserType) => {
+  const handleChangeUserRole = (newUser: UserItemType) => {
     const newUserList = data.list.map(user => user.id === newUser.id ? newUser : user)
     setData({...data, list: newUserList})
   }
   const navigate = useNavigate()
-  const columns: ColumnsType<UserType> = [
+  const columns: ColumnsType<UserItemType> = [
     { title: 'ID', render: (_, record) => record.id },
     { title: '昵称', render: (_, record)  => {
         if (!record.alipayAccount?.nickName ) {

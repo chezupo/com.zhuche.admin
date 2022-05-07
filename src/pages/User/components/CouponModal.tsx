@@ -4,6 +4,7 @@ import TableRender from "@/pages/Coupon/Coupon/TableRender";
 import {createUserCoupon} from "@/api/userCoupon";
 import {successMessage} from "@/util/messageUtil";
 import {size} from "@/pages/User/components/config";
+import Permission from "@/components/Permission";
 
 type CouponModalType = {
   id: number
@@ -24,9 +25,11 @@ const CouponModal: React.FC<CouponModalType> = props => {
   }
 
   return (<>
-    <Button onClick={() => setVisible(true)}
-            size={size}
-    >赠送优惠券</Button>
+    <Permission roles={['ROLE_ADMIN']}>
+      <Button onClick={() => setVisible(true)}
+              size={size}
+      >赠送优惠券</Button>
+    </Permission>
     <Modal
       title={`赠送${props.nickname || ''}优惠券${ keys.length ? '(' + keys.length + '张)' : ''}`}
       visible={visible}

@@ -13,7 +13,6 @@ import {BiSlideshow} from 'react-icons/bi'
 import {FiSettings} from 'react-icons/fi'
 import {BsShop} from 'react-icons/bs'
 import BaseSetting from '@/pages/setting/BaseSetting'
-import Store from '@/pages/store'
 import BaseInfor from '@/pages/store/BaseInfor'
 import NotFound from "@/pages/NotFound";
 import Brand from "@/pages/Car/Brand";
@@ -30,6 +29,7 @@ import UserCoupon from "@/pages/Coupon/UserCoupon";
 import TransactionPage from "@/pages/finance/TransactionPage";
 import WithdrawPage from "@/pages/finance/WithdrawPage";
 import StoreCommentPage from "@/pages/store/StoreCommentPage";
+import FeedbackPage from "@/pages/FeedbackPage";
 
 export type MenuItemType = {
   name: string;
@@ -82,14 +82,14 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     ]
   },
   {
-    path: '/users',
+    path: '/',
     element: <Layout/>,
     icon: <BsShop className={style.navIcon}/> ,
-    roles: ['ROLE_ADMIN'],
+    roles: ['ROLE_ADMIN', 'ROLE_BUSINESS'],
     name: '用户管理',
     children: [
       {
-        path: 'alipayUser',
+        path: 'users/alipayUser',
         element: <AlipayUser/>,
         icon: <FontIcon name='alipay' className={style.navIcon}/> ,
         name: '支付宝用户',
@@ -214,6 +214,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     ],
     roles: ['ROLE_ADMIN']
   },
+
   {
     path: '/setting',
     element: <Layout/>,
@@ -237,6 +238,21 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         icon: <FontIcon name='log' className={style.navIcon}/> ,
         name: '操作日志',
       },
+    ],
+    roles: ['ROLE_ADMIN']
+  },
+  {
+    path: '/',
+    element: <Layout/>,
+    icon: <FiSettings name='icon-order' className={style.navIcon}/> ,
+    name: '用户反馈',
+    children: [
+      {path: 'feedbacks',
+        element: (<FeedbackPage/>),
+        icon: <FontIcon name='feedback' className={style.navIcon}/> ,
+        name: '用户反馈',
+        roles: ['ROLE_ADMIN']
+      }
     ],
     roles: ['ROLE_ADMIN']
   },

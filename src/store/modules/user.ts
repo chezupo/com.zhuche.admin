@@ -3,7 +3,7 @@ import {AppDispatch, RootState} from "@/store";
 import {updateUserPassword} from "@/api/users";
 
 type InitialStateType = {
-  list: PageType<UserType>
+  list: PageType<UserItemType>
   loading: boolean
 }
 const initialState:InitialStateType = {
