@@ -3,6 +3,7 @@ import React from 'react'
 import style from './style.module.less';
 import { Outlet } from 'react-router-dom'
 import {TopBarPropsType} from "@/container/Layout/Topbar/MainContainer/TopBar";
+import CopyRight from "@/components/CopyRight";
 
 const Maintainer: React.FC<TopBarPropsType> = props => {
   return (
@@ -10,6 +11,9 @@ const Maintainer: React.FC<TopBarPropsType> = props => {
       <NavigationBar {...props} />
       <div className={style.routeContainer}>
         <Outlet />
+        <div className={style.copyRightWrapper}>
+          <CopyRight />
+        </div>
       </div>
     </div>
   )

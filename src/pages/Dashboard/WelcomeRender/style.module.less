@@ -1,0 +1,39 @@
+@import "../../../styles/global.module.less";
+.main {
+  @height: 15vw;
+  height: @height;
+  background: var(--theme-bg-color);
+  padding: @containerPadding;
+  display: flex;
+  justify-content: space-between;
+  .leftBar {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-row-gap: 1vw;
+    .itemWrapper {
+      display: flex;
+      &>div {
+        margin-left: 10px;
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+      .icon {
+        color: var(--primary-color);
+        font-size: 1rem;
+        margin-right: .3rem;
+      }
+    }
+  }
+  .imageWrapper {
+    overflow-y: hidden;
+    position: relative;
+    .image {
+      position: relative;
+      top: -(@height / 2);
+    }
+  }
+  .notice {
+    color: gray;
+  }
+}

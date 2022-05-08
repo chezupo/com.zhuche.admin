@@ -25,7 +25,8 @@ type FontIconPropsType = {
     'withdraw' |
     'wechat' |
     'star' |
-    'feedback'
+    'feedback' |
+    'user'
   onClick?: () => void
 }
 const FontIcon: React.FC<FontIconPropsType> = props => {

@@ -294,3 +294,15 @@ declare type FeedbackItemType = {
   email: string
   createdAt: string
 }
+declare type WeekUserAndOrderItemType = {
+  name: string
+  userCount: number
+  orderCount: number
+}
+declare type DashboardItemType = {
+  todayOrderCount: number
+  userCount: number
+  todayAmount: number
+  weekUserAndOrderItems: WeekUserAndOrderItemType[]
+  logs: LogItemType[]
+}
