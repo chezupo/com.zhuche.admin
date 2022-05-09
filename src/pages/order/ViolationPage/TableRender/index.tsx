@@ -4,6 +4,7 @@ import {ColumnsType} from "antd/lib/table/interface";
 import {useReloadPagination} from "@/util/paginationHook";
 import {getViolationPageData} from "@/api/violation";
 import style from './style.module.less'
+import {pageDataConvertPagination} from "@/util/paginationUtil";
 
 const TableRender: React.FC = () => {
   const [data, setData] = useState<PageType<ViolationItemType>>({
@@ -50,8 +51,9 @@ const TableRender: React.FC = () => {
       loading={loading}
       dataSource={data.list}
       columns={columns}
-      onChange={handleChange}
+      onChange={(e) => handleChange({page: e.current!, size: e.pageSize})}
       rowKey={record => record.id}
+      pagination={pageDataConvertPagination(data)}
     />
   </>)
 }
