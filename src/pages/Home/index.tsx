@@ -8,6 +8,7 @@ import CopyRight, {CopyRightAffixBottom} from "@/components/CopyRight";
 
 const Home: React.FC = () => {
   const { imgPrefix, logo, appName} = useAppSelector(state => state.configuration)
+  const accessToken = useAppSelector(state => state.me?.accessToken)
 
   return (<>
     <div className={style.main}>
@@ -20,11 +21,25 @@ const Home: React.FC = () => {
         }
         <h1>{appName ? appName : '车租婆'}汽车租赁管理系统</h1>
         <div className={style.linkWrapper}>
-          <Link to='/login'>
-            <Button type='primary'>
-              前去登录
-            </Button>
-          </Link>
+          {
+            !accessToken && (
+              <Link to='/login'>
+                <Button type='primary'>
+                  前去登录
+                </Button>
+              </Link>
+            )
+          }
+          {
+            !!accessToken && (
+              <Link to='/dashboard'>
+                <Button type='primary'>
+                  打开管理台
+                </Button>
+              </Link>
+            )
+          }
+
         </div>
       </div>
     </div>

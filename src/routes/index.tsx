@@ -97,7 +97,7 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     ]
   },
   {
-    path: '/orders',
+    path: '/',
     element: <Layout/>,
     icon: <FontIcon name='order' className={style.navIcon}/> ,
     name: '订单管理', children: [
@@ -107,12 +107,12 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         icon: <FontIcon name='order' className={style.navIcon}/> ,
         name: '订单管理',
       },
-      {
-        path: 'order2',
-        element: <Order2/>,
-        icon: <AiOutlineDashboard className={style.navIcon}/> ,
-        name: '订单2',
-      },
+      // {
+      //   path: 'order2',
+      //   element: <Order2/>,
+      //   icon: <AiOutlineDashboard className={style.navIcon}/> ,
+      //   name: '订单2',
+      // },
     ]},
   {
     path: '/cars',

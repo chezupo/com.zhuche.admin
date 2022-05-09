@@ -1,7 +1,9 @@
-import React from "react";
-import {Button, Col, Popconfirm, Row} from "antd";
+import React, {useState} from "react";
+import {Button, Col, Form, Image, Input, Modal, Popconfirm, Row} from "antd";
 import {isAdmin} from "@/util/AuthUtil";
 import {useAppSelector} from "@/store/hooks";
+import UploadMultipleImg from "@/components/UploadMultipleImg";
+import FormRender from "@/pages/order/Order/ActionFieldRender/FormRender";
 
 type ActionFieldRenderPropsType = {
   order: OrderItemType
@@ -23,6 +25,15 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
   } else {
     isAllowPickUpCar = props.order.startStore.id === me.store!.id
   }
+  let isAccessViolate = false;
+  if (props.order.status === 'FINISHED') {
+    if (isAdmin()) {
+      isAccessViolate = true;
+    } else {
+      isAccessViolate = props.order.endStore.id === me.store!.id
+    }
+  }
+  const [violateOrder, setViolateOrder] = useState<OrderItemType | undefined>()
 
   return (<>
     <Row gutter={[12, 12]}>
@@ -54,7 +65,29 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
           </Col>
         )
       }
+      {
+         isAccessViolate && (
+          <Col>
+            <Button
+              type='primary'
+              danger
+              onClick={() => setViolateOrder(props.order)}
+            >添加违章</Button>
+          </Col>
+        )
+      }
     </Row>
+    <Modal
+      title={'添加违章'}
+      visible={!!violateOrder}
+      footer={null}
+    >
+      {violateOrder && ( <FormRender
+        order={violateOrder}
+        onCanceled={() => setViolateOrder(undefined)}
+        onSucceeded={() => setViolateOrder(undefined)}
+      /> )}
+    </Modal>
   </>)
 }
 

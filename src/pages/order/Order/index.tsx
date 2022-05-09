@@ -77,9 +77,9 @@ const Order: React.FC = () => {
       return `¥${handlingFee}`
     }, fixed: 'left', width: 150},
     { title: '驾无忧费用', dataIndex: 'insuranceFee', render: insuranceFee => `¥${insuranceFee.toFixed(2)}`, width: 150},
+    { title: '减免费用', render: (_,record) => `¥${(record.waiverHandlingFee + record.waiverRent).toFixed(2)}`,  width: 150},
     { title: '合计', render: (_, record) => `¥${record.amount.toFixed(2)}`, width: 100},
     { title: '是否使用驾无忧', dataIndex: 'isInsurance', render: isInsurance => <BooleanTag isOk={isInsurance} /> ,  width: 150},
-    { title: '减免费用', render: (_,record) => `¥${(record.waiverHandlingFee + record.waiverRent).toFixed(2)}`,  width: 150},
     { title: '图片', dataIndex: 'cover', render: cover =>  <Image
         src={cover}
         style={{height: '1rem'}}

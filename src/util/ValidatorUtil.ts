@@ -16,8 +16,14 @@ const lengthValidator = (param: GetLengthValidatorParameterType): ValidateFuncti
   return accountValidator
 }
 
-export {lengthValidator}
+const minValidator = (param: {min: number; message: string}): ValidateFunctionType => {
+  const accountValidator: ValidateFunctionType = async (rule: RuleObject, value: string): Promise<void> => {
+    if (parseFloat(value) < param.min) {
+      throw new Error(param.message || `不能小于${param.min}`)
+    }
+  }
 
+  return accountValidator
+}
 
-
-
+export {lengthValidator, minValidator}
