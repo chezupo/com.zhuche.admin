@@ -1,6 +1,6 @@
 import {RuleObject} from "antd/lib/form";
 
-type ValidateFunctionType = (rule: RuleObject, value: string) => Promise<void>
+export type ValidateFunctionType = (rule: RuleObject, value: string) => Promise<void>
 type GetLengthValidatorParameterType = {
     min: number;
     message?: string

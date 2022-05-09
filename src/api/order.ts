@@ -33,9 +33,18 @@ const createViolation = async (orderId: number, query: CreateViolationQueryType)
   return await post<ViolationItemType>(`/orders/${orderId}/violation`, query)
 }
 
+/**
+ * 解冻订单
+ * @param orderId
+ * @param query
+ */
+const unfreezeOrder = async (orderId: number) => {
+  return await put<ViolationItemType>(`/orders/${orderId}/status/unfreeze`)
+}
 export {
   getOrders,
   confirmPickUpCar,
   confirmFinished,
-  createViolation
+  createViolation,
+  unfreezeOrder
 }

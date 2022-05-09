@@ -9,6 +9,8 @@ type ActionFieldRenderPropsType = {
   order: OrderItemType
   onCarPickup: () => void
   onFinishedOrder: (value: OrderItemType) => void
+  onSuccessViolation: () => void
+  onUnfreeze: () => void
 }
 
 const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
@@ -26,14 +28,22 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
     isAllowPickUpCar = props.order.startStore.id === me.store!.id
   }
   let isAccessViolate = false;
-  if (props.order.status === 'FINISHED') {
+  if (props.order.status === 'FINISHED' && props.order.unfreezeAmount > 0 ) {
     if (isAdmin()) {
-      isAccessViolate = true;
+      isAccessViolate =  true
     } else {
       isAccessViolate = props.order.endStore.id === me.store!.id
     }
   }
   const [violateOrder, setViolateOrder] = useState<OrderItemType | undefined>()
+  let isAccessFreeze = false
+  if (props.order.status === 'FINISHED' && props.order.unfreezeAmount > 0) {
+    if (isAdmin()) {
+      isAccessFreeze =  true
+    } else {
+      isAccessFreeze = props.order.endStore.id === me.store!.id
+    }
+  }
 
   return (<>
     <Row gutter={[12, 12]}>
@@ -76,16 +86,37 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
           </Col>
         )
       }
+      {
+        isAccessFreeze && (
+          <Col>
+            <Popconfirm
+              title='您是否要解冻该订单的保证金'
+              onConfirm={() => props.onUnfreeze()}
+              okText='确定'
+              cancelText='取消'
+            >
+              <Button
+                type='primary'
+                danger
+              >解冻保证金</Button>
+            </Popconfirm>
+          </Col>
+        )
+      }
     </Row>
     <Modal
       title={'添加违章'}
       visible={!!violateOrder}
+      onCancel={() => setViolateOrder(undefined)}
       footer={null}
     >
       {violateOrder && ( <FormRender
         order={violateOrder}
         onCanceled={() => setViolateOrder(undefined)}
-        onSucceeded={() => setViolateOrder(undefined)}
+        onSucceeded={() => {
+          setViolateOrder(undefined);
+          props.onSuccessViolation()
+        }}
       /> )}
     </Modal>
   </>)

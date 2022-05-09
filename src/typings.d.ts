@@ -253,6 +253,7 @@ declare type OrderItemType = {
   waiverRent: number // 减免的租金
   alipayTradeNo: string // 支付宝订单号
   alipayOutTradeNo: string // 支付宝订单号
+  unfreezeAmount: number
   status: OrderStatusType // 订单状态
   title: string // 商品名
   startStore: StoreItemType

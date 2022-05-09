@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import HeaderPage from "@/components/HeaderPage";
 import ContentContainer from "@/components/ContentContainer";
 import {Col, Image, Popover, Row, Table} from "antd";
@@ -15,15 +15,17 @@ import StoreFieldRender from "@/pages/order/Order/StoreFieldRender";
 import UserFieldRender from "@/pages/order/Order/UserFieldRender";
 import CarDetailFieldRender from "@/pages/order/Order/CarDetailFieldRender";
 import ActionFieldRender from "@/pages/order/Order/ActionFieldRender";
-import {confirmFinished, confirmPickUpCar} from "@/api/order";
+import {confirmFinished, confirmPickUpCar, createViolation, unfreezeOrder} from "@/api/order";
 import {successMessage} from "@/util/messageUtil";
 
 const Order: React.FC = () => {
-  const {loading, pageData} = useAppSelector(state => state.orders)
+  const [loading, setLoading] = useState<boolean>(false)
+  const { pageData} = useAppSelector(state => state.orders)
   const [reloadPage, forceReload] = useReloadPagination(() => {
+    setLoading(true)
     dispatch(getOrderThunk()).then(() => {
       console.log("loading order.")
-    })
+    }).finally(() => setLoading(false))
   });
   /**
    * 确认取车
@@ -39,6 +41,14 @@ const Order: React.FC = () => {
     successMessage()
     forceReload()
   }
+  const handleUnfreeze = (order: OrderItemType) => {
+    setLoading(true)
+    unfreezeOrder(order.id).then(() => {
+      successMessage()
+      forceReload()
+    }).finally(() => setLoading(false))
+  }
+
   const columns: ColumnsType<OrderItemType> = [
     { title:'ID', dataIndex: 'id', fixed: 'left', width: 100 },
     {
@@ -77,6 +87,7 @@ const Order: React.FC = () => {
       return `¥${handlingFee}`
     }, fixed: 'left', width: 150},
     { title: '驾无忧费用', dataIndex: 'insuranceFee', render: insuranceFee => `¥${insuranceFee.toFixed(2)}`, width: 150},
+    { title: '未解冻费用', dataIndex: 'unfreezeAmount', render: insuranceFee => `¥${insuranceFee.toFixed(2)}`, width: 150},
     { title: '减免费用', render: (_,record) => `¥${(record.waiverHandlingFee + record.waiverRent).toFixed(2)}`,  width: 150},
     { title: '合计', render: (_, record) => `¥${record.amount.toFixed(2)}`, width: 100},
     { title: '是否使用驾无忧', dataIndex: 'isInsurance', render: isInsurance => <BooleanTag isOk={isInsurance} /> ,  width: 150},
@@ -104,10 +115,12 @@ const Order: React.FC = () => {
     { title: '取车时间', render: (_, record) => dateConvertStr( new Date( record.startTimeStamp ) ) , width: 150},
     { title: '创建时间', render: (_, record) => dateConvertStr(new Date(record.createdAt)) , width: 150},
     { title: '操作', render: (_, record) => { return (<ActionFieldRender
+        onUnfreeze={() => handleUnfreeze(record)}
         onFinishedOrder={handleFinishedOrder}
+        onSuccessViolation={() => forceReload()}
         order={record}
         onCarPickup={() => handleCarPickup(record)}
-      />) }, width: 200, fixed: 'right'},
+      />) }, width: 250, fixed: 'right'},
   ];
   const dispatch = useAppDispatch()
 
