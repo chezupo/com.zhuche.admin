@@ -41,6 +41,7 @@ const createViolation = async (orderId: number, query: CreateViolationQueryType)
 const unfreezeOrder = async (orderId: number) => {
   return await put<ViolationItemType>(`/orders/${orderId}/status/unfreeze`)
 }
+
 export {
   getOrders,
   confirmPickUpCar,

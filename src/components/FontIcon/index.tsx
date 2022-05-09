@@ -26,7 +26,8 @@ type FontIconPropsType = {
     'wechat' |
     'star' |
     'feedback' |
-    'user'
+    'user' |
+    'violation'
   onClick?: () => void
 }
 const FontIcon: React.FC<FontIconPropsType> = props => {

@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3194065 */
-  src: url('iconfont.woff2?t=1651943390204') format('woff2'),
-       url('iconfont.woff?t=1651943390204') format('woff'),
-       url('iconfont.ttf?t=1651943390204') format('truetype');
+  src: url('iconfont.woff2?t=1652132800251') format('woff2'),
+       url('iconfont.woff?t=1652132800251') format('woff'),
+       url('iconfont.ttf?t=1652132800251') format('truetype');
 }
 
 .iconfont {
@@ -117,7 +117,7 @@
   content: "\e620";
 }
 
-.icon-weizhangshigujilu:before {
+.icon-violation:before {
   content: "\e635";
 }
 

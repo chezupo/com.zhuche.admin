@@ -7,7 +7,6 @@ import {AiOutlineComment, AiOutlineDashboard} from 'react-icons/ai'
 import FontIcon from '@/components/FontIcon'
 import style from '@/styles/global.module.less'
 import Order from '@/pages/order/Order'
-import Order2 from '@/pages/order/Order2'
 import Banner from '@/pages/Banner'
 import {BiSlideshow} from 'react-icons/bi'
 import {FiSettings} from 'react-icons/fi'
@@ -30,6 +29,7 @@ import TransactionPage from "@/pages/finance/TransactionPage";
 import WithdrawPage from "@/pages/finance/WithdrawPage";
 import StoreCommentPage from "@/pages/store/StoreCommentPage";
 import FeedbackPage from "@/pages/FeedbackPage";
+import ViolationPage from "@/pages/order/ViolationPage";
 
 export type MenuItemType = {
   name: string;
@@ -107,12 +107,12 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         icon: <FontIcon name='order' className={style.navIcon}/> ,
         name: '订单管理',
       },
-      // {
-      //   path: 'order2',
-      //   element: <Order2/>,
-      //   icon: <AiOutlineDashboard className={style.navIcon}/> ,
-      //   name: '订单2',
-      // },
+      {
+        path: 'violations',
+        element: <ViolationPage/>,
+        icon: <FontIcon name='violation' />,
+        name: '违章管理',
+      },
     ]},
   {
     path: '/cars',

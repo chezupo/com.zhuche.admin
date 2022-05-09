@@ -318,4 +318,3 @@ declare type ViolationItemType = {
     user: UserItemType
 }
 
-
