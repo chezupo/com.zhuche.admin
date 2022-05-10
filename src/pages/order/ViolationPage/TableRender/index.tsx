@@ -34,7 +34,7 @@ const TableRender: React.FC = () => {
           <>
             {
               record.images.map((src, i) => (
-                <Image key={i} src={src} className={style.image}/>
+                <Image key={i} src={src} className={style.image} style={{width: '2rem'}}/>
               ))
             }
           </>
