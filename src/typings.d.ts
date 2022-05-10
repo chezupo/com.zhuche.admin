@@ -318,3 +318,10 @@ declare type ViolationItemType = {
     user: UserItemType
 }
 
+declare type PosterItemType = {
+  id: number
+  size: number
+  positionX: number
+  positionY: number
+  url: string
+}

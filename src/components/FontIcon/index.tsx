@@ -27,7 +27,9 @@ type FontIconPropsType = {
     'star' |
     'feedback' |
     'user' |
-    'violation'
+    'violation' |
+    'promotion' |
+    'poster'
   onClick?: () => void
 }
 const FontIcon: React.FC<FontIconPropsType> = props => {

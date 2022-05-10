@@ -1,3 +1,5 @@
+import store from "@/store";
+
 export const getTimeStr = (): string => {
   const date = new Date()
   const y = date.getFullYear();
@@ -37,5 +39,14 @@ export const queryStrToObject = (queryStr: string): Record<string, QueryValueTyp
 
   return result;
 }
+
+const formatImageUrl = (url: string): string => {
+   let prefix = store.getState().configuration.imgPrefix;
+   prefix = prefix !== '' ? prefix + '/' : prefix;
+
+   return prefix + url.replace(prefix, '');
+}
+
+export {formatImageUrl}
 
 

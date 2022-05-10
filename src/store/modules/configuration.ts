@@ -18,7 +18,9 @@ const initialState: ConfigurationType = {
   insurance: 0,
   servicePhone: '',
   orderAgreement: '',
-  insuranceAgreement: ''
+  insuranceAgreement: '',
+  promotionLevel1: 0,
+  promotionLevel2: 0
 }
 
 const configurationSlice = createSlice({

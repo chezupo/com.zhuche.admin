@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { getAccessToken } from '@/util/AuthUtil'
 import { Service } from 'axios-middleware'
+import { getAccessToken } from '@/util/AuthUtil'
 import ErrorHandler, { ErrorType, isErrorFromClient, isErrorFromServer } from '@/config/ErrorHandler'
 import { objectToQueryStr } from '@/util/helper'
 

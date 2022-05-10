@@ -41,9 +41,17 @@ const pageDataConvertPagination = <T>(data: PageType<T>):PageDataConvertPaginati
   }
 }
 
+const getInitPageData  = <T>(): PageType<T> => ({
+  currentPage: 1,
+  total: 0,
+  size: 12,
+  list: []
+})
+
 
 export {
   getPageQuery,
   initPaginationData,
-  pageDataConvertPagination
+  pageDataConvertPagination,
+  getInitPageData
 }

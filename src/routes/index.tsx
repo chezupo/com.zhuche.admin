@@ -30,6 +30,8 @@ import WithdrawPage from "@/pages/finance/WithdrawPage";
 import StoreCommentPage from "@/pages/store/StoreCommentPage";
 import FeedbackPage from "@/pages/FeedbackPage";
 import ViolationPage from "@/pages/order/ViolationPage";
+import PromotionSettingPage from "@/pages/promotion/PromotionSettingPage";
+import PosterPage from "@/pages/promotion/PosterPage";
 
 export type MenuItemType = {
   name: string;
@@ -192,7 +194,6 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
       },
     ]
   },
-
   {
     path: '/finance',
     element: <Layout/>,
@@ -214,7 +215,27 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     ],
     roles: ['ROLE_ADMIN']
   },
-
+  {
+    path: '/promotion',
+    element: <Layout/>,
+    icon: <FontIcon name='promotion' />,
+    name: '推广设置',
+    children: [
+      { path: 'setting',
+        element: (<PromotionSettingPage />),
+        icon: <FontIcon name='promotion' className={style.navIcon}/> ,
+        name: '推广设置',
+        roles: ['ROLE_ADMIN']
+      },
+      { path: 'posters',
+        element: (<PosterPage />),
+        icon: <FontIcon name='poster' className={style.navIcon}/> ,
+        name: '推广海报',
+        roles: ['ROLE_ADMIN']
+      }
+    ],
+    roles: ['ROLE_ADMIN']
+  },
   {
     path: '/setting',
     element: <Layout/>,
