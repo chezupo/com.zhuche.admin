@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Button, Col, Form, InputNumber, Row} from "antd";
 import FormUpload from "@/components/FormUpload";
 import style from "@/pages/promotion/PosterPage/TableRender/style.module.less";
