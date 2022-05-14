@@ -1,9 +1,7 @@
 import axios from 'axios'
-import { Service } from 'axios-middleware'
 import { getAccessToken } from '@/util/AuthUtil'
 import ErrorHandler, { ErrorType, isErrorFromClient, isErrorFromServer } from '@/config/ErrorHandler'
 import { objectToQueryStr } from '@/util/helper'
-
 
 const httpClient = axios.create({
   baseURL: "https://a1001zhuche.jds.wuchuheng.com/api/v1",
@@ -12,46 +10,42 @@ const httpClient = axios.create({
 httpClient.interceptors.request.use(config => {
   const token = getAccessToken()
   if (token) {
-    config.headers.Authorization =  token ? `Bearer ${getAccessToken()?.accessToken}` : '';
+    config.headers!.Authorization =  token ? `Bearer ${getAccessToken()?.accessToken}` : '';
   }
 
   return config
 })
 
-const service  = new Service(httpClient);
+httpClient.interceptors.response.use(async (response) => {
+  if (response.status === 200) {
+    const data =  response.data  as {isSuccess: boolean, data?: object} | FailResponseType
+    if (data.isSuccess) {
+      if (data.data !== null) {
+        return data.data
+      } else {
+        return {}
+      }
+    }
+    const {errorCode, errorMessage} =  data as FailResponseType
+    // 客户端引发的错误
+    if (isErrorFromClient(errorCode)) {
+      throw new ErrorHandler(ErrorType.MY_ERROR, errorMessage, errorCode)
+    }
+    // 服务器内部引发的错误
+    if (isErrorFromServer(errorCode)) {
+      throw new ErrorHandler(ErrorType.SERVER_ERROR, errorMessage, errorCode );
+    }
+  } else  {
+    throw new ErrorHandler(ErrorType.NETWORK_ERROR, "网络错误!!!", 0)
+  }
 
+  return response;
+})
 type FailResponseType = {
   isSuccess: false
   errorMessage: string
   errorCode: number
 }
-
-service.register({
-  onResponse(response) {
-    if (response.status === 200) {
-      response = JSON.parse( response.data )
-      if (response.isSuccess) {
-        if (response.data === null) return {}
-        const {data} = response
-
-        return  data
-      }
-      const {errorCode, errorMessage} = response as FailResponseType
-      // 客户端引发的错误
-      if (isErrorFromClient(errorCode)) {
-        throw new ErrorHandler(ErrorType.MY_ERROR, errorMessage, errorCode)
-      }
-      // 服务器内部引发的错误
-      if (isErrorFromServer(errorCode)) {
-        throw new ErrorHandler(ErrorType.SERVER_ERROR, errorMessage, errorCode );
-      }
-    } else  {
-      throw new ErrorHandler(ErrorType.NETWORK_ERROR, "网络错误!!!", 0)
-    }
-
-    return response;
-  }
-})
 
 // post 请求
 export const post = async <T>(url: string, data?:object): Promise<T> =>  {

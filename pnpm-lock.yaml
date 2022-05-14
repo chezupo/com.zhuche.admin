@@ -17,7 +17,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.10.1
   '@typescript-eslint/parser': ^5.10.1
   '@uiw/react-amap': ^2.5.0
-  '@uiw/react-amap-types': ^2.5.0
+  '@uiw/react-amap-types': ^2.7.3
   '@vitejs/plugin-react': ^1.0.7
   '@wuchuheng/rxjs': ^1.0.4
   '@wuchuhengtools/helper': ^1.0.12
@@ -41,6 +41,7 @@ specifiers:
   prettier: ^2.5.1
   pretty-print-json: ^1.2.3
   qiniu-js: ^3.4.0
+  rc-picker: ^2.6.9
   react: ^17.0.2
   react-dom: ^17.0.2
   react-html-parser: ^2.0.2
@@ -74,6 +75,7 @@ dependencies:
   moment: 2.29.2
   pretty-print-json: 1.2.3
   qiniu-js: 3.4.0
+  rc-picker: 2.6.9_react-dom@17.0.2+react@17.0.2
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-html-parser: 2.0.2_react@17.0.2
@@ -1939,7 +1941,7 @@ packages:
       rc-motion: 2.4.6_react-dom@17.0.2+react@17.0.2
       rc-notification: 4.5.7_react-dom@17.0.2+react@17.0.2
       rc-pagination: 3.1.15_react-dom@17.0.2+react@17.0.2
-      rc-picker: 2.6.5_react-dom@17.0.2+react@17.0.2
+      rc-picker: 2.6.9_react-dom@17.0.2+react@17.0.2
       rc-progress: 3.2.4_react-dom@17.0.2+react@17.0.2
       rc-rate: 2.9.1_react-dom@17.0.2+react@17.0.2
       rc-resize-observer: 1.2.0_react-dom@17.0.2+react@17.0.2
@@ -4326,8 +4328,8 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
-  /rc-picker/2.6.5_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-4pcg0PgEz4YXBfdwMuHIKaRWaADm3k3g0NtoPIgeGM+VVeOBdUowTx0YSXnT8mQEXcE9lWXX+ZX3biAzQwDM1w==}
+  /rc-picker/2.6.9_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-yH3UYXCADf7REtOAB5cwe1cyFKtB0p204RCN8JdZGG4uuSOZ1IPTkk/GJS6HOpxspZeJCLGzzajuQMDwck9dsw==}
     engines: {node: '>=8.x'}
     peerDependencies:
       react: '>=16.9.0'

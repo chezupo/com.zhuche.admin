@@ -30,7 +30,7 @@ const SelectRender: React.FC<SelectRenderPropsType> = (props) => {
     }, 500)
   }, [])
   const refreshArea = useMemo(() => {
-    return debounce((provinceCode: string, citiCode: string) => {
+    return debounce(( {provinceCode, citiCode} :{provinceCode: string, citiCode: string}) => {
       dispatch(getAreasThunk(provinceCode, citiCode)).then(() => {console.log()})
     }, 500)
   }, [])
@@ -44,7 +44,7 @@ const SelectRender: React.FC<SelectRenderPropsType> = (props) => {
       const index = division.cities.findIndex(i => i.code === props.value!.cityCode)
       index === -1 && refreshCities(props.value.provinceCode)
       division.cities.findIndex(i => i.code === props.value!.cityCode)
-      && refreshArea(props.value.provinceCode,props.value.cityCode)
+      && refreshArea({provinceCode: props.value.provinceCode, citiCode: props.value.cityCode})
     }
   }, [props.value?.cityCode, props.value?.provinceCode])
   const [code, setCode] = useState<SelectValueType>({

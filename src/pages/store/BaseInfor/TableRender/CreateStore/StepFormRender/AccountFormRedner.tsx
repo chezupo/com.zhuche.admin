@@ -7,8 +7,8 @@ import {
   StepIndexType,
   StoreAccountType
 } from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/index'
-import { RuleObject } from 'rc-field-form/lib/interface'
 import { hasUser } from '@/api/users'
+import {RuleObject} from "antd/lib/form";
 
 type CreateAccountFormPropsType = {
   onChange: (account: StoreAccountType) => void

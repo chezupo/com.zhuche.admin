@@ -18,6 +18,8 @@ export const objectToQueryStr = (obj: object): string => {
   let result = "?"
   for (const key in obj) {
     if (key) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       result += `${key}=${obj[key]}&`
     }
   }

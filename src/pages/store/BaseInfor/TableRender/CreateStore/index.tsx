@@ -29,8 +29,8 @@ const CreateStore: React.FC = () => {
       starAt: createStore.businessHours[0],
       endAt: createStore.businessHours[1],
       address: createStore.address.address,
-      pickupGuids: guid.pickupGuids.map(({title,imgKey}) => ({imgKey: imgKey, title})),
-      returnGuids: guid.returnGuids.map(({title,imgKey}) => ({imgKey: imgKey, title})),
+      pickupGuids: guid.pickupGuids.map(({title,imgKey, id}) => ({imgKey: imgKey, title, id})),
+      returnGuids: guid.returnGuids.map(({title,imgKey, id}) => ({imgKey: imgKey, title, id})),
     })).then(() => {
       successMessage("添加门店成功🎉🎉")
       resetSubscription.next(true)

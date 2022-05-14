@@ -9,8 +9,8 @@ import SwitchRender
   from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/SwitchRender'
 import MapRender from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/MapRender'
 import TimeRange from '@/pages/store/BaseInfor/TableRender/CreateStore/StepFormRender/StoreInformationForm/TimeRange'
-import { RuleObject } from 'rc-field-form/lib/interface'
 import SubscriptionService from '@wuchuheng/rxjs'
+import {RuleObject} from "antd/lib/form";
 
 export type CreateStoreType = {
   banners: string[]

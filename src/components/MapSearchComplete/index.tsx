@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
-import { APILoader, HawkEyeControl, Map, Marker } from '@uiw/react-amap'
-import CompleteInput, { CompleteInputPropsType, getAddress } from '@/components/MapSearchComplete/CompleteInput'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import React, {useState} from 'react'
+import {APILoader, HawkEyeControl, Map, Marker} from '@uiw/react-amap'
+import CompleteInput, {CompleteInputPropsType, getAddress} from '@/components/MapSearchComplete/CompleteInput'
+import {useAppSelector} from '@/store/hooks'
 import axios from 'axios'
-import { convertAddressLocation } from '@/components/MapSearchComplete/CompleteInput/InputRender'
-import { getAreasThunk, getCitiesThunk } from '@/store/modules/division'
+import {convertAddressLocation} from '@/components/MapSearchComplete/CompleteInput/InputRender'
 
 const MapSearchComplete: React.FC<CompleteInputPropsType> = (props) => {
   const [location, setLocation] = useState<AMap.LngLat | null>(null)
   const amapSearchKey = useAppSelector(state => state.configuration.amapSearchKey)
-  const dispatch = useAppDispatch()
   const handleClick = async (e: AMap.MapsEvent)  => {
     if (e.type === "click") {
       const lat = e.lnglat.getLat!()

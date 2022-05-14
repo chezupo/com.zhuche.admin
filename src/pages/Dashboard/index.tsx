@@ -18,7 +18,9 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     setLoading(true)
     getDashboard()
-      .then(res => setData(res))
+      .then(res => {
+        setData(res)
+      })
       .finally(() => setLoading(false))
   }, [])
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { RangeValue } from 'rc-picker/lib/interface'
 import moment from 'moment'
-import { TimePicker } from 'antd'
+import { TimePicker} from 'antd'
 
 type FormatStringType = [string, string]
 type TimePickerRenderPropsType = {

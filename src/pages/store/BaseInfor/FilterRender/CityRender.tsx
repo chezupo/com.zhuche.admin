@@ -3,7 +3,6 @@ import { citySubscription, provinceSubscription } from '@/pages/store/BaseInfor/
 import { useLocation } from 'react-router-dom'
 import { queryStrToObject } from '@/util/helper'
 import { getCities } from '@/api/cities'
-import { CityType } from '@/typings'
 import { Select } from 'antd'
 
 const {Option} = Select

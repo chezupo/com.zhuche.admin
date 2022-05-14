@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
-import {FormDataType} from "@/pages/promotion/PosterPage/TableRender/CreateButtonRender";
 import {formatImageUrl} from "@/util/helper";
+import {FormDataType} from "@/pages/promotion/PosterPage/TableRender/components/FormRender";
 
 const loadingImg = (img: HTMLImageElement): Promise<void> => new Promise(resolve => img.onload = () => resolve() )
 type PreviewRenderPropsType =  {

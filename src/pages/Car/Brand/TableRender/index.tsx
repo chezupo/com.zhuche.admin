@@ -62,7 +62,7 @@ const TableRender: React.FC = () => {
     }
   ]
   const handleChange = (page: number, size: number) => {
-    dispatch(getBrandThunk({page, size})).then(() => {
+    dispatch(getBrandThunk()).then(() => {
       console.log("Get new page's brands")
     })
   }

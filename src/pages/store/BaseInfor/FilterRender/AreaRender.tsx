@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { CityRenderPropType } from '@/pages/store/BaseInfor/FilterRender/CityRender'
-import { AreaType } from '@/typings'
 import { Select } from 'antd'
 import { useLocation } from 'react-router-dom'
 import { queryStrToObject } from '@/util/helper'

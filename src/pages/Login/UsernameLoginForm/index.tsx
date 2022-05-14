@@ -31,7 +31,7 @@ const UsernameLoginForm: React.FC = () => {
       name="basic"
       style={{width: '15rem'}}
       wrapperCol={{ span: 24 }}
-      initialValues={{ remember: true, username: 'admin', password: '12345678' }}
+      initialValues={{ remember: true, username: '', password: '' }}
       onFinish={onFinish}
       autoComplete="off"
     >

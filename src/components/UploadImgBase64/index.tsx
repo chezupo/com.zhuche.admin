@@ -1,5 +1,8 @@
 import {Upload} from 'antd'
 import {LoadingOutlined, PlusOutlined} from '@ant-design/icons'
+// :xxx type
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import convert from 'image-file-resize';
 import React, {useState} from 'react'
 import {fileToBase64} from "@wuchuhengtools/helper";
@@ -19,8 +22,19 @@ const UploadImgBase64 = (props: UploadImgPropsType) => {
       width: 20,
       height: 20,
       type: 'jpeg'
-    }).then(resp => fileToBase64(resp as File))
+      // :xxx type
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+    }).then(resp => {
+      return fileToBase64(resp as File)
+    })
+      // :xxx type
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       .then(base64 => {
+        // :xxx type
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         props.onUploaded(base64)
       }).finally(() => {
         setLoading(false)

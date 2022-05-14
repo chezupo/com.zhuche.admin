@@ -1,7 +1,6 @@
 import { Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { getProvince } from '../../../../api/province'
-import { ProvinceType } from '@/typings'
 import { provinceSubscription } from '@/pages/store/BaseInfor/FilterRender/index'
 
 const Option = Select.Option

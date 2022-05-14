@@ -3,7 +3,11 @@ import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import {FileLoader} from '@ckeditor/ckeditor5-upload/src/filerepository'
 import MyUploadAdapter from '@/components/Editor/MyUploadAdapter'
+import {EditorConfig} from "@ckeditor/ckeditor5-core/src/editor/editorconfig";
 
+// :xxx type
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 function MyCustomUploadAdapterPlugin(editor) {
   editor.plugins.get( 'FileRepository' ).createUploadAdapter = (loader: FileLoader) => {
     return new MyUploadAdapter(loader)
@@ -19,7 +23,10 @@ let  mounted = false
 const TextEditor: React.FC<TextEditorPropsType>  = (props) => {
   const value = props.value || ''
 
-    const custom_config = {
+  const custom_config: EditorConfig = {
+    // :xxx type
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
       extraPlugins: [ MyCustomUploadAdapterPlugin ],
       table: {
         contentToolbar: [
@@ -47,7 +54,7 @@ const TextEditor: React.FC<TextEditorPropsType>  = (props) => {
     }
   }, [props.value])
 
-    return(
+  return(
       <CKEditor
         required
         editor={ClassicEditor}

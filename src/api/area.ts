@@ -1,5 +1,4 @@
 import { get } from '@/util/httpClient'
-import { AreaType } from '@/typings'
 
 type CodeType = {
   name: string

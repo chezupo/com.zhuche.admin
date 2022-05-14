@@ -14,7 +14,7 @@ const setAccessToken = (accessTokenInfo: CookiesAccessTokenType): void => {
 
 const getAccessToken = (): CookiesAccessTokenType | null => {
   const accessTokenJson = Cookies.get(accessTokenKey)
-  if (accessTokenJson) {
+  if (accessTokenJson && accessTokenJson !== 'undefined') {
     return JSON.parse(accessTokenJson) as CookiesAccessTokenType
   }
 

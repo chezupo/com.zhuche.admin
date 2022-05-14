@@ -1,5 +1,4 @@
 import {get} from "@/util/httpClient";
-import {CommentItemType, PageType} from "@/typings";
 import {getPageQuery} from "@/util/paginationUtil";
 
 const getStoreComments = async () => {

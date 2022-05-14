@@ -1,5 +1,4 @@
 import {deleteRequest, get, patch} from '@/util/httpClient'
-import {stat} from "fs";
 import {getPageQuery} from "@/util/paginationUtil";
 
 type HasUserType = {
@@ -7,9 +6,7 @@ type HasUserType = {
 }
 
 const getUser =  async (username: string): Promise<UserItemType> => {
-  const {id, username: resUsername, roles} = await get<UserItemType>(`/users/${username}`)
-
-  return {id, username: resUsername, roles}
+  return await get<UserItemType>(`/users/${username}`)
 }
 
 const hasUser =  async (username: string): Promise<HasUserType> => {
