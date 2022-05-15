@@ -66,7 +66,8 @@ const InputRender: React.FC<CompleteInputPropsType> = (props) => {
         value={props.value?.address}
         options={
           options.map((e) => ({
-            value: <FormatOptionItem
+            value:
+              <FormatOptionItem
               value={e}
               onChange={handleChangeFullAddress}
               keywords={props.value?.address}

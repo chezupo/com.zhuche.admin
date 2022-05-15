@@ -52,7 +52,6 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
     element: <Layout/>,
     hideInMenu: true,
   },
-
   {
     path: '/',
     element: <Layout/>,

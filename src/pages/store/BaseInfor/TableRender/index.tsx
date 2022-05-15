@@ -10,10 +10,12 @@ const TableRender:React.FC = () => {
       <Col span={12}>
         门店基本信息列表
       </Col>
-      <Col span={12} className={style.createWrapper}>
-        <CreateStore />
+      {/*<Col span={12} className={style.createWrapper}>*/}
+      {/*  <CreateStore />*/}
+      {/*</Col>*/}
+      <Col span={24}>
+        <TablePageRender/>
       </Col>
-      <Col span={24}> <TablePageRender/> </Col>
     </Row>
   )
 }

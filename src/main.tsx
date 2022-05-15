@@ -40,10 +40,10 @@ const Main:React.FC = () => {
 }
 
 ReactDOM.render(
-    <Provider store={store}>
-        <BrowserRouter>
-          <Main/>
-        </BrowserRouter>
-    </Provider>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Main/>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 )

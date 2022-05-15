@@ -1,6 +1,5 @@
 import React from 'react'
 import { Col, Row } from 'antd'
-import ReactHtmlParser from 'react-html-parser'
 
 type FormatOptionItemPropsType = {
   value: AddressType;
@@ -12,9 +11,7 @@ const FormatOptionItem: React.FC<FormatOptionItemPropsType> = (props) => {
     const newString = str.replace(props.keywords!, `<span style='color: red'>${props.keywords}</span>`)
     return (
       <>
-        {
-          ReactHtmlParser(newString)
-        }
+        <div dangerouslySetInnerHTML={{__html: newString}} />
       </>
     )
   }

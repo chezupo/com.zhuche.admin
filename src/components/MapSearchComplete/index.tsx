@@ -8,6 +8,13 @@ import {convertAddressLocation} from '@/components/MapSearchComplete/CompleteInp
 const MapSearchComplete: React.FC<CompleteInputPropsType> = (props) => {
   const [location, setLocation] = useState<AMap.LngLat | null>(null)
   const amapSearchKey = useAppSelector(state => state.configuration.amapSearchKey)
+  const handleChangeLocation = (newAddress: AddressType) => {
+    if (newAddress.lat && newAddress.lng) {
+      setLocation(new AMap.LngLat(newAddress.lng, newAddress.lat))
+      setZoom(14)
+    }
+    props.onChange && props.onChange(newAddress as AddressType)
+  }
   const handleClick = async (e: AMap.MapsEvent)  => {
     if (e.type === "click") {
       const lat = e.lnglat.getLat!()
@@ -27,13 +34,6 @@ const MapSearchComplete: React.FC<CompleteInputPropsType> = (props) => {
     }
   }
   const [zoom, setZoom] = useState<number>(12)
-  const handleChangeLocation = (newAddress: AddressType) => {
-    if (newAddress.lat && newAddress.lng) {
-      setLocation(new AMap.LngLat(newAddress.lng, newAddress.lat))
-      setZoom(14)
-    }
-    props.onChange && props.onChange(newAddress as AddressType)
-  }
   const amapKey = useAppSelector(state => state.configuration.amapKey)
 
   return (
