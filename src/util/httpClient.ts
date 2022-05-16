@@ -19,22 +19,24 @@ httpClient.interceptors.request.use(config => {
 httpClient.interceptors.response.use(async (response) => {
   if (response.status === 200) {
     const data =  response.data  as {isSuccess: boolean, data?: object} | FailResponseType
-    if (data.isSuccess) {
+    if (data.isSuccess && ([true, false].includes(data.isSuccess))) {
       if (data.data !== null) {
-        return data.data
+        const res = data.data
+        return res
       } else {
         return {}
       }
+      const {errorCode, errorMessage} =  data as FailResponseType
+      // 客户端引发的错误
+      if (isErrorFromClient(errorCode)) {
+        throw new ErrorHandler(ErrorType.MY_ERROR, errorMessage, errorCode)
+      }
+      // 服务器内部引发的错误
+      if (isErrorFromServer(errorCode)) {
+        throw new ErrorHandler(ErrorType.SERVER_ERROR, errorMessage, errorCode );
+      }
     }
-    const {errorCode, errorMessage} =  data as FailResponseType
-    // 客户端引发的错误
-    if (isErrorFromClient(errorCode)) {
-      throw new ErrorHandler(ErrorType.MY_ERROR, errorMessage, errorCode)
-    }
-    // 服务器内部引发的错误
-    if (isErrorFromServer(errorCode)) {
-      throw new ErrorHandler(ErrorType.SERVER_ERROR, errorMessage, errorCode );
-    }
+    return data
   } else  {
     throw new ErrorHandler(ErrorType.NETWORK_ERROR, "网络错误!!!", 0)
   }
