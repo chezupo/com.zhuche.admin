@@ -4,7 +4,8 @@ import ErrorHandler, { ErrorType, isErrorFromClient, isErrorFromServer } from '@
 import { objectToQueryStr } from '@/util/helper'
 
 const httpClient = axios.create({
-  baseURL: "https://a1001zhuche.jds.wuchuheng.com/api/v1",
+  // baseURL: "https://a1001zhuche.jds.wuchuheng.com/api/v1",
+  baseURL: "https://dev.a1001zhuche.wuchuheng.com/api/v1",
   // baseURL: "https://a1001zhuche.jds.wuchuheng.com/api/v1",
 })
 httpClient.interceptors.request.use(config => {

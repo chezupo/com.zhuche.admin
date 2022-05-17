@@ -20,6 +20,7 @@ const UsernameLoginForm: React.FC = () => {
         navigator('/dashboard')
       }, 1000)
     }catch (e) {
+      message.error("登录失败，账号或密码不正确")
       setLoading(false)
     }
   }

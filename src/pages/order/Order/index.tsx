@@ -17,10 +17,12 @@ import CarDetailFieldRender from "@/pages/order/Order/CarDetailFieldRender";
 import ActionFieldRender from "@/pages/order/Order/ActionFieldRender";
 import {confirmFinished, confirmPickUpCar, createViolation, unfreezeOrder} from "@/api/order";
 import {successMessage} from "@/util/messageUtil";
+import FilterRender from "@/pages/order/Order/FilterRender";
 
 const Order: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const { pageData} = useAppSelector(state => state.orders)
+  const dispatch = useAppDispatch()
   const [reloadPage, forceReload] = useReloadPagination(() => {
     setLoading(true)
     dispatch(getOrderThunk()).then(() => {
@@ -122,14 +124,16 @@ const Order: React.FC = () => {
         onCarPickup={() => handleCarPickup(record)}
       />) }, width: 250, fixed: 'right'},
   ];
-  const dispatch = useAppDispatch()
 
   return <>
     <HeaderPage>
       用于管理订单列表
     </HeaderPage>
     <ContentContainer>
-      <Row className={style.main}>
+      <Row className={style.main} gutter={[0, 24]}>
+        <Col span={24}>
+          <FilterRender />
+        </Col>
         <Col span={24}>
           <Table
             loading={loading}
