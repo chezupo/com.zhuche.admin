@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import HeaderPage from "@/components/HeaderPage";
 import ContentContainer from "@/components/ContentContainer";
-import {Col, Image, Popover, Row, Table} from "antd";
+import {Col, Image, Modal, Row, Table} from "antd";
 import style from './style.module.less';
 import {ColumnsType} from "antd/lib/table/interface";
 import BooleanTag from "@/components/BooleanTag";
@@ -15,9 +15,10 @@ import StoreFieldRender from "@/pages/order/Order/StoreFieldRender";
 import UserFieldRender from "@/pages/order/Order/UserFieldRender";
 import CarDetailFieldRender from "@/pages/order/Order/CarDetailFieldRender";
 import ActionFieldRender from "@/pages/order/Order/ActionFieldRender";
-import {confirmFinished, confirmPickUpCar, createViolation, unfreezeOrder} from "@/api/order";
+import {confirmFinished, ConfirmPickerCarType, confirmPickUpCar, unfreezeOrder} from "@/api/order";
 import {successMessage} from "@/util/messageUtil";
 import FilterRender from "@/pages/order/Order/FilterRender";
+import ConfirmPickerCarFormRender from "@/pages/order/Order/ConfirmPickerCarFormRender/indexi";
 
 const Order: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -33,10 +34,12 @@ const Order: React.FC = () => {
    * 确认取车
    * @param order
    */
-  const handleCarPickup = async (order: OrderItemType) => {
-    await confirmPickUpCar(order.id)
+  const [pickOrder, setPickOrder] = useState<OrderItemType | undefined>()
+  const handleCarPickup = async (order: OrderItemType, value: ConfirmPickerCarType) => {
+    await confirmPickUpCar(order.id, value)
     successMessage()
     forceReload()
+    setPickOrder(undefined)
   }
   const handleFinishedOrder = async (order: OrderItemType) => {
     await confirmFinished(order.id)
@@ -121,7 +124,7 @@ const Order: React.FC = () => {
         onFinishedOrder={handleFinishedOrder}
         onSuccessViolation={() => forceReload()}
         order={record}
-        onCarPickup={() => handleCarPickup(record)}
+        onCarPickup={() => setPickOrder(record)}
       />) }, width: 250, fixed: 'right'},
   ];
 
@@ -148,6 +151,21 @@ const Order: React.FC = () => {
         </Col>
       </Row>
     </ContentContainer>
+    {
+      !!pickOrder && (
+        <Modal
+          onCancel={() => setPickOrder(undefined)}
+          title='确认取车'
+          visible={true}
+          footer={null}
+        >
+          <ConfirmPickerCarFormRender
+            onSubmit={v => handleCarPickup(pickOrder, v)}
+            onCancel={() => setPickOrder(undefined)}
+          />
+        </Modal>
+      )
+    }
   </>
 }
 

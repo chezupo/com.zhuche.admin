@@ -3,6 +3,10 @@ import {getPageQuery} from "@/util/paginationUtil";
 
 export type OrderPageType = PageType<OrderItemType>
 
+export type ConfirmPickerCarType = {
+  contract: string
+}
+
 export type CreateViolationQueryType = Omit<ViolationItemType, 'id'>
 
 /**
@@ -16,7 +20,7 @@ const getOrders = async (): Promise< OrderPageType> => {
  * 确认取车
  * @param id
  */
-const confirmPickUpCar = async (id: number) => await put<OrderItemType>(`/orders/${id}/status/using`)
+const confirmPickUpCar = async (id: number, data: ConfirmPickerCarType) => await put<OrderItemType>(`/orders/${id}/status/using`, data)
 
 /**
  * 确认还车

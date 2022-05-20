@@ -50,14 +50,10 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
       {
         props.order.status === 'CAR_PICKUP_IN_PROGRESS' && isAllowPickUpCar && (
           <Col>
-            <Popconfirm
-              title='是否要确认用户已经取到车了?'
-              onConfirm={() => props.onCarPickup()}
-              okText='确定'
-              cancelText='取消'
-            >
-              <Button type='primary'>确认取车</Button>
-            </Popconfirm>
+            <Button
+              type='primary'
+              onClick={props.onCarPickup}
+            >确认取车</Button>
           </Col>
         )
       }
