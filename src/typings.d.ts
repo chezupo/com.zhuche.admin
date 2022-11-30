@@ -64,11 +64,17 @@ declare type AlipayAccountType = {
   gender?: 'f' | 'm'
   countryCode: string
 }
+declare type WechatAccountType = {
+  avatar: string
+  nickName: string
+  phone?: string
+}
 declare type UserItemType = {
   id: number
   username: string
   roles: RoleType[]
   alipayAccount?: AlipayAccountType
+  wechatAccount?: WechatAccountType
   userCoupons: UserCouponItemType[]
 }
 declare type StoreBanner = {
@@ -273,7 +279,7 @@ declare type OrderItemType = {
   waiverHandlingFee: number // 减免手续费
   waiverRent: number // 减免的租金
   alipayTradeNo: string // 支付宝订单号
-  alipayOutTradeNo: string // 支付宝订单号
+  outTradeNo: string // 支付宝订单号
   unfreezeAmount: number
   status: OrderStatusType // 订单状态
   title: string // 商品名

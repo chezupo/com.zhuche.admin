@@ -19,7 +19,10 @@ const Main:React.FC = () => {
       console.log("Init configuration")
     })
   }
-  document.title = useAppSelector(state => state.configuration.appName) + "管理系统"
+  // document.title
+  const title = useAppSelector(state => state.configuration.appName) + "管理系统"
+  console.log(title)
+
   useEffect(() => handleInitializeConfiguration(), [])
   const element = useRoutes(routes)
   const error = useAppSelector(state => state.error)

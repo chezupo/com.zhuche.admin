@@ -59,11 +59,7 @@ const Order: React.FC = () => {
     {
       title: '单号',
       render: (_, record) => {
-        if (record.payType == 'ALIPAY' ) {
-          return record.alipayOutTradeNo
-        } else {
-          return record.wechatTradeNo
-        }
+        return record.outTradeNo
       },
       fixed: 'left', width: 150
     },

@@ -7,17 +7,21 @@ type UserFieldRenderPropsType = {
 }
 const UserFieldRender: React.FC<UserFieldRenderPropsType> = props => {
   const user = props.user
+  const nickname = user.alipayAccount?.nickName || user.wechatAccount?.nickName;
+  const phone = user.alipayAccount?.phone || user.wechatAccount?.phone;
+  const avatar = user.alipayAccount?.avatar || user.wechatAccount?.avatar;
+
   return (<>
     <Popover placement="top" title='用户详情' content={
       <Row>
-        <DetailRowRender label='昵称'>{user.alipayAccount?.nickName}</DetailRowRender>
-        <DetailRowRender label='手机'> {user.alipayAccount?.phone} </DetailRowRender>
+        <DetailRowRender label='昵称'>{nickname}</DetailRowRender>
+        <DetailRowRender label='手机'> {phone} </DetailRowRender>
         <DetailRowRender label='头像'>
-          <Image src={user.alipayAccount?.avatar} style={{width: '2rem'}} />
+          <Image src={avatar} style={{width: '2rem'}} />
         </DetailRowRender>
       </Row>
     }>
-      <a>{props.user.alipayAccount?.nickName}</a>
+      <a>{nickname}</a>
     </Popover>
   </>)
 }
