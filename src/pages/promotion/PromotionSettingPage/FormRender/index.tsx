@@ -40,7 +40,7 @@ const FormRender: React.FC = () => {
             form={form}
           >
             <Form.Item
-              label='一级推广返点'
+              label='一级推广返点(%)'
               rules={[
                 {required: true, message: '不能为空'},
                 {validator: valueValidator}
@@ -50,7 +50,7 @@ const FormRender: React.FC = () => {
               <InputNumber className={style.input}/>
             </Form.Item>
             <Form.Item
-              label='二级推广返点'
+              label='二级推广返点(%)'
               rules={[
                 {required: true, message: '不能为空'},
                 {validator: valueValidator}

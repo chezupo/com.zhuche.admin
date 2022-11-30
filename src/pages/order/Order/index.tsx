@@ -74,8 +74,8 @@ const Order: React.FC = () => {
         )
       }
         return `¥${record.rent}`
-      }, fixed: 'left', width: 150 },
-    { title: '押金', dataIndex: 'deposit', render: deposit => `¥${deposit}`,  fixed: 'left', width: 100 },
+      }, width: 150 },
+    { title: '押金', dataIndex: 'deposit', render: deposit => `¥${deposit}`, width: 100 },
   { title: '手续费', dataIndex: 'handlingFee', render: (handlingFee, record) => {
     if (record.waiverHandlingFee > 0) {
       return (
@@ -86,7 +86,7 @@ const Order: React.FC = () => {
       )
     }
       return `¥${handlingFee}`
-    }, fixed: 'left', width: 150},
+    }, width: 150},
     { title: '驾无忧费用', dataIndex: 'insuranceFee', render: insuranceFee => `¥${insuranceFee.toFixed(2)}`, width: 150},
     { title: '未解冻费用', dataIndex: 'unfreezeAmount', render: insuranceFee => `¥${insuranceFee.toFixed(2)}`, width: 150},
     { title: '减免费用', render: (_,record) => `¥${(record.waiverHandlingFee + record.waiverRent).toFixed(2)}`,  width: 150},

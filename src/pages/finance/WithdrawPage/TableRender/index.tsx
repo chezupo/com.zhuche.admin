@@ -58,7 +58,7 @@ const TableRender: React.FC = () => {
         return (<span style={{color: record.amount > 0 ? 'green' : 'red'}}>{`${flag}${record.amount}`}</span>)
       }
     },
-    {title: '余额', render: (_, record) => record.balance.toFixed(2) },
+    {title: '余额', render: (_, record) => (record.balance * 0.01 ).toFixed(2) },
     {title: '备注', render: (_, record) => record.remark },
     {title: '状态', render: (_, record) =>  {
         switch(record.status) {
