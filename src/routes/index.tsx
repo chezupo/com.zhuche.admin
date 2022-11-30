@@ -32,6 +32,7 @@ import FeedbackPage from "@/pages/FeedbackPage";
 import ViolationPage from "@/pages/order/ViolationPage";
 import PromotionSettingPage from "@/pages/promotion/PromotionSettingPage";
 import PosterPage from "@/pages/promotion/PosterPage";
+import WechatUser from "@/pages/User/WechatUser";
 
 export type MenuItemType = {
   name: string;
@@ -95,6 +96,12 @@ const routes:  (Partial<MenuItemType> & RouteObject) [] = [
         element: <AlipayUser/>,
         icon: <FontIcon name='alipay' className={style.navIcon}/> ,
         name: '支付宝用户',
+      },
+      {
+        path: 'users/wechatUser',
+        element: <WechatUser/>,
+        icon: <FontIcon name='wechat' className={style.navIcon}/> ,
+        name: '微信用户',
       }
     ]
   },

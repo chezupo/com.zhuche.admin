@@ -23,6 +23,10 @@ const getAlipayUsers = async (): Promise<PageType<UserItemType>> => {
   return await get<PageType<UserItemType>>(`/users/alipay/users`, getPageQuery(1, 12))
 }
 
+const getWechatUsers = async (): Promise<PageType<UserItemType>> => {
+  return await get<PageType<UserItemType>>(`/users/wechat/users`, getPageQuery(1, 12))
+}
+
 const setUserPromoter = async (userId: number): Promise<UserItemType> => {
   return await patch<UserItemType>(`/users/${userId}/roles/ROLE_PROMOTER`)
 }
@@ -37,5 +41,6 @@ export {
   updateUserPassword,
   getAlipayUsers,
   setUserPromoter,
-  unsetUserPromoter
+  unsetUserPromoter,
+  getWechatUsers
 }

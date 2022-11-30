@@ -64,10 +64,16 @@ declare type AlipayAccountType = {
   gender?: 'f' | 'm'
   countryCode: string
 }
+declare enum WechatGender {
+  unknown = '0',
+  male = '1',
+  female = '2'
+}
 declare type WechatAccountType = {
   avatar: string
   nickName: string
   phone?: string
+  gender?: string
 }
 declare type UserItemType = {
   id: number
