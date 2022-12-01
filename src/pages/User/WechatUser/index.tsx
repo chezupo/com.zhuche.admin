@@ -4,7 +4,7 @@ import ContentContainer from "@/components/ContentContainer";
 import style from './style.module.less';
 import {Col, Image, Row, Table} from "antd";
 import {ColumnsType} from "antd/lib/table/interface";
-import {getAlipayUsers, getWechatUsers} from "@/api/users";
+import {getWechatUsers} from "@/api/users";
 import BooleanTag from "@/components/BooleanTag";
 import {isPromoter} from "@/util/AuthUtil";
 import PromoterRender from "@/pages/User/components/PromoterRender";

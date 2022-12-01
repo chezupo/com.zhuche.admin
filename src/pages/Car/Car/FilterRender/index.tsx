@@ -104,11 +104,15 @@ const FilterRender: React.FC = () => {
               label='创建时间'
               className={[style.formItem, style.price].join(' ')}
             >
-              <RangePicker
-                showTime={{ format: 'HH:mm' }}
-                format="YYYY-MM-DD HH:mm"
-                placeholder={['开始时间', '结束时间']}
-              />
+              {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                <RangePicker
+                  showTime={{ format: 'HH:mm' }}
+                  format="YYYY-MM-DD HH:mm"
+                  placeholder={['开始时间', '结束时间']}
+                />
+              }
             </Form.Item>
           </Col>
           <Col>

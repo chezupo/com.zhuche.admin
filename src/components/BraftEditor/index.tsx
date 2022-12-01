@@ -18,21 +18,30 @@ const CustomerEditor: React.FC<BraftEditorPropsType> = props => {
     setData(editorState)
   }
   const handleInit = () => {
-    if (props.value && BraftEditor.createEditorState(props.value).toHTML() != data.toHTML()) {
-      setData(BraftEditor.createEditorState(props.value))
+    if (props?.value !== undefined) {
+      if (BraftEditor.createEditorState(props.value).toHTML() != data.toHTML()) {
+        setData(BraftEditor.createEditorState(props.value))
+      }
     }
   }
   useEffect(() => handleInit(), [])
   useEffect(() => handleInit(), [props.value])
 
-  return (<>
-    <BraftEditor
-      style={props.style || {}}
-      className={props.className || ''}
-      value={data}
-      onChange={handleChange}
-    />
-  </>)
+  return (
+    <>
+      {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        <BraftEditor
+          style={props.style || {}}
+          className={props.className || ''}
+          value={data}
+          onChange={handleChange}
+        />
+      }
+    </>
+
+  )
 }
 
 export default CustomerEditor

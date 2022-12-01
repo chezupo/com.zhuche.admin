@@ -39,6 +39,8 @@ const MapSearchComplete: React.FC<CompleteInputPropsType> = (props) => {
   return (
     <div style={{width: '100%', height: 400}}>
       { amapKey &&
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
       <APILoader
         akay={amapKey}
       >
