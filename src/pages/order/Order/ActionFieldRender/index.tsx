@@ -58,10 +58,10 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
         )
       }
       {
-        props.order.status === 'RETURNING' && isAllowFinishedOrder && (
+        [ 'USING', 'OVERTIME'].findIndex(e => e === props.order.status) !== -1 && isAllowFinishedOrder && (
           <Col>
             <Popconfirm
-              title='是否要确认车子已经到达门店?'
+              title= {props.order.status == 'USING' ? '用户还在用车中，您是否要强制还车' : '是否要确认车子已经到达门店?'}
               onConfirm={() => props.onFinishedOrder(props.order)}
               okText='确定'
               cancelText='取消'
