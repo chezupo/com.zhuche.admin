@@ -57,6 +57,26 @@ const WechatUser: React.FC = () => {
         return '';
     }},
     {
+      title: '身份证',
+      render: (_, record) => {
+        return (<>
+          { record.idCarFrontal && <Image src={record.idCarBack} width={30} /> }
+          { record.idCarBack && <Image src={record.idCarFrontal} width={30} /> }
+        </>)
+      }
+    },
+    {
+      title: '驾驶证',
+      render: (_, record) => {
+        return (<>
+          {
+            record.driverLicense &&
+            <Image src={record.driverLicense} width={30} />
+          }
+        </>)
+      }
+    },
+    {
       title: '是否业务员',
       render: (_, record) => {
         return ( <BooleanTag isOk={ isPromoter(record.roles)} /> )

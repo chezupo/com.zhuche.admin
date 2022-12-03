@@ -79,6 +79,9 @@ declare type UserItemType = {
   id: number
   username: string
   roles: RoleType[]
+  driverLicense?: string
+  idCarBack?: string
+  idCarFrontal?: string
   alipayAccount?: AlipayAccountType
   wechatAccount?: WechatAccountType
   userCoupons: UserCouponItemType[]
