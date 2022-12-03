@@ -23,10 +23,10 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
       })
       .finally(() => setLoading(false))
   }
-  const amountValidator = (): ValidateFunctionType => {
-    const accountValidator: ValidateFunctionType = async (rule: RuleObject, value: string): Promise<void> => {
-      if (parseFloat(value) > props.order.unfreezeAmount ) {
-        throw new Error(`不能大于未解冻金额: ${props.order.unfreezeAmount}`)
+  const amountValidator = (): ValidateFunctionType<number> => {
+    const accountValidator: ValidateFunctionType<number> = async (rule: RuleObject, value: number): Promise<void> => {
+      if (value > props.order.deposit ) {
+        throw new Error(`不能大于租金金额: ${props.order.deposit}`)
       }
     }
 
