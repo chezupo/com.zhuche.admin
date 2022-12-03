@@ -11,9 +11,9 @@ type FormRenderPropsType = {
   onChange: (value: FormDataType) => void
   formData: FormDataType
 }
-const sizeValidator: ValidateFunctionType = async (rule: RuleObject, value: string): Promise<void> => {
-  if (parseFloat(value) < 0) {
-    throw new Error(`不能小于0`)
+const sizeValidator: ValidateFunctionType<number> = async (rule: RuleObject, value: number): Promise<void> => {
+  if (value <= 0) {
+    throw new Error(`不能小于或等于0`)
   }
 }
 const FormRender: React.FC<FormRenderPropsType> = (props) => {
@@ -84,4 +84,8 @@ const FormRender: React.FC<FormRenderPropsType> = (props) => {
   )
 }
 
+
+export {
+  sizeValidator
+}
 export default FormRender

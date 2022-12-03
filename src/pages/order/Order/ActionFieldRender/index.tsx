@@ -1,16 +1,21 @@
 import React, {useState} from "react";
-import {Button, Col, Form, Image, Input, Modal, Popconfirm, Row} from "antd";
+import {Alert, Button, Col, Form, FormInstance, Image, Input, Modal, Popconfirm, Row} from "antd";
 import {isAdmin} from "@/util/AuthUtil";
 import {useAppSelector} from "@/store/hooks";
 import UploadMultipleImg from "@/components/UploadMultipleImg";
 import FormRender from "@/pages/order/Order/ActionFieldRender/FormRender";
+import RenewingForm from "@/pages/order/Order/ActionFieldRender/RenewingForm";
+import renewingForm from "@/pages/order/Order/ActionFieldRender/RenewingForm";
 
+type RenewingFormValueType = {days: number}
+type RenewFormType = FormInstance<RenewingFormValueType>
 type ActionFieldRenderPropsType = {
   order: OrderItemType
   onCarPickup: () => void
   onFinishedOrder: (value: OrderItemType) => void
   onSuccessViolation: () => void
   onUnfreeze: () => void
+  onRenewing: (form: RenewFormType) => Promise<boolean>
 }
 
 const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
@@ -28,7 +33,7 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
     isAllowPickUpCar = props.order.startStore.id === me.store!.id
   }
   let isAccessViolate = false;
-  if (props.order.status === 'FINISHED' && props.order.unfreezeAmount > 0 ) {
+  if (props.order.status === 'FINISHED' ) {
     if (isAdmin()) {
       isAccessViolate =  true
     } else {
@@ -44,6 +49,7 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
       isAccessFreeze = props.order.endStore.id === me.store!.id
     }
   }
+  const [renewingForm] = Form.useForm<RenewingFormValueType>();
 
   return (<>
     <Row gutter={[12, 12]}>
@@ -67,6 +73,21 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
               cancelText='取消'
             >
               <Button type='primary' danger>确认还车</Button>
+            </Popconfirm>
+          </Col>
+        )
+      }
+      {
+        [ 'USING', 'OVERTIME'].findIndex(e => e === props.order.status) !== -1 && (
+          <Col>
+            <Popconfirm
+              title= {<RenewingForm  form={renewingForm}/>}
+              onConfirm={() => props.onFinishedOrder(props.order)}
+              okButtonProps={{onClick: () => props.onRenewing(renewingForm)}}
+              okText='确定'
+              cancelText='取消'
+            >
+              <Button type='primary' >续租</Button>
             </Popconfirm>
           </Col>
         )
@@ -118,4 +139,8 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = props => {
   </>)
 }
 
+export type {
+  RenewingFormValueType,
+  RenewFormType
+}
 export default ActionFieldRender

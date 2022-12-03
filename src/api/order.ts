@@ -1,5 +1,6 @@
 import {get, post, put} from "@/util/httpClient";
 import {getPageQuery} from "@/util/paginationUtil";
+import {RenewFormType, RenewingFormValueType} from "@/pages/order/Order/ActionFieldRender";
 
 export type OrderPageType = PageType<OrderItemType>
 
@@ -46,10 +47,20 @@ const unfreezeOrder = async (orderId: number) => {
   return await put<ViolationItemType>(`/orders/${orderId}/status/unfreeze`)
 }
 
+/**
+ * 续租订单
+ * @param orderId
+ * @param query
+ */
+const renewingOrder = async (orderId: number, data: RenewingFormValueType) => {
+  return await put<ViolationItemType>(`/orders/${orderId}/status/renewing`, data)
+}
+
 export {
   getOrders,
   confirmPickUpCar,
   confirmFinished,
   createViolation,
-  unfreezeOrder
+  unfreezeOrder,
+  renewingOrder
 }

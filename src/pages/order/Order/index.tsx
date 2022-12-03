@@ -14,8 +14,8 @@ import {pageDataConvertPagination} from "@/util/paginationUtil";
 import StoreFieldRender from "@/pages/order/Order/StoreFieldRender";
 import UserFieldRender from "@/pages/order/Order/UserFieldRender";
 import CarDetailFieldRender from "@/pages/order/Order/CarDetailFieldRender";
-import ActionFieldRender from "@/pages/order/Order/ActionFieldRender";
-import {confirmFinished, ConfirmPickerCarType, confirmPickUpCar, unfreezeOrder} from "@/api/order";
+import ActionFieldRender, {RenewFormType} from "@/pages/order/Order/ActionFieldRender";
+import {confirmFinished, ConfirmPickerCarType, confirmPickUpCar, renewingOrder, unfreezeOrder} from "@/api/order";
 import {successMessage} from "@/util/messageUtil";
 import FilterRender from "@/pages/order/Order/FilterRender";
 import ConfirmPickerCarFormRender from "@/pages/order/Order/ConfirmPickerCarFormRender/indexi";
@@ -53,7 +53,19 @@ const Order: React.FC = () => {
       forceReload()
     }).finally(() => setLoading(false))
   }
-
+  const onRenewing = async (order: OrderItemType, form: RenewFormType): Promise<boolean> => {
+    const result = await form.validateFields();
+    setLoading(true)
+    try {
+      await renewingOrder(order.id, result)
+      successMessage()
+      await forceReload();
+      return true;
+    }finally {
+      setLoading(false)
+    }
+    return false
+  }
   const columns: ColumnsType<OrderItemType> = [
     { title:'ID', dataIndex: 'id', fixed: 'left', width: 100 },
     {
@@ -114,14 +126,16 @@ const Order: React.FC = () => {
     { title: '用户', render: (_, record) => (<UserFieldRender user={record.user} />) , width: 150},
     { title: '车子详情', render: (_, record) => (<CarDetailFieldRender car={record.car} />) , width: 150},
     { title: '取车时间', render: (_, record) => dateConvertStr( new Date( record.startTimeStamp ) ) , width: 150},
+    { title: '还车时间', render: (_, record) => dateConvertStr( new Date( record.endTimeStamp ) ) , width: 150},
     { title: '创建时间', render: (_, record) => dateConvertStr(new Date(record.createdAt)) , width: 150},
-    { title: '操作', render: (_, record) => { return (<ActionFieldRender
+    { title: '操作', render: (_, record) =>  <ActionFieldRender
         onUnfreeze={() => handleUnfreeze(record)}
         onFinishedOrder={handleFinishedOrder}
         onSuccessViolation={() => forceReload()}
         order={record}
         onCarPickup={() => setPickOrder(record)}
-      />) }, width: 250, fixed: 'right'},
+        onRenewing={(form) => onRenewing(record, form)}
+      /> , width: 250, fixed: 'right'},
   ];
 
   return <>

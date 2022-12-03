@@ -38,7 +38,7 @@ const FormRender: React.FC<FormRenderPropsType> = props => {
 
       <Row gutter={[0, 24]}>
         <Col span={24}>
-          <Alert message={`当前未解冻金额: ${props.order.unfreezeAmount}`} />
+          <Alert message={'请写好相关扣费说明'} />
         </Col>
         <Col span={24}>
           <Form
