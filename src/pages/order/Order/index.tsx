@@ -21,6 +21,7 @@ import {
   confirmFinished,
   ConfirmPickerCarType,
   confirmPickUpCar,
+  deleteOrder,
   renewingOrder,
   unfreezeOrder,
 } from '@/api/order';
@@ -56,6 +57,15 @@ const Order: React.FC = () => {
   };
   const handleFinishedOrder = async (order: OrderItemType) => {
     await confirmFinished(order.id);
+    successMessage();
+    forceReload();
+  };
+  /**
+   * 删除订单
+   * @param order
+   */
+  const onDeleteOrder = async (order: OrderItemType) => {
+    await deleteOrder(order.id);
     successMessage();
     forceReload();
   };
@@ -234,6 +244,7 @@ const Order: React.FC = () => {
           onUnfreeze={() => handleUnfreeze(record)}
           onFinishedOrder={handleFinishedOrder}
           onSuccessViolation={() => forceReload()}
+          onDeleteOrder={() => onDeleteOrder(record)}
           order={record}
           onCarPickup={() => setPickOrder(record)}
           onRenewing={(form) => onRenewing(record, form)}

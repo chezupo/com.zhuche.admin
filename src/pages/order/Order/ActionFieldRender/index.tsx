@@ -12,6 +12,7 @@ type ActionFieldRenderPropsType = {
   order: OrderItemType;
   onCarPickup: () => void;
   onFinishedOrder: (value: OrderItemType) => void;
+  onDeleteOrder: (value: OrderItemType) => void;
   onSuccessViolation: () => void;
   onUnfreeze: () => void;
   onRenewing: (form: RenewFormType) => Promise<boolean>;
@@ -137,6 +138,20 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = (props) => {
             </Popconfirm>
           </Col>
         )}
+        <Col>
+          {props.order.status === 'CANCELED' && (
+            <Popconfirm
+              title={'是否要删除这个订单?'}
+              onConfirm={() => props.onDeleteOrder(props.order)}
+              okText='确定'
+              cancelText='取消'
+            >
+              <Button type='primary' danger size={buttonSize}>
+                删除
+              </Button>
+            </Popconfirm>
+          )}
+        </Col>
       </Row>
       <Modal
         title={'添加违章'}
@@ -155,7 +170,7 @@ const ActionFieldRender: React.FC<ActionFieldRenderPropsType> = (props) => {
           />
         )}
       </Modal>
-      {!!visitOrder && (
+      {visitOrder != undefined && (
         <Modal
           title={'订单详情'}
           visible={!!visitOrder}
