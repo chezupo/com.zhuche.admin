@@ -70,6 +70,7 @@ declare enum WechatGender {
   female = '2'
 }
 declare type WechatAccountType = {
+  id: number
   avatar: string
   nickName: string
   phone?: string
